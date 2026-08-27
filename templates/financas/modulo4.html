@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educação Financeira - Módulo 4</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/financas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+    <div class="main-card">
+        <h2>4. Poupança e Reserva de Emergência</h2>
+        <p>Antes de pensar em investir, é preciso construir uma base sólida: o hábito de poupar e uma reserva de emergência que te protege de imprevistos.</p>
+
+        <div class="conteudo-modulo">
+            <h3>4.1 O que é Poupar</h3>
+            <p>Poupar consiste no ato de reter uma parte dos ganhos atuais para ser utilizada no futuro, garantindo estabilidade.</p>
+
+            <h3>4.2 A Reserva de Emergência</h3>
+            <p>Trata-se de um montante financeiro guardado num local de fácil acesso (alta liquidez) destinado exclusivamente a cobrir imprevistos graves (desemprego, problemas médicos, avarias urgentes).</p>
+            <pre>O tamanho ideal para uma Reserva de Emergência sólida é o equivalente a:
+3 a 6 meses do valor total dos seus gastos mensais básicos.</pre>
+
+            <h3>4.3 Diferença entre Poupar e Investir</h3>
+            <ul>
+                <li><strong>Poupar:</strong> Focado em acumular e proteger o dinheiro (foco em segurança).</li>
+                <li><strong>Investir:</strong> Focado em multiplicar o património acumulado através do mercado financeiro (foco em crescimento).</li>
+            </ul>
+
+            <h3>4.4 Onde Guardar a Reserva de Emergência</h3>
+            <p>Segurança e liquidez (facilidade de resgatar rápido) importam mais que rentabilidade aqui. Boas opções costumam ser:</p>
+            <ul>
+                <li><strong>Tesouro Selic:</strong> título público de baixíssimo risco, com resgate rápido.</li>
+                <li><strong>CDB com liquidez diária:</strong> de bancos sólidos, rende próximo ao CDI.</li>
+                <li><strong>Fundos DI de baixa taxa:</strong> alternativa simples oferecida por muitos bancos e corretoras.</li>
+            </ul>
+            <div class="warn-box">
+                <strong>⚠️ Não deixe a reserva na poupança tradicional</strong><br>
+                A poupança costuma render menos que outras opções de baixo risco disponíveis hoje, mesmo sendo popular. Para uma reserva de emergência, prefira opções com liquidez diária e rentabilidade melhor.
+            </div>
+
+            <div class="tip-box">
+                <strong>Dica Prática:</strong> Comece pequeno. Guardar R$ 50 por mês já é um hábito sendo construído. O valor exato importa menos, no início, do que a consistência de guardar todo mês.
+            </div>
+
+            <div class="info-box">
+                <strong>✏️ Exercício rápido</strong><br>
+                Calcule seus gastos mensais básicos (moradia, alimentação, contas) e multiplique por 4 — esse é um bom valor-alvo intermediário para sua reserva de emergência.
+            </div>
+
+            <h3>- Resumo do Módulo</h3>
+            <ul>
+                <li>Reserva de emergência ideal: 3 a 6 meses dos seus gastos essenciais</li>
+                <li>Ela deve ficar em local seguro e de fácil resgate, não em investimentos de risco</li>
+                <li>Poupar protege o que você já tem; investir busca multiplicar o patrimônio</li>
+                <li>A consistência de guardar todo mês importa mais que o valor no início</li>
+            </ul>
+        </div>
+
+        <div class="button-container">
+            <a href="{{ url_for('financas_modulo3') }}" class="btn-voltar">&larr; Voltar para o Módulo 3</a>
+            <a href="{{ url_for('financas_modulo5') }}" class="btn-proximo">Próxima Página (Módulo 5) &rarr;</a>
+        </div>
+    </div>
+
+<script src="{{ url_for('static', filename='js/financas.js') }}"></script>
+
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span>
+      <span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info">
+            <strong>Cognitio IA</strong>
+            <span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span>
+          </div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" title="Limpar conversa" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" title="Fechar" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" title="Enviar" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

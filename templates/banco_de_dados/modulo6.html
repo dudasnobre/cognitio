@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Dados - Módulo 6</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/banco.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+    <div class="main-card">
+        <h2>6. INSERT, UPDATE e DELETE — Manipulando Dados</h2>
+                <p>Além de consultar, você precisa <strong>inserir</strong>, <strong>atualizar</strong> e <strong>remover</strong> dados. Esses comandos formam o <em>DML (Data Manipulation Language)</em> do SQL.</p>
+        <div class="conteudo-modulo">
+            <h3>- INSERT: Inserindo Dados</h3>
+            <pre><code>-- Inserir um cliente
+INSERT INTO clientes (nome, email, cidade, saldo)
+VALUES ('Fábio Santos', 'fabio@email.com', 'Fortaleza', 2100.00);
+
+-- Inserir vários de uma vez
+INSERT INTO clientes (nome, cidade)
+VALUES ('Gabi Lima', 'Recife'), ('Hugo Torres', 'Manaus');</code></pre>
+
+            <h3>- UPDATE: Atualizando Dados</h3>
+            <pre><code>-- Atualiza o saldo do cliente id=1
+UPDATE clientes SET saldo = 2000.00 WHERE id = 1;
+
+-- Dar 10% de bônus para todos de SP
+UPDATE clientes SET saldo = saldo * 1.10
+WHERE cidade = 'São Paulo';</code></pre>
+
+            <div class="warn-box">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> CUIDADO:</strong> UPDATE sem WHERE atualiza <strong>todos</strong> os registros. Sempre use WHERE para limitar o impacto. Na dúvida, teste com um SELECT primeiro!
+            </div>
+
+            <h3>- DELETE: Removendo Dados</h3>
+            <pre><code>-- Remove um produto específico
+DELETE FROM produtos WHERE id = 6;
+
+-- Remove produtos sem estoque
+DELETE FROM produtos WHERE estoque = 0;</code></pre>
+
+            <div class="warn-box">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> DELETE sem WHERE</strong> apaga <strong>todos os registros</strong> da tabela! Os dados não têm lixeira — se deletar sem querer, use o botão "Resetar BD".
+            </div>
+
+            <div class="tip-box">
+                <strong><i class="fa-solid fa-shield"></i> Fluxo seguro:</strong><br>
+                1. Faça um SELECT com o mesmo WHERE para conferir o que será afetado.<br>
+                2. Se estiver correto, execute o UPDATE ou DELETE.
+            </div>
+
+            <h3>- Transações (Uma Introdução)</h3>
+            <p>Em bancos usados em produção, comandos de manipulação costumam rodar dentro de uma <strong>transação</strong> — um bloco onde tudo acontece por completo ou nada acontece:</p>
+            <pre><code>BEGIN TRANSACTION;
+UPDATE contas SET saldo = saldo - 100 WHERE id = 1;
+UPDATE contas SET saldo = saldo + 100 WHERE id = 2;
+COMMIT;   -- confirma as duas alterações
+-- ou ROLLBACK; para desfazer tudo se algo der errado</code></pre>
+            <div class="info-box">
+                <strong><i class="fa-solid fa-circle-info"></i> Por que isso importa</strong><br>
+                Imagine uma transferência bancária: se o débito de uma conta acontecer mas o crédito na outra falhar, o dinheiro simplesmente desaparece. Transações garantem que as duas operações aconteçam juntas, ou nenhuma delas acontece.
+            </div>
+
+            <div class="info-box">
+                <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+                No terminal abaixo, insira um novo produto com <code>INSERT</code>, depois use <code>UPDATE</code> para reduzir seu estoque em 1 unidade, e por fim confira o resultado com um <code>SELECT</code>.
+            </div>
+
+            <h3>- Resumo do Módulo</h3>
+            <ul>
+                <li><code>INSERT INTO tabela (colunas) VALUES (valores);</code> adiciona novos registros</li>
+                <li><code>UPDATE tabela SET coluna = valor WHERE condição;</code> altera registros existentes</li>
+                <li><code>DELETE FROM tabela WHERE condição;</code> remove registros</li>
+                <li><strong>Nunca</strong> rode UPDATE/DELETE sem WHERE, a menos que essa seja mesmo sua intenção</li>
+            </ul>
+        </div>
+    <div class="sql-vm-section">
+        <div class="sql-vm-header">
+            <div class="vm-title"><i class="fa-solid fa-terminal"></i> Terminal SQL</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="sql-snippet-btns">
+            <span class="sql-snippet-label">Snippets:</span>
+            <button class="sql-snippet" data-sql="INSERT INTO clientes (nome, email, cidade, saldo) VALUES ('Fábio Santos', 'fabio@email.com', 'Fortaleza', 2100.00);">INSERT cliente</button>
+            <button class="sql-snippet" data-sql="UPDATE clientes SET saldo = saldo * 1.10 WHERE cidade = 'São Paulo';">+10% SP</button>
+            <button class="sql-snippet" data-sql="DELETE FROM produtos WHERE estoque < 10;">Del estoque baixo</button>
+            <button class="sql-snippet" data-sql="SELECT * FROM clientes ORDER BY id DESC;">Ver clientes</button>
+        </div>
+        <textarea id="sql-editor" placeholder="-- Ctrl+Enter para executar&#10;INSERT INTO clientes (nome, email, cidade, saldo)
+VALUES ('Novo Cliente', 'novo@email.com', 'Fortaleza', 500.00);"></textarea>
+        <div class="sql-vm-toolbar">
+            <button class="sql-run-btn" id="sql-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="sql-reset-btn" id="sql-reset"><i class="fa-solid fa-rotate"></i> Resetar BD</button>
+            <button class="sql-hint-btn" id="sql-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="sql-result-wrap"><div id="sql-result"><p style="color:var(--muted);font-size:.84rem">Execute uma query para ver o resultado.</p></div></div>
+    </div>
+    
+        <hr style="margin-top:30px;">
+        <div class="button-container">
+            <a href="{{ url_for('bd_mod5') }}" class="btn-voltar">&larr; Módulo 5</a>
+            <a href="{{ url_for('bd_mod7') }}" class="btn-proximo">Módulo 7: GROUP BY &rarr;</a>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/banco.js') }}"></script>
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

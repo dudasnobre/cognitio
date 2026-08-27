@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Módulo 2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/javascript.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>2. Variáveis e Tipos de Dados</h2>
+    <p>Variáveis são <strong>caixas com nome</strong> onde guardamos informações para usar depois. Em JavaScript temos três formas de declarar variáveis — cada uma com um comportamento diferente.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- let, const e var</h3>
+        <ul>
+            <li><code>const</code> — valor <strong>imutável</strong>; use sempre que o valor não precisar mudar</li>
+            <li><code>let</code> — valor <strong>mutável</strong>; use quando o valor pode ser atualizado</li>
+            <li><code>var</code> — forma antiga, tem comportamentos confusos (evite em código novo)</li>
+        </ul>
+        <pre><code>const nome = "Ana";          // não muda
+let idade = 25;              // pode mudar
+idade = 26;                  // OK!
+// nome = "Carlos";          // ❌ ERRO — const não aceita reatribuição</code></pre>
+
+        <h3>- Os 7 Tipos Primitivos</h3>
+        <ul>
+            <li><strong>string</strong> — texto: <code>"olá"</code>, <code>'mundo'</code>, <code>`template`</code></li>
+            <li><strong>number</strong> — inteiros e decimais: <code>42</code>, <code>3.14</code>, <code>-7</code></li>
+            <li><strong>boolean</strong> — verdadeiro/falso: <code>true</code>, <code>false</code></li>
+            <li><strong>undefined</strong> — variável declarada mas sem valor</li>
+            <li><strong>null</strong> — ausência intencional de valor</li>
+            <li><strong>bigint</strong> — números inteiros gigantes: <code>9007199254740991n</code></li>
+            <li><strong>symbol</strong> — identificador único (avançado)</li>
+        </ul>
+
+        <h3>- Template Literals (strings modernas)</h3>
+        <p>Com acentos graves (<code>`</code>) você pode interpolar variáveis diretamente na string:</p>
+        <pre><code>const nome = "Carlos";
+const idade = 30;
+console.log(`Olá, ${nome}! Você tem ${idade} anos.`);
+// Olá, Carlos! Você tem 30 anos.</code></pre>
+
+        <h3>- Conversão de Tipos</h3>
+        <pre><code>Number("42")      // → 42
+String(100)       // → "100"
+Boolean(0)        // → false  (0, "", null, undefined são falsy)
+Boolean("hello")  // → true</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Dica: prefira const</strong><br>
+            Use <code>const</code> por padrão. Só troque para <code>let</code> quando souber que o valor vai mudar (ex: contador, acumulador). Isso torna o código mais previsível.
+        </div>
+
+        <h3>- Operadores Aritméticos</h3>
+        <pre><code>const soma = 10 + 3;         // 13
+const sub  = 10 - 3;          // 7
+const mul  = 10 * 3;          // 30
+const div  = 10 / 3;          // 3.333...
+const resto = 10 % 3;         // 1 (resto da divisão)
+const pot  = 10 ** 2;         // 100 (potência)
+
+let contador = 0;
+contador++;                    // incrementa 1 (contador = 1)
+contador += 5;                 // soma 5 (contador = 6)</code></pre>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Cuidado ao somar tipos diferentes</strong><br>
+            <code>"5" + 3</code> resulta em <code>"53"</code> (concatenação de texto), não <code>8</code>! O operador <code>+</code> se comporta como soma matemática só quando ambos os lados são <code>number</code>. Use <code>Number()</code> para converter antes de somar.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            No terminal abaixo, declare uma <code>const preco</code> e uma <code>const quantidade</code>, calcule o total e exiba com um template literal: <code>`Total: R$ ${preco * quantidade}`</code>.
+        </div>
+    </div>
+
+    
+
+    <div class="js-vm-section" style="margin-top:36px;">
+        <div class="js-vm-header">
+            <div class="vm-title"><i class="fa-brands fa-js"></i> Terminal JavaScript — Explore variáveis</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="js-snippet-btns">
+            <span class="js-snippet-label">Snippets:</span>
+            <button class="js-snippet" data-js="const nome = 'Ana';&#10;let idade = 25;&#10;console.log(nome, idade);">const e let</button>
+            <button class="js-snippet" data-js="console.log(typeof 42);&#10;console.log(typeof 'texto');&#10;console.log(typeof true);&#10;console.log(typeof undefined);&#10;console.log(typeof null);">tipos</button>
+            <button class="js-snippet" data-js="const nome = 'Carlos';&#10;const ano = 2025;&#10;console.log(`Olá, ${nome}! Ano: ${ano}`);&#10;console.log(`2 + 2 = ${2 + 2}`);">template literal</button>
+            <button class="js-snippet" data-js="console.log(Number('42'));&#10;console.log(String(100));&#10;console.log(Boolean(0));&#10;console.log(Boolean('ok'));">conversão</button>
+        </div>
+        <textarea id="js-editor" data-default="const nome = 'Ana';&#10;let idade = 25;&#10;idade = 26;&#10;console.log(`${nome} tem ${idade} anos`);&#10;console.log(typeof nome, typeof idade);" placeholder="// Ctrl+Enter para executar">const nome = 'Ana';
+let idade = 25;
+idade = 26;
+console.log(`${nome} tem ${idade} anos`);
+console.log(typeof nome, typeof idade);</textarea>
+        <div class="js-vm-toolbar">
+            <button class="js-run-btn" id="js-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="js-reset-btn" id="js-reset"><i class="fa-solid fa-rotate"></i> Resetar</button>
+            <button class="js-hint-btn" id="js-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="js-result-wrap"><div id="js-result"><p style="color:rgba(205,214,244,.4);font-size:.84rem;font-family:monospace"><i class="fa-solid fa-arrow-up"></i> Execute o código para ver o resultado.</p></div></div>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('javascript') }}" class="btn-voltar">&larr; Módulo 1</a>
+        <a href="{{ url_for('js_mod3') }}" class="btn-proximo">Módulo 3: Operadores e Condicionais &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/javascript.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

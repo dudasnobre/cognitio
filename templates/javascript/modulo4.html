@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Módulo 4</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/javascript.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>4. Funções</h2>
+    <p>Funções são <strong>blocos de código reutilizáveis</strong>. Em vez de repetir o mesmo código várias vezes, você o encapsula numa função, dá um nome a ela e chama quando precisar. São o coração da programação modular.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Declaração de Função (function declaration)</h3>
+        <pre><code>function saudar(nome) {
+    return `Olá, ${nome}!`;
+}
+
+console.log(saudar("Ana"));   // Olá, Ana!
+console.log(saudar("Carlos")); // Olá, Carlos!</code></pre>
+
+        <h3>- Expressão de Função (function expression)</h3>
+        <pre><code>const dobrar = function(n) {
+    return n * 2;
+};
+console.log(dobrar(5));  // 10</code></pre>
+
+        <h3>- Arrow Functions (ES6+)</h3>
+        <p>Sintaxe moderna e concisa. Se o corpo tem apenas um <code>return</code>, pode omitir as chaves:</p>
+        <pre><code>const quadrado = (n) => n * n;
+const soma = (a, b) => a + b;
+const cumprimentar = nome => `Oi, ${nome}!`;  // parênteses opcionais com 1 parâmetro
+
+console.log(quadrado(4));       // 16
+console.log(soma(3, 7));        // 10
+console.log(cumprimentar("Bia")); // Oi, Bia!</code></pre>
+
+        <h3>- Parâmetros Padrão</h3>
+        <pre><code>function potencia(base, expoente = 2) {
+    return base ** expoente;
+}
+console.log(potencia(3));    // 9  (usa expoente padrão)
+console.log(potencia(2, 10)); // 1024</code></pre>
+
+        <h3>- Escopo</h3>
+        <p>Variáveis declaradas dentro de uma função só existem dentro dela (escopo local). Variáveis fora da função são globais:</p>
+        <pre><code>let global = "sou global";
+
+function teste() {
+    let local = "sou local";
+    console.log(global); // acessível
+    console.log(local);  // acessível
+}
+teste();
+// console.log(local); // ❌ ReferenceError</code></pre>
+
+        <h3>- Loops com Funções</h3>
+        <pre><code>for (let i = 1; i &lt;= 5; i++) {
+    console.log(`Contagem: ${i}`);
+}
+
+let n = 0;
+while (n &lt; 3) {
+    console.log(`while: ${n}`);
+    n++;
+}</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Arrow vs function tradicional</strong><br>
+            Use arrow functions para callbacks e código curto. Use <code>function</code> quando precisar de <code>this</code> próprio (ex: métodos de objeto) ou funções que serão elevadas (hoisting).
+        </div>
+
+        <h3>- Rest Parameters (...args)</h3>
+        <p>Quando você não sabe quantos argumentos serão passados, use <code>...</code> para reuni-los num array:</p>
+        <pre><code>function somarTudo(...numeros) {
+    return numeros.reduce((total, n) => total + n, 0);
+}
+console.log(somarTudo(1, 2, 3));        // 6
+console.log(somarTudo(10, 20, 30, 40)); // 100</code></pre>
+
+        <h3>- Funções que Retornam Funções (Closures)</h3>
+        <p>Uma função pode "lembrar" do ambiente onde foi criada, mesmo depois de a função externa já ter terminado — isso se chama <strong>closure</strong>:</p>
+        <pre><code>function criarContador() {
+    let contagem = 0;
+    return function () {
+        contagem++;
+        return contagem;
+    };
+}
+const contador = criarContador();
+console.log(contador()); // 1
+console.log(contador()); // 2
+console.log(contador()); // 3</code></pre>
+        <div class="info-box">
+            <strong><i class="fa-solid fa-circle-info"></i> Por que isso é útil</strong><br>
+            Closures são a base de muitos padrões em JS — desde contadores privados até o funcionamento de hooks do React. Não se preocupe em dominar 100% agora, só reconheça o padrão quando vir de novo.
+        </div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Função sem return devolve undefined</strong><br>
+            Assim como em outras linguagens, esquecer o <code>return</code> não gera erro — a função simplesmente devolve <code>undefined</code>, o que costuma causar bugs silenciosos.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            No terminal, crie uma arrow function <code>ehPar</code> que recebe um número e retorna <code>true</code>/<code>false</code>. Depois use um <code>for</code> de 1 a 10 chamando essa função para cada número e mostrando o resultado.
+        </div>
+    </div>
+
+    
+
+    <div class="js-vm-section" style="margin-top:36px;">
+        <div class="js-vm-header">
+            <div class="vm-title"><i class="fa-brands fa-js"></i> Terminal JavaScript — Crie funções</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="js-snippet-btns">
+            <span class="js-snippet-label">Snippets:</span>
+            <button class="js-snippet" data-js="function saudar(nome) {&#10;  return `Olá, ${nome}!`;&#10;}&#10;console.log(saudar('Mundo'));&#10;console.log(saudar('Cognitio'));">function</button>
+            <button class="js-snippet" data-js="const quadrado = n => n * n;&#10;const soma = (a, b) => a + b;&#10;console.log(quadrado(7));&#10;console.log(soma(3, 4));">arrow fn</button>
+            <button class="js-snippet" data-js="function potencia(base, exp = 2) {&#10;  return base ** exp;&#10;}&#10;console.log(potencia(3));&#10;console.log(potencia(2, 8));">parâmetro padrão</button>
+            <button class="js-snippet" data-js="for (let i = 1; i <= 5; i++) {&#10;  console.log(`${i} * ${i} = ${i*i}`);&#10;}">for loop</button>
+        </div>
+        <textarea id="js-editor" data-default="function fatorial(n) {&#10;  if (n <= 1) return 1;&#10;  return n * fatorial(n - 1);&#10;}&#10;console.log(fatorial(5));  // 120&#10;console.log(fatorial(6));  // 720" placeholder="// Ctrl+Enter para executar">function fatorial(n) {
+  if (n <= 1) return 1;
+  return n * fatorial(n - 1);
+}
+console.log(fatorial(5));  // 120
+console.log(fatorial(6));  // 720</textarea>
+        <div class="js-vm-toolbar">
+            <button class="js-run-btn" id="js-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="js-reset-btn" id="js-reset"><i class="fa-solid fa-rotate"></i> Resetar</button>
+            <button class="js-hint-btn" id="js-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="js-result-wrap"><div id="js-result"><p style="color:rgba(205,214,244,.4);font-size:.84rem;font-family:monospace"><i class="fa-solid fa-arrow-up"></i> Execute o código para ver o resultado.</p></div></div>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('js_mod3') }}" class="btn-voltar">&larr; Módulo 3</a>
+        <a href="{{ url_for('js_mod5') }}" class="btn-proximo">Módulo 5: Arrays e Objetos &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/javascript.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

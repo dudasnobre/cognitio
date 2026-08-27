@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educação Financeira - Módulo 10</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/financas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>10. Projeto Final: Meu Plano Financeiro de 12 Meses</h2>
+    <p>Chegou a hora de transformar todo o conhecimento do curso em um plano de ação real, com metas concretas para o próximo ano.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Passo 1: Fotografia Financeira Atual</h3>
+        <p>Antes de planejar o futuro, registre onde você está agora:</p>
+        <div class="info-box">
+            <strong><i class="fa-solid fa-clipboard-list"></i> Anote hoje</strong><br>
+            1. Renda mensal líquida<br>
+            2. Total de dívidas (se houver) e suas taxas de juros<br>
+            3. Valor atual da sua reserva de emergência<br>
+            4. Gastos fixos mensais (moradia, contas, transporte)
+        </div>
+
+        <h3>- Passo 2: Defina 3 Metas para os Próximos 12 Meses</h3>
+        <p>Use o método SMART (específica, mensurável, alcançável, relevante, com prazo) visto no Módulo 7:</p>
+        <pre><code># Exemplo de metas SMART financeiras
+metas = [
+    {"nome": "Quitar cartão de crédito", "valor": 1200, "prazo_meses": 6},
+    {"nome": "Reserva de emergência", "valor": 3000, "prazo_meses": 12},
+    {"nome": "Curso profissionalizante", "valor": 800, "prazo_meses": 8},
+]
+
+for m in metas:
+    valor_mensal = m["valor"] / m["prazo_meses"]
+    print(f"{m['nome']}: guardar R$ {valor_mensal:.2f}/mês por {m['prazo_meses']} meses")</code></pre>
+
+        <h3>- Passo 3: Ordem de Prioridade Recomendada</h3>
+        <ol>
+            <li><strong>Dívidas com juros altos</strong> (cartão de crédito, cheque especial) — quitar primeiro</li>
+            <li><strong>Reserva de emergência básica</strong> — pelo menos 1 a 3 meses de gastos essenciais</li>
+            <li><strong>Metas de médio prazo</strong> — curso, equipamento de trabalho, viagem</li>
+            <li><strong>Investimentos de longo prazo</strong> — aposentadoria, patrimônio</li>
+        </ol>
+
+        <h3>- Passo 4: Revisão Mensal</h3>
+        <p>Um plano financeiro não é estático — reserve 15 minutos por mês para comparar o planejado com o realizado e ajustar o que for necessário:</p>
+        <pre><code>def revisar_mes(planejado, realizado):
+    diferenca = realizado - planejado
+    if diferenca > 0:
+        print(f"Gastou R$ {diferenca:.2f} a mais que o planejado. Ajustar o próximo mês.")
+    else:
+        print(f"Economizou R$ {abs(diferenca):.2f} além do planejado! 🎉")</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Progresso importa mais que perfeição</strong><br>
+            Você não vai acertar 100% do planejamento todo mês, e tudo bem. O que constrói segurança financeira ao longo do tempo é manter o hábito de revisar e ajustar, mês após mês.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Tarefa final</strong><br>
+            Escreva, em um papel ou aplicativo de notas, suas 3 metas financeiras para os próximos 12 meses, seguindo o método SMART. Revise essa lista todo início de mês.
+        </div>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Parabéns por concluir o curso de Educação Financeira!</strong><br>
+            Você agora tem as ferramentas para planejar, poupar, investir e tomar decisões financeiras mais conscientes. O próximo passo é colocar o plano em prática, um mês de cada vez.
+        </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('financas_modulo9') }}" class="btn-voltar">&larr; Módulo 9</a>
+        <a href="{{ url_for('trilhas') }}" class="btn-proximo" style="background-color: #1a6b3c; border-color: #1a6b3c;" data-cognitio-complete-course="financas">Concluir Curso de Finanças! 🏆</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/financas.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cognitio</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/favicon.svg') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+ 
+  <div id="splash">
+    <div id="splash-line"></div>
+    <div id="splash-logo"></div>
+    <p id="splash-tagline">Aprenda. Evolua. Conquiste.</p>
+    <div id="splash-line-bottom"></div>
+  </div>
+ 
+  <nav id="navbar">
+    <a href="#" class="logo logo-wordmark">
+      <img src="{{ url_for('static', filename='img/logosemfundo.png') }}" alt="Cognitio" height="34">
+      <span class="sr-only">Cognitio</span>
+    </a>
+    <button id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="{{ url_for('dashboard') }}"><i class="fa-solid fa-gauge-high"></i> Painel</a></li>
+      <li><a href="#cursos"><i class="fa-solid fa-book-open"></i> Cursos</a></li>
+      <li><a href="{{ url_for('perfil') }}"><i class="fa-solid fa-user"></i> Perfil</a></li>
+      <li><a href="#sobre"><i class="fa-solid fa-circle-info"></i> Sobre</a></li>
+      <li><a href="{{ url_for('logout') }}" id="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+
+    </ul>
+  </nav>
+ 
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-dots"></div>
+ 
+    <div class="hero-content" id="hero-content">
+      <div class="hero-brand">
+        <img src="{{ url_for('static', filename='img/logosemfundo.png') }}" alt="Cognitio — ideias que educam, conhecimento que transforma" height="108">
+      </div>
+      <div class="hero-badge">
+        <i class="fa-solid fa-bolt"></i>
+        Plataforma de aprendizado
+      </div>
+      <h1 class="hero-title">
+        Conhecimento que<br>
+        <span class="highlight">transforma</span> você
+      </h1>
+      <p class="hero-sub">
+        Cursos práticos e objetivos para quem quer crescer. Da informática básica às tecnologias mais avançadas — no seu ritmo, no seu tempo.
+      </p>
+      <div class="hero-actions">
+        <a href="#cursos" class="btn-primary">
+          <i class="fa-solid fa-rocket"></i>
+          Explorar cursos
+        </a>
+        <a href="#sobre" class="btn-secondary">
+          Saiba mais <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+ 
+    <div class="hero-visual" id="hero-visual">
+      <div class="stat-card">
+        <div class="stat-number">+2k</div>
+        <div class="stat-label">Alunos ativos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">68</div>
+        <div class="stat-label">Módulos disponíveis</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-number">98%</div>
+        <div class="stat-label">Satisfação dos alunos</div>
+      </div>
+    </div>
+  </section>
+ 
+  <section id="cursos">
+    <div class="section-header reveal">
+      <span class="section-tag"><i class="fa-solid fa-graduation-cap"></i> &nbsp;Trilhas de conhecimento</span>
+      <h2 class="section-title">Nossos Cursos</h2>
+      <p class="section-desc">Comece pela base ou avance para o próximo nível. Cada trilha foi pensada para ser clara, prática e completa.</p>
+    </div>
+ 
+    <div class="courses-grid">
+ 
+      <article class="course-card featured reveal" style="transition-delay: 0.05s">
+        <div class="featured-ribbon">Disponível</div>
+        <div class="course-thumb" style="background: linear-gradient(135deg, #003049 0%, #005080 100%);">
+          <span>💻</span>
+        </div>
+        <div class="course-body">
+          <span class="course-tag" style="background:rgba(0,48,73,0.09); color:#003049;">Fundamentos</span>
+          <h3 class="course-name">Informática Básica</h3>
+          <p class="course-desc">Hardware, software, internet, segurança digital e os fundamentos que todo mundo precisa dominar.</p>
+          <div class="course-footer">
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock"></i> 14h</span>
+              <span><i class="fa-solid fa-signal"></i> Iniciante</span>
+            </div>
+            <a href="{{ url_for('informatica') }}" class="course-btn">Acessar</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="course-card featured reveal" style="transition-delay: 0.12s; border-color: #1a6b3c;">
+        <div class="featured-ribbon" style="background: #1a6b3c; box-shadow: 0 2px 10px rgba(26,107,60,0.4);">Disponível</div>
+        <div class="course-thumb" style="background: linear-gradient(135deg, #1a6b3c 0%, #2e9b59 100%);">
+          <span>💰</span>
+        </div>
+        <div class="course-body">
+          <span class="course-tag" style="background:rgba(26,107,60,0.09); color:#1a6b3c;">Finanças</span>
+          <h3 class="course-name">Educação Financeira</h3>
+          <p class="course-desc">Aprenda a gerir o seu dinheiro, criar reservas de emergência, evitar dívidas e iniciar investimentos inteligentes.</p>
+          <div class="course-footer">
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock"></i> 14h</span>
+              <span><i class="fa-solid fa-signal"></i> Iniciante</span>
+            </div>
+            <a href="{{ url_for('financas') }}" class="course-btn">Acessar</a>
+            
+          </div>
+        </div>
+      </article>
+ 
+      <article class="course-card featured reveal" style="transition-delay: 0.15s; border-color: #0ea5b7;">
+        <div class="featured-ribbon" style="background: #0ea5b7; box-shadow: 0 2px 10px rgba(14,165,183,0.4);">Disponível</div>
+        <div class="course-thumb" style="background: linear-gradient(135deg, #0b3a40 0%, #0ea5b7 100%);">
+          <span>🌐</span>
+        </div>
+        <div class="course-body">
+          <span class="course-tag" style="background:rgba(14,165,183,0.1); color:#0ea5b7;">Web · Novo!</span>
+          <h3 class="course-name">HTML & CSS para Iniciantes</h3>
+          <p class="course-desc">Crie suas primeiras páginas web com estrutura, estilo e responsividade do zero. Inclui <strong>laboratório com preview ao vivo</strong> em cada módulo!</p>
+          <div class="course-footer">
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock"></i> 22h</span>
+              <span><i class="fa-solid fa-signal"></i> Básico</span>
+            </div>
+            <a href="{{ url_for('htmlcss_curso') }}" class="course-btn" style="background:#0ea5b7;">Acessar</a>
+          </div>
+        </div>
+      </article>
+ 
+     <article class="course-card featured reveal" style="transition-delay: 0.26s; border-color: #b38600;">
+        <div class="featured-ribbon" style="background: #b38600; box-shadow: 0 2px 10px rgba(179,134,0,0.4);">Disponível</div>
+        <div class="course-thumb" style="background: linear-gradient(135deg, #1a1200 0%, #b38600 100%);">
+          <span>⚡</span>
+        </div>
+        <div class="course-body">
+          <span class="course-tag" style="background:rgba(240,180,41,0.12); color:#b38600;">Programação</span>
+          <h3 class="course-name">JavaScript</h3>
+          <p class="course-desc">Aprenda a linguagem da web do zero: variáveis, funções, arrays, DOM e requisições assíncronas. Inclui <strong>terminal interativo</strong> em cada módulo!</p>
+          <div class="course-footer">
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock"></i> 20h</span>
+              <span><i class="fa-solid fa-signal"></i> Iniciante</span>
+            </div>
+            <a href="{{ url_for('javascript') }}" class="course-btn" style="background:#b38600;">Acessar</a>
+          </div>
+        </div>
+      </article>
+
+      <article class="course-card featured reveal" style="transition-delay: 0.35s; border-color: #306998;">
+        <div class="featured-ribbon" style="background: #306998; box-shadow: 0 2px 10px rgba(48,105,152,0.4);">Disponível</div>
+        <div class="course-thumb" style="background: linear-gradient(135deg, #16324a 0%, #306998 100%);">
+          <span>🐍</span>
+        </div>
+        <div class="course-body">
+          <span class="course-tag" style="background:rgba(48,105,152,0.1); color:#306998;">Programação · Novo!</span>
+          <h3 class="course-name">Python do Zero</h3>
+          <p class="course-desc">Automatize tarefas, analise dados e construa aplicações com a linguagem mais versátil do mercado.</p>
+          <div class="course-footer">
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock"></i> 30h</span>
+              <span><i class="fa-solid fa-signal"></i> Básico</span>
+            </div>
+            <a href="{{ url_for('python_curso') }}" class="course-btn" style="background:#306998;">Acessar</a>
+          </div>
+        </div>
+      </article>
+ 
+      <article class="course-card featured reveal" style="transition-delay: 0.45s; border-color: #6c35c9;">
+        <div class="featured-ribbon" style="background: #6c35c9; box-shadow: 0 2px 10px rgba(108,53,201,0.4);">Disponível</div>
+        <div class="course-thumb" style="background: linear-gradient(135deg, #1a0a3d 0%, #6c35c9 100%);">
+          <span>🗄️</span>
+        </div>
+        <div class="course-body">
+          <span class="course-tag" style="background:rgba(108,53,201,0.09); color:#6c35c9;">Dados · Novo!</span>
+          <h3 class="course-name">Banco de Dados SQL</h3>
+          <p class="course-desc">Crie, consulte e gerencie bancos de dados relacionais com SQL desde o básico. Inclui <strong>máquina virtual SQL interativa</strong>!</p>
+          <div class="course-footer">
+            <div class="course-meta">
+              <span><i class="fa-regular fa-clock"></i> 22h</span>
+              <span><i class="fa-solid fa-signal"></i> Intermediário</span>
+            </div>
+            <a href="{{ url_for('banco') }}" class="course-btn" style="background:#6c35c9;">Acessar</a>
+          </div>
+        </div>
+      </article>
+
+      
+    </div>
+  </section>
+ 
+  <section id="sobre">
+    <div class="sobre-inner">
+      <div class="sobre-text reveal">
+        <h2>A plataforma feita para<br><em>quem quer chegar lá</em></h2>
+        <p>A Cognitio nasceu com uma missão simples: tornar o conhecimento tecnológico acessível para todos. Sem enrolação, sem barreiras — só aprendizado de verdade.</p>
+      </div>
+      <div class="sobre-stats reveal" style="transition-delay:0.2s">
+        <div class="sobre-stat">
+          <strong>1º</strong>
+          <span>Projeto</span>
+        </div>
+        <div class="sobre-stat">
+          <strong>100%</strong>
+          <span>Online</span>
+        </div>
+        <div class="sobre-stat">
+          <strong>∞</strong>
+          <span>Potencial</span>
+        </div>
+      </div>
+    </div>
+  </section>
+ 
+  <footer>
+    <a href="#" class="footer-logo"><img src="{{ url_for('static', filename='img/logosemfundo.png') }}" alt="Cognitio"></a>
+    <p>© 2025 Cognitio · Todos os direitos reservados</p>
+    <p style="font-size:0.75rem;color:rgba(0,48,73,0.3);">Feito com <span style="color:#D62828">♥</span> para quem aprende</p>
+  </footer>
+ 
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python do Zero - Módulo 10</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/python.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>10. Projeto Final: Automatizando uma Tarefa Real</h2>
+    <p>Chegou a hora de juntar tudo: variáveis, condicionais, laços, listas/dicionários, funções, arquivos e tratamento de erros em um script Python que resolve um problema real do dia a dia.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- O Desafio: Organizador de Gastos Pessoais</h3>
+        <p>Vamos construir um script que lê uma lista de gastos, calcula totais por categoria e salva um relatório em arquivo — algo muito próximo do que scripts de automação fazem no mercado de trabalho.</p>
+
+        <h3>- Passo 1: Estrutura de Dados</h3>
+        <pre><code>gastos = [
+    {"descricao": "Mercado", "valor": 250.00, "categoria": "Alimentação"},
+    {"descricao": "Uber", "valor": 35.50, "categoria": "Transporte"},
+    {"descricao": "Cinema", "valor": 60.00, "categoria": "Lazer"},
+    {"descricao": "Padaria", "valor": 18.90, "categoria": "Alimentação"},
+]</code></pre>
+
+        <h3>- Passo 2: Função para Agrupar por Categoria</h3>
+        <pre><code>def total_por_categoria(gastos):
+    totais = {}
+    for gasto in gastos:
+        categoria = gasto["categoria"]
+        totais[categoria] = totais.get(categoria, 0) + gasto["valor"]
+    return totais
+
+resultado = total_por_categoria(gastos)
+for categoria, total in resultado.items():
+    print(f"{categoria}: R$ {total:.2f}")</code></pre>
+
+        <h3>- Passo 3: Tratando Erros de Entrada</h3>
+        <pre><code>def adicionar_gasto(lista, descricao, valor, categoria):
+    try:
+        valor = float(valor)
+        if valor < 0:
+            raise ValueError("O valor não pode ser negativo")
+        lista.append({"descricao": descricao, "valor": valor, "categoria": categoria})
+        print(f"Gasto '{descricao}' adicionado com sucesso!")
+    except ValueError as e:
+        print(f"Erro ao adicionar gasto: {e}")</code></pre>
+
+        <h3>- Passo 4: Salvando um Relatório em Arquivo</h3>
+        <pre><code>def gerar_relatorio(gastos, nome_arquivo="relatorio.txt"):
+    totais = total_por_categoria(gastos)
+    total_geral = sum(g["valor"] for g in gastos)
+
+    with open(nome_arquivo, "w") as arquivo:
+        arquivo.write("=== RELATÓRIO DE GASTOS ===\n\n")
+        for categoria, total in totais.items():
+            arquivo.write(f"{categoria}: R$ {total:.2f}\n")
+        arquivo.write(f"\nTOTAL GERAL: R$ {total_geral:.2f}\n")
+
+    print(f"Relatório salvo em {nome_arquivo}!")
+
+gerar_relatorio(gastos)</code></pre>
+
+        <h3>- Passo 5: Juntando Tudo em um Menu Interativo</h3>
+        <pre><code>def menu():
+    gastos = []
+    while True:
+        print("\n1. Adicionar gasto\n2. Ver relatório\n3. Sair")
+        opcao = input("Escolha: ")
+
+        if opcao == "1":
+            desc = input("Descrição: ")
+            valor = input("Valor: ")
+            cat = input("Categoria: ")
+            adicionar_gasto(gastos, desc, valor, cat)
+        elif opcao == "2":
+            gerar_relatorio(gastos)
+        elif opcao == "3":
+            print("Até logo!")
+            break
+        else:
+            print("Opção inválida, tente novamente.")
+
+# menu()  # descomente para rodar interativamente no seu computador</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Este padrão está em toda automação real</strong><br>
+            Ler dados → processar/agrupar → tratar erros de entrada → salvar um resultado. Esse é o esqueleto de praticamente qualquer script de automação de tarefas repetitivas, seja organizando gastos, arquivos ou relatórios de trabalho.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Desafios extras</strong><br>
+            1. Adicione uma opção no menu para listar todos os gastos individualmente.<br>
+            2. Adicione um filtro por categoria antes de gerar o relatório.<br>
+            3. Leia os gastos de um arquivo <code>.csv</code> em vez de digitá-los manualmente.
+        </div>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Parabéns por concluir o curso de Python!</strong><br>
+            Você foi da sintaxe básica até um projeto real de automação. Os próximos passos naturais na trilha da Cognitio são aprofundar em dados com <strong>Banco de Dados SQL</strong> ou seguir para o desenvolvimento web front-end.
+        </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('py_mod9') }}" class="btn-voltar">&larr; Módulo 9</a>
+        <a href="{{ url_for('trilhas') }}" class="btn-proximo" data-cognitio-complete-course="python">Concluir Curso de Python! 🐍</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/python.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

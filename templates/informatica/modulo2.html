@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informática Básica - Módulo 2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/infor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+
+    <div class="main-card">
+        
+        <h2>2. Aprendendo a Organizar a "Casa" (Sistema Operacional)</h2>
+        <p>Quando você liga o computador, a primeira tela grande que aparece se chama Área de Trabalho (ou Desktop). Ela funciona exatamente como a superfície de uma mesa de estudos física: serve para apoiar os projetos em que você está trabalhando no momento.</p>
+        
+        <div class="conteudo-modulo">
+            <h3>- O Sistema de Arquivos e Pastas</h3>
+            <p>Para o computador não virar uma bagunça cheia de papéis espalhados, nós usamos as <strong>Pastas Digitais</strong>. Elas servem para agrupar arquivos parecidos (como separar contas pagas de fotos de família).</p>
+
+            <h3>- Passo a Passo Prático: Criando seu Sistema de Arquivos</h3>
+            <ol>
+                <li><strong>Criando a Pasta Mãe:</strong> Vá até um espaço vazio e sem ícones da sua Área de Trabalho e clique com o <b>botão direito</b> do mouse. Um menu flutuante irá se abrir. Passe o ponteiro do mouse por cima da opção <em>Novo</em> e depois clique em <em>Pasta</em>. Note que uma pasta amarela aparecerá. Digite imediatamente o nome <strong>Meus Arquivos</strong> e aperte a tecla Enter do teclado.</li> 
+                <li><strong>Criando Subpastas de Organização:</strong> Abra a pasta que você acabou de criar dando <b>dois cliques rápidos</b> com o botão esquerdo do mouse sobre ela. Com a janela aberta, repita o processo do botão direito dentro dela para criar duas novas pastas internas: uma chamada <strong>Documentos</strong> e outra chamada <strong>Fotos</strong>.</li> 
+                <li><strong>Movendo e Guardando Arquivos:</strong> Para organizar, clique uma vez com o botão esquerdo sobre qualquer arquivo (como uma foto na área de trabalho), segure o botão pressionado, arraste o ícone para cima da pasta desejada e solte o botão do mouse. O arquivo sumirá da tela externa e estará guardado em segurança.</li>
+            </ol>
+
+            <h3>- A Barra de Tarefas: Seu Centro de Comando</h3>
+            <p>A faixa que fica (geralmente) na parte de baixo da tela é a <strong>Barra de Tarefas</strong>. Nela ficam o botão Iniciar, os programas abertos no momento e, no canto direito, o relógio, o ícone de Wi-Fi e o volume do som.</p>
+
+            <div class="tip-box">
+                <strong><i class="fa-solid fa-lightbulb"></i> Atalho útil</strong><br>
+                Pressione as teclas <b>Ctrl</b> e <b>C</b> juntas para copiar um arquivo selecionado, e <b>Ctrl</b> + <b>V</b> para colá-lo em outra pasta. É mais rápido que arrastar quando as pastas estão longe uma da outra na tela.
+            </div>
+
+            <h3>- Renomeando e Excluindo Arquivos com Segurança</h3>
+            <p>Para renomear, clique uma vez sobre o arquivo (para selecioná-lo, sem abrir) e pressione a tecla <b>F2</b> — o nome ficará editável. Para excluir, selecione o arquivo e pressione <b>Delete</b>.</p>
+            <div class="warn-box">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> A Lixeira é sua rede de segurança</strong><br>
+                Arquivos excluídos com <b>Delete</b> normalmente vão para a <strong>Lixeira</strong> (ícone na área de trabalho), de onde podem ser recuperados. Mas cuidado: excluir da Lixeira também, ou usar <b>Shift + Delete</b>, apaga o arquivo permanentemente!
+            </div>
+
+            <div class="info-box">
+                <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+                No seu computador (ou celular), crie de verdade uma pasta chamada "Meus Arquivos" com duas subpastas dentro, como no passo a passo acima. Praticar com a mão é o que mais fixa o aprendizado.
+            </div>
+
+            <h3>- Resumo do Módulo</h3>
+            <ul>
+                <li>Pastas organizam arquivos parecidos, evitando bagunça na Área de Trabalho</li>
+                <li>Botão direito do mouse abre o menu de opções (criar pasta, renomear, excluir...)</li>
+                <li>A Lixeira guarda arquivos excluídos temporariamente — ela é sua rede de segurança</li>
+            </ul>
+        </div>
+
+        
+
+        <hr style="margin-top: 30px;"> 
+        
+        <div class="button-container">
+            <a href="{{ url_for('informatica') }}" class="btn-voltar">&larr; Voltar para o Módulo 1</a>
+            <a href="{{ url_for('modulo3') }}" class="btn-proximo">Próxima Página (Módulo 3) &rarr;</a>
+        </div>
+        
+    </div>
+
+    <script src="{{ url_for('static', filename='js/infor.js') }}"></script>
+    
+
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span>
+      <span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info">
+            <strong>Cognitio IA</strong>
+            <span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span>
+          </div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" title="Limpar conversa" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" title="Fechar" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" title="Enviar" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

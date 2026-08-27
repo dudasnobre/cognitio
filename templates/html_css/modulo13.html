@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 13</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>13. Design Responsivo e Mobile-First Avançado</h2>
+    <p>No Módulo 6 você viu o básico de responsividade. Agora vamos aprofundar na estratégia <strong>mobile-first</strong> e em técnicas modernas que reduzem drasticamente o número de media queries necessárias.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- O que é Mobile-First, de Verdade</h3>
+        <p>Mobile-first não é só "testar no celular" — é <strong>escrever o CSS base para telas pequenas primeiro</strong>, e usar <code>min-width</code> para adicionar complexidade conforme a tela cresce:</p>
+        <pre><code>/* Base: já funciona perfeitamente no celular */
+.container { display: block; padding: 16px; }
+
+/* A partir de 768px, vira um grid de 2 colunas */
+@media (min-width: 768px) {
+    .container { display: grid; grid-template-columns: 1fr 1fr; }
+}
+
+/* A partir de 1024px, vira 3 colunas */
+@media (min-width: 1024px) {
+    .container { grid-template-columns: repeat(3, 1fr); }
+}</code></pre>
+        <p>Isso é o oposto do "desktop-first" (escrever para telas grandes e usar <code>max-width</code> para "desfazer" estilos em telas pequenas) — mobile-first resulta em CSS mais enxuto e sites mais rápidos em celulares, que são a maioria do tráfego.</p>
+
+        <h3>- Unidades Fluidas: clamp(), vw, vh</h3>
+        <pre><code>h1 {
+    /* mínimo 1.5rem, ideal 5vw, máximo 3rem — nunca fica pequeno OU gigante demais */
+    font-size: clamp(1.5rem, 5vw, 3rem);
+}
+.hero { min-height: 60vh; }  /* 60% da altura da tela, sempre */</code></pre>
+        <p><code>clamp(mínimo, ideal, máximo)</code> é a ferramenta mais poderosa para tipografia responsiva: o texto cresce suavemente com a tela, mas nunca ultrapassa os limites definidos.</p>
+
+        <h3>- Imagens Responsivas</h3>
+        <pre><code>img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+}</code></pre>
+        <p>Essa regra simples evita que imagens "estourem" o container em telas pequenas — deveria estar em praticamente todo projeto.</p>
+
+        <h3>- Escondendo e Reorganizando Conteúdo</h3>
+        <pre><code>.menu-desktop { display: none; }
+.menu-mobile  { display: block; }
+
+@media (min-width: 900px) {
+    .menu-desktop { display: flex; }
+    .menu-mobile  { display: none; }
+}</code></pre>
+
+        <h3>- Container Queries (novidade moderna)</h3>
+        <p>Media queries reagem ao tamanho da <strong>tela inteira</strong>. Container queries reagem ao tamanho do <strong>elemento pai</strong> — útil para componentes reutilizáveis que podem aparecer em espaços de tamanhos diferentes:</p>
+        <pre><code>.card-wrapper { container-type: inline-size; }
+
+@container (min-width: 400px) {
+    .card { display: flex; }   /* só vira flex se o CONTAINER tiver 400px+, não a tela */
+}</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Teste em tamanhos reais, não só redimensionando a janela</strong><br>
+            Use o modo de dispositivo do DevTools do navegador (F12 → ícone de celular) para testar em resoluções reais de celulares e tablets, não apenas encolhendo a janela do navegador no desktop.
+        </div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Não esqueça a meta viewport</strong><br>
+            Sem <code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code> no <code>&lt;head&gt;</code>, os celulares renderizam a página como se fosse desktop e depois encolhem — suas media queries simplesmente não vão funcionar como esperado.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Mobile-first: escreva o CSS base para telas pequenas, use <code>min-width</code> para adicionar complexidade</li>
+            <li><code>clamp()</code> cria tipografia e espaçamentos fluidos sem várias media queries</li>
+            <li><code>max-width: 100%</code> em imagens evita overflow</li>
+            <li>Container queries reagem ao tamanho do elemento pai, não da tela inteira</li>
+        </ul>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<style>
+  h1 { font-size: clamp(1.2rem, 6vw, 2.5rem); font-family: sans-serif; color: #003049; }
+  p { font-size: clamp(0.9rem, 2vw, 1.1rem); font-family: sans-serif; }
+</style>
+<h1>Redimensione a janela de preview</h1>
+<p>Este texto também se ajusta suavemente ao tamanho da tela.</p>">Tipografia fluida</button>
+                <button class="html-lab-snippet" data-code="<style>
+  .grid { display: block; }
+  .grid div { background: #0ea5b7; color: white; padding: 16px; margin-bottom: 8px; border-radius: 6px; text-align: center; }
+  @media (min-width: 500px) {
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+    .grid div { margin-bottom: 0; }
+  }
+</style>
+<div class=&quot;grid&quot;>
+  <div>1</div><div>2</div><div>3</div>
+</div>">Grid mobile-first</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<style>
+  img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+  .titulo { font-size: clamp(1.3rem, 5vw, 2.2rem); font-family: sans-serif; }
+</style>
+
+<h1 class=&quot;titulo&quot;>Site Responsivo</h1>
+<img src=&quot;https://via.placeholder.com/600x300&quot; alt=&quot;Exemplo&quot;>" spellcheck="false"><style>
+  img { max-width: 100%; height: auto; display: block; border-radius: 8px; }
+  .titulo { font-size: clamp(1.3rem, 5vw, 2.2rem); font-family: sans-serif; }
+</style>
+
+<h1 class="titulo">Site Responsivo</h1>
+<img src="https://via.placeholder.com/600x300" alt="Exemplo"></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('hc_mod12') }}" class="btn-voltar">&larr; Módulo 12</a>
+        <a href="{{ url_for('hc_mod14') }}" class="btn-proximo">Módulo 14: Arquitetura CSS &rarr;</a>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

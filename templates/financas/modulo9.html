@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educação Financeira - Módulo 9</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/financas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>9. Empreendedorismo e Renda Extra</h2>
+    <p>Gerar uma renda extra — seja um pequeno negócio paralelo, um serviço freelance ou a venda de um produto — é uma das formas mais diretas de acelerar seus objetivos financeiros.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Identificando uma Oportunidade</h3>
+        <p>Boas ideias de renda extra geralmente combinam três coisas:</p>
+        <ul>
+            <li>Uma habilidade que você já tem (ou pode aprender rapidamente)</li>
+            <li>Uma necessidade real de outras pessoas dispostas a pagar por ela</li>
+            <li>Um jeito de começar pequeno, sem grande investimento inicial</li>
+        </ul>
+
+        <h3>- Calculando se Vale a Pena: Precificação Simples</h3>
+        <pre><code># Exemplo: precificando um serviço ou produto simples
+custo_material = 15.00
+horas_trabalhadas = 2
+valor_hora = 20.00
+margem_lucro = 0.30  # 30%
+
+custo_total = custo_material + (horas_trabalhadas * valor_hora)
+preco_final = custo_total * (1 + margem_lucro)
+
+print(f"Custo total: R$ {custo_total:.2f}")
+print(f"Preço de venda sugerido: R$ {preco_final:.2f}")</code></pre>
+        <p>Um erro comum de quem começa é cobrar só o custo do material, esquecendo de precificar o próprio tempo e uma margem de lucro.</p>
+
+        <h3>- Separando Finanças Pessoais das do Negócio</h3>
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Misturar contas é o erro nº 1</strong><br>
+            Mesmo em um negócio pequeno e informal, ter uma conta ou ao menos um controle separado para as movimentações do negócio evita que você "coma" o capital de giro sem perceber — e facilita saber se o negócio realmente está dando lucro.
+        </div>
+
+        <h3>- Reinvestindo vs. Retirando Lucro</h3>
+        <p>Nas primeiras fases, reinvestir parte do lucro (em material, divulgação, equipamento) ajuda o negócio a crescer mais rápido. Já ter uma reserva de emergência pessoal (Módulo 4) continua sendo prioridade antes de investir pesado no negócio.</p>
+
+        <h3>- Divulgação de Baixo Custo</h3>
+        <ul>
+            <li>Redes sociais e indicação de clientes satisfeitos (boca a boca)</li>
+            <li>Grupos e comunidades locais relacionados ao seu nicho</li>
+            <li>Parcerias com outros pequenos negócios complementares</li>
+        </ul>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Comece pequeno e valide antes de investir mais</strong><br>
+            Antes de comprar equipamento caro ou grande estoque, teste a ideia em pequena escala. É muito mais barato aprender com um erro pequeno do que com um grande.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Boas oportunidades combinam habilidade, demanda real e baixo investimento inicial</li>
+            <li>Precifique sempre incluindo seu tempo e uma margem de lucro, não só o material</li>
+            <li>Separe as finanças pessoais das do negócio desde o início</li>
+            <li>Valide a ideia em pequena escala antes de investir pesado</li>
+        </ul>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('financas_modulo8') }}" class="btn-voltar">&larr; Módulo 8</a>
+        <a href="{{ url_for('financas_modulo10') }}" class="btn-proximo">Módulo 10: Projeto Final &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/financas.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

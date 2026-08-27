@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 11</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>11. Animações e Transições em CSS</h2>
+    <p>Movimento bem aplicado dá vida a uma interface: um botão que reage ao toque, uma seção que aparece suavemente. CSS oferece dois mecanismos para isso — <code>transition</code> para mudanças simples, e <code>@keyframes</code> para animações mais elaboradas.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- transition: Animando Mudanças de Estado</h3>
+        <pre><code>.botao {
+    background: #F77F00;
+    transform: scale(1);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+.botao:hover {
+    background: #C96400;
+    transform: scale(1.05);
+}</code></pre>
+        <p><code>transition</code> diz ao navegador: "quando esta propriedade mudar, anime a mudança em vez de trocar instantaneamente". Funciona com <code>:hover</code>, <code>:focus</code, classes adicionadas via JS, etc.</p>
+
+        <h3>- transform: Movendo, Girando e Escalando</h3>
+        <pre><code>.card:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+.icone-menu.aberto {
+    transform: rotate(90deg);
+}</code></pre>
+        <ul>
+            <li><code>translateX/Y</code> — move o elemento sem afetar o layout ao redor</li>
+            <li><code>scale()</code> — aumenta ou diminui o tamanho</li>
+            <li><code>rotate()</code> — gira o elemento</li>
+        </ul>
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Prefira transform e opacity</strong><br>
+            Animar <code>transform</code> e <code>opacity</code> é muito mais performático do que animar <code>width</code>, <code>top</code> ou <code>margin</code>, porque o navegador não precisa recalcular o layout inteiro a cada quadro.
+        </div>
+
+        <h3>- @keyframes: Animações com Múltiplas Etapas</h3>
+        <pre><code>@keyframes pulsar {
+    0%   { transform: scale(1); opacity: 1; }
+    50%  { transform: scale(1.1); opacity: 0.8; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+.notificacao {
+    animation: pulsar 1.5s ease-in-out infinite;
+}</code></pre>
+        <p>Cada porcentagem representa um momento da animação. O navegador interpola suavemente entre eles.</p>
+
+        <h3>- Propriedades de animation</h3>
+        <ul>
+            <li><code>animation-duration</code> — quanto tempo dura um ciclo</li>
+            <li><code>animation-iteration-count</code> — quantas vezes repete (<code>infinite</code> para sempre)</li>
+            <li><code>animation-delay</code> — espera antes de começar</li>
+            <li><code>animation-timing-function</code> — curva de velocidade (<code>ease</code>, <code>linear</code>, <code>ease-in-out</code>)</li>
+        </ul>
+
+        <h3>- Respeitando prefers-reduced-motion</h3>
+        <p>Algumas pessoas sentem desconforto (tontura, enjoo) com animações intensas. É boa prática — e cada vez mais esperado — respeitar essa preferência do sistema operacional:</p>
+        <pre><code>@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+}</code></pre>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Excesso de animação prejudica a usabilidade</strong><br>
+            Anime com intenção: uma transição de 0.2-0.3s em hovers e uma animação de entrada sutil já bastam na maioria dos casos. Movimento constante e chamativo cansa e distrai quem está tentando usar o site.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li><code>transition</code> anima mudanças simples entre dois estados</li>
+            <li><code>transform</code> (translate/scale/rotate) é a forma mais performática de mover elementos</li>
+            <li><code>@keyframes</code> + <code>animation</code> criam sequências com várias etapas</li>
+            <li>Sempre respeite <code>prefers-reduced-motion</code></li>
+        </ul>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<style>
+  button {
+    background: #F77F00;
+    color: white;
+    border: none;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-size: 1rem;
+    cursor: pointer;
+    transform: scale(1);
+    transition: transform .2s ease, background .2s ease;
+  }
+  button:hover { transform: scale(1.08); background: #C96400; }
+</style>
+<button>Passe o mouse aqui</button>">Botão com transição</button>
+                <button class="html-lab-snippet" data-code="<style>
+  @keyframes pulsar {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.15); }
+    100% { transform: scale(1); }
+  }
+  .badge {
+    width: 60px; height: 60px; border-radius: 50%;
+    background: #D62828; color: white; display: flex;
+    align-items: center; justify-content: center; font-size: 1.4rem;
+    animation: pulsar 1.2s ease-in-out infinite;
+  }
+</style>
+<div class=&quot;badge&quot;>3</div>">Notificação pulsando</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<style>
+  @keyframes entrar {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .caixa {
+    background: #0ea5b7;
+    color: white;
+    padding: 24px;
+    border-radius: 10px;
+    animation: entrar 0.6s ease-out;
+  }
+</style>
+
+<div class=&quot;caixa&quot;>Eu apareço suavemente!</div>" spellcheck="false"><style>
+  @keyframes entrar {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .caixa {
+    background: #0ea5b7;
+    color: white;
+    padding: 24px;
+    border-radius: 10px;
+    animation: entrar 0.6s ease-out;
+  }
+</style>
+
+<div class="caixa">Eu apareço suavemente!</div></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('hc_mod10') }}" class="btn-voltar">&larr; Módulo 10</a>
+        <a href="{{ url_for('hc_mod12') }}" class="btn-proximo">Módulo 12: Pseudo-classes e Pseudo-elementos &rarr;</a>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

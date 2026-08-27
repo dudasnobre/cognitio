@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informática Básica - Módulo 3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/infor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+
+    <div class="main-card">
+        
+        <h2>3. Escrita Profissional (Processador de Texto / Word)</h2>
+        <p>O Word (ou Google Docs) serve para transformar seus pensamentos, ideias e necessidades em documentos oficiais padronizados: currículos, cartas de apresentação, contratos ou trabalhos escolares bem estruturados.</p>
+        
+        <div class="conteudo-modulo">
+            <h3>- O Domínio Teclado e suas Teclas de Controle</h3>
+            <p>Escrever no computador vai além de digitar letras. É necessário conhecer as teclas que controlam o comportamento do cursor e atalhos:</p>
+            <ul>
+                <li><strong>Ctrl (Control)</strong>: Tecla de comando especial. Segurar o Ctrl e apertar outra letra ativa um atalho rápido (exemplo: Ctrl + C copia, Ctrl + V cola o texto).</li>
+                <li><strong>Alt (Alternativa)</strong>: Permite acessar alternativamente menus superiores e ferramentas escondidas das janelas.</li>
+                <li><strong>Shift</strong>: Usada para digitar uma única letra maiúscula (segure Shift e aperte a letra) ou ativar os símbolos superiores das teclas (como o ponto de interrogação ou as aspas).</li>
+                <li><strong>Tab</strong>: Dá um espaçamento padrão grande para parágrafos no início de um bloco de texto ou pula para o próximo campo de edição.</li>
+            </ul>
+
+            <h3>- Exercício Prático: Formatando um Documento</h3>
+            <ol>
+                <li><strong>Corrigindo Erros de Digitação:</strong> Caso digite algo errado, não se desespere. Clique com o botão esquerdo do mouse exatamente após a letra incorreta. Use a tecla <b>Backspace</b> (a seta acima do Enter) para apagar para a esquerda e digite a palavra corrigida.</li>
+                <li><strong>Selecionando Textos para Modificar:</strong> O computador só altera aquilo que está selecionado. Para selecionar, clique no início ou final do trecho desejado, segure o botão esquerdo do mouse pressionado e arraste o cursor por cima do texto, cobrindo-o com uma faixa azul.</li>
+                <li><strong>Aplicando Estilo Profissional:</strong> Com o texto selecionado, olhe para a barra de ferramentas superior:
+                    <ul>
+                        <li>Clique no ícone com a letra <strong>N</strong> para destacar em <strong>Negrito</strong> títulos importantes.</li>
+                        <li>Clique no ícone de linhas centralizadas para alinhar títulos perfeitamente no meio da folha.</li> 
+                        <li>Altere o tamanho da fonte (número indicador da letra) subindo de 11 para 14 para criar títulos destacados.</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>- Salvando seu Documento Corretamente</h3>
+            <p>Nunca confie apenas na memória do computador — salve com frequência! Pressione <b>Ctrl + S</b> (de "Save", salvar) a cada poucos minutos de trabalho. Na primeira vez, o programa vai pedir um nome e um local para guardar o arquivo — escolha uma pasta que você lembre facilmente, como "Meus Documentos".</p>
+
+            <div class="tip-box">
+                <strong><i class="fa-solid fa-lightbulb"></i> Atalhos essenciais do Word</strong><br>
+                <b>Ctrl+Z</b> desfaz a última ação (seu "botão de arrependimento"). <b>Ctrl+B</b> aplica negrito. <b>Ctrl+I</b> aplica itálico. <b>Ctrl+P</b> abre a impressão.
+            </div>
+
+            <h3>- Verificador Ortográfico: Seu Revisor Automático</h3>
+            <p>Se uma palavra aparecer sublinhada em <span style="color:#d00000">vermelho ondulado</span>, o Word está avisando que ela pode estar com erro de digitação. Clique com o <b>botão direito</b> sobre a palavra sublinhada para ver sugestões de correção.</p>
+
+            <div class="warn-box">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> O corretor não é infalível</strong><br>
+                O verificador ortográfico não identifica todos os erros — palavras escritas corretamente mas usadas no contexto errado (como "mas" e "mais") não são sempre detectadas. Sempre releia seu texto antes de enviar um documento importante.
+            </div>
+
+            <div class="info-box">
+                <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+                Abra o Word (ou Google Docs) e escreva um pequeno currículo com seu nome em negrito e centralizado como título, seguido de 3 tópicos com suas habilidades. Salve o arquivo com <b>Ctrl+S</b> antes de fechar.
+            </div>
+
+            <h3>- Resumo do Módulo</h3>
+            <ul>
+                <li>Ctrl, Alt, Shift e Tab são teclas de controle que ativam atalhos e comportamentos especiais</li>
+                <li>Selecionar o texto (arrastando o mouse) é o primeiro passo para formatar qualquer coisa</li>
+                <li><b>Ctrl+S</b> salva; <b>Ctrl+Z</b> desfaz — use os dois com frequência</li>
+            </ul>
+        </div>
+
+        
+
+        <hr style="margin-top: 30px;"> 
+        
+        <div class="button-container">
+            <a href="{{ url_for('modulo2') }}" class="btn-voltar">&larr; Voltar para o Módulo 2</a>
+            <a href="{{ url_for('modulo4') }}" class="btn-proximo">Próxima Página (Módulo 4) &rarr;</a>
+        </div>
+        
+    </div>
+
+    <script src="{{ url_for('static', filename='js/infor.js') }}"></script>
+    
+
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span>
+      <span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info">
+            <strong>Cognitio IA</strong>
+            <span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span>
+          </div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" title="Limpar conversa" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" title="Fechar" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" title="Enviar" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

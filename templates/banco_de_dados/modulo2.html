@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Dados - Módulo 2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/banco.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>2. Modelo Relacional — Tabelas, Linhas e Colunas</h2>
+    <p>O modelo relacional organiza os dados em <strong>tabelas</strong>. Cada tabela tem <strong>colunas</strong> (características) e <strong>linhas</strong> (registros). É o modelo mais usado no mundo há mais de 50 anos.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Anatomia de uma Tabela</h3>
+        <p>Imagine uma tabela de clientes: cada <em>coluna</em> é um tipo de dado (nome, cidade, saldo) e cada <em>linha</em> é um cliente real. A interseção de linha e coluna é uma <em>célula</em>.</p>
+        <ul>
+            <li><strong>Tabela</strong> — conjunto de dados sobre um mesmo assunto (ex: clientes)</li>
+            <li><strong>Coluna</strong> — característica dos dados (ex: nome, email, cidade)</li>
+            <li><strong>Linha</strong> — um registro individual (ex: dados de Ana Silva)</li>
+            <li><strong>Chave Primária (PK)</strong> — identifica cada linha de forma única; nunca nula ou duplicada</li>
+        </ul>
+
+        <h3>- Chave Estrangeira: Relacionando Tabelas</h3>
+        <p>Uma <strong>Chave Estrangeira (FK)</strong> é uma coluna que referencia a chave primária de outra tabela. Com ela, a tabela <code>pedidos</code> guarda apenas o <code>cliente_id</code> em vez de repetir todos os dados do cliente.</p>
+
+        <h3>- Tipos de Dados Comuns no SQL</h3>
+        <ul>
+            <li><strong>INTEGER</strong> — números inteiros: 1, 42, -5</li>
+            <li><strong>REAL / DECIMAL</strong> — números decimais: 3.14, 1500.50</li>
+            <li><strong>TEXT / VARCHAR(n)</strong> — texto: "Ana Silva", "São Paulo"</li>
+            <li><strong>DATE / DATETIME</strong> — datas e horários: "2025-01-15"</li>
+        </ul>
+
+        <h3>- Criando sua Primeira Tabela</h3>
+        <pre><code>CREATE TABLE alunos (
+    id      INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome    TEXT    NOT NULL,
+    email   TEXT    UNIQUE,
+    nota    REAL    DEFAULT 0
+);</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> PRAGMA table_info</strong><br>
+            No SQLite, você pode ver a estrutura de qualquer tabela com: <code>PRAGMA table_info(nome_da_tabela);</code>
+        </div>
+
+        <h3>- Restrições (Constraints)</h3>
+        <p>Além do tipo de dado, cada coluna pode ter regras que garantem a integridade da informação:</p>
+        <ul>
+            <li><strong>PRIMARY KEY</strong> — identifica a linha de forma única (não pode repetir nem ser nula)</li>
+            <li><strong>NOT NULL</strong> — a coluna é obrigatória, não pode ficar vazia</li>
+            <li><strong>UNIQUE</strong> — não permite valores repetidos (ex: e-mail)</li>
+            <li><strong>DEFAULT</strong> — valor usado automaticamente quando nada é informado</li>
+            <li><strong>FOREIGN KEY</strong> — garante que o valor exista de fato na tabela referenciada</li>
+        </ul>
+
+        <h3>- Normalização (Por que Separar em Várias Tabelas?)</h3>
+        <p>Um erro comum de iniciante é guardar tudo numa tabela só — por exemplo, repetir o nome e o e-mail do cliente em toda linha de pedido. Isso causa dados duplicados e inconsistentes (e se o cliente mudar de e-mail, você teria que atualizar centenas de linhas). A solução é a <strong>normalização</strong>: separar os dados em tabelas menores e relacioná-las por chave estrangeira.</p>
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Dados duplicados = dados inconsistentes</strong><br>
+            Se o nome de um cliente aparece em 50 linhas de pedidos e você atualiza só uma, agora você tem 49 registros com informação desatualizada. Guardar o dado uma única vez (na tabela <code>clientes</code>) e referenciá-lo por <code>cliente_id</code> evita esse problema.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            No terminal abaixo, use o snippet "Criar tabela" para criar a tabela <code>alunos</code>, depois rode <code>PRAGMA table_info(alunos);</code> para conferir a estrutura criada.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Tabelas guardam dados em linhas (registros) e colunas (características)</li>
+            <li>Chave Primária (PK) identifica cada linha; Chave Estrangeira (FK) relaciona tabelas</li>
+            <li>Constraints (<code>NOT NULL</code>, <code>UNIQUE</code>, <code>DEFAULT</code>) garantem integridade dos dados</li>
+            <li>Normalização evita duplicação de dados espalhando-os em tabelas relacionadas</li>
+        </ul>
+    </div>
+
+    
+
+    <div class="sql-vm-section">
+        <div class="sql-vm-header">
+            <div class="vm-title"><i class="fa-solid fa-terminal"></i> Terminal SQL — Explore a estrutura das tabelas</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="sql-snippet-btns">
+            <span class="sql-snippet-label">Snippets:</span>
+            <button class="sql-snippet" data-sql="PRAGMA table_info(clientes);">Estrutura: clientes</button>
+            <button class="sql-snippet" data-sql="PRAGMA table_info(produtos);">Estrutura: produtos</button>
+            <button class="sql-snippet" data-sql="PRAGMA table_info(pedidos);">Estrutura: pedidos</button>
+            <button class="sql-snippet" data-sql="CREATE TABLE alunos (&#10;    id    INTEGER PRIMARY KEY AUTOINCREMENT,&#10;    nome  TEXT NOT NULL,&#10;    nota  REAL DEFAULT 0&#10;);">Criar tabela</button>
+        </div>
+        <textarea id="sql-editor" placeholder="-- Ctrl+Enter para executar&#10;PRAGMA table_info(clientes);"></textarea>
+        <div class="sql-vm-toolbar">
+            <button class="sql-run-btn" id="sql-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="sql-reset-btn" id="sql-reset"><i class="fa-solid fa-rotate"></i> Resetar BD</button>
+            <button class="sql-hint-btn" id="sql-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="sql-result-wrap"><div id="sql-result"><p style="color:var(--muted);font-size:.84rem">Execute uma query para ver o resultado.</p></div></div>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('banco') }}" class="btn-voltar">&larr; Módulo 1</a>
+        <a href="{{ url_for('bd_mod3') }}" class="btn-proximo">Módulo 3: SELECT &rarr;</a>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/banco.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

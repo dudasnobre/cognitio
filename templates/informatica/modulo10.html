@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informática Básica - Módulo 10</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/infor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>10. Preparando-se para o Mercado de Trabalho Digital</h2>
+    <p>Você chegou ao último módulo do curso de Informática Básica! Vamos fechar aplicando tudo isso a algo muito prático: se apresentar profissionalmente no mundo digital.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Currículo Digital</h3>
+        <ul>
+            <li>Formato limpo, no máximo 1-2 páginas, exportado como PDF (use o que você aprendeu no Word!)</li>
+            <li>Destaque resultados concretos, não só responsabilidades ("organizei X" em vez de "responsável por X")</li>
+            <li>Revise a ortografia com cuidado — pequenos erros passam uma impressão de descuido</li>
+        </ul>
+
+        <h3>- LinkedIn: Seu Currículo Vivo</h3>
+        <ul>
+            <li>Foto de perfil profissional, com boa iluminação e fundo neutro</li>
+            <li>Um resumo curto contando sua trajetória e o que você busca</li>
+            <li>Mantenha o perfil atualizado — cursos concluídos (como este!), experiências, certificados</li>
+        </ul>
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Conecte-se com intenção</strong><br>
+            Não adicione qualquer pessoa. Priorize conexões com colegas de curso, profissionais da área que você quer seguir e pessoas de empresas onde você tem interesse — e sempre inclua uma mensagem pessoal ao convidar.
+        </div>
+
+        <h3>- E-mail Profissional em Processos Seletivos</h3>
+        <pre>Assunto: Candidatura - Vaga de [Nome da Vaga]
+
+Olá, [Nome do Recrutador],
+
+Meu nome é [Seu Nome] e tenho interesse na vaga de [Nome da Vaga]
+divulgada em [onde você viu a vaga]. Anexei meu currículo e fico
+à disposição para uma conversa.
+
+Atenciosamente,
+[Seu Nome]
+[Telefone de contato]</pre>
+
+        <h3>- Ferramentas Essenciais para o Trabalho Remoto/Híbrido</h3>
+        <ul>
+            <li>Videochamadas: Google Meet, Zoom, Microsoft Teams</li>
+            <li>Comunicação em equipe: Slack, WhatsApp Business</li>
+            <li>Organização de tarefas: Trello, Google Tarefas, Notion</li>
+        </ul>
+
+        <h3>- Aprendizado Contínuo</h3>
+        <p>O mercado digital muda rápido. Manter o hábito de aprender — seja em cursos como este, vídeos, ou documentação oficial — é uma das habilidades mais valiosas que você pode desenvolver, independente da área escolhida.</p>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Tarefa final</strong><br>
+            Atualize (ou crie) seu perfil no LinkedIn hoje, incluindo os cursos que você concluiu na Cognitio até agora.
+        </div>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Parabéns por concluir o curso de Informática Básica!</strong><br>
+            Você agora domina desde o hardware até segurança digital e preparação profissional. Esse é o alicerce perfeito para seguir para trilhas mais avançadas, como HTML e CSS ou Educação Financeira.
+        </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('modulo9') }}" class="btn-voltar">&larr; Módulo 9</a>
+        <a href="{{ url_for('trilhas') }}" class="btn-proximo" data-cognitio-complete-course="informatica">Concluir Trilha! 🏆</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/infor.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Dados - Módulo 4</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/banco.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+    <div class="main-card">
+        <h2>4. WHERE e ORDER BY — Filtrando e Ordenando</h2>
+                <p>O <strong>WHERE</strong> filtra registros: <em>"Só me mostre os clientes de São Paulo"</em>. O <strong>ORDER BY</strong> organiza os resultados em ordem crescente ou decrescente.</p>
+        <div class="conteudo-modulo">
+            <h3>- WHERE: Filtrando Registros</h3>
+            <pre><code>SELECT * FROM clientes
+WHERE cidade = 'São Paulo';</code></pre>
+
+            <h3>- Operadores de Comparação</h3>
+            <ul>
+                <li><code>=</code> igual &nbsp;·&nbsp; <code>!=</code> diferente &nbsp;·&nbsp; <code>&lt;</code> / <code>&gt;</code> menor/maior</li>
+                <li><code>BETWEEN x AND y</code> — entre dois valores</li>
+                <li><code>IN (a, b, c)</code> — dentro de uma lista</li>
+                <li><code>LIKE 'A%'</code> — começa com A (% = qualquer coisa)</li>
+                <li><code>IS NULL</code> / <code>IS NOT NULL</code> — verifica valor nulo</li>
+            </ul>
+
+            <h3>- Combinando Condições</h3>
+            <pre><code>-- AND: ambas as condições verdadeiras
+SELECT nome, saldo FROM clientes
+WHERE saldo > 1000 AND cidade != 'Salvador';
+
+-- IN: clientes dessas cidades
+SELECT * FROM clientes
+WHERE cidade IN ('São Paulo', 'Curitiba');</code></pre>
+
+            <h3>- ORDER BY: Ordenando</h3>
+            <pre><code>-- Decrescente: mais rico primeiro
+SELECT * FROM clientes ORDER BY saldo DESC;
+
+-- Crescente (padrão = ASC)
+SELECT * FROM clientes ORDER BY nome ASC;</code></pre>
+
+            <h3>- LIMIT: Limitando Resultados</h3>
+            <pre><code>-- Top 3 clientes mais ricos
+SELECT nome, saldo FROM clientes
+ORDER BY saldo DESC
+LIMIT 3;</code></pre>
+
+            <div class="tip-box">
+                <strong><i class="fa-solid fa-lightbulb"></i> Ordem de execução SQL:</strong><br>
+                FROM → WHERE → SELECT → ORDER BY → LIMIT. O banco filtra <em>antes</em> de selecionar as colunas.
+            </div>
+
+            <h3>- ORDER BY com Múltiplas Colunas</h3>
+            <p>Você pode ordenar por mais de uma coluna — o segundo critério só é usado para desempatar o primeiro:</p>
+            <pre><code>-- Ordena por cidade; dentro de cada cidade, do maior saldo pro menor
+SELECT nome, cidade, saldo FROM clientes
+ORDER BY cidade ASC, saldo DESC;</code></pre>
+
+            <div class="warn-box">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> LIKE é case-sensitive em alguns bancos</strong><br>
+                Em SQLite, <code>LIKE 'a%'</code> normalmente ignora maiúsculas/minúsculas para texto ASCII, mas isso <strong>varia entre bancos</strong> — em PostgreSQL, por exemplo, <code>LIKE</code> é sensível a maiúsculas e você usaria <code>ILIKE</code> para ignorar. Sempre teste no banco que for usar de verdade.
+            </div>
+
+            <div class="info-box">
+                <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+                No terminal abaixo, escreva uma consulta que mostre os produtos com preço entre 50 e 300, ordenados do mais barato para o mais caro, mostrando só os 5 primeiros.
+            </div>
+
+            <h3>- Resumo do Módulo</h3>
+            <ul>
+                <li><code>WHERE</code> filtra linhas com base em uma condição</li>
+                <li><code>AND</code>/<code>OR</code>/<code>IN</code>/<code>BETWEEN</code>/<code>LIKE</code> combinam e refinam filtros</li>
+                <li><code>ORDER BY coluna ASC|DESC</code> ordena o resultado</li>
+                <li><code>LIMIT n</code> restringe o número de linhas retornadas</li>
+            </ul>
+        </div>
+    <div class="sql-vm-section">
+        <div class="sql-vm-header">
+            <div class="vm-title"><i class="fa-solid fa-terminal"></i> Terminal SQL</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="sql-snippet-btns">
+            <span class="sql-snippet-label">Snippets:</span>
+            <button class="sql-snippet" data-sql="SELECT * FROM clientes WHERE saldo > 1000;">Saldo > 1000</button>
+            <button class="sql-snippet" data-sql="SELECT * FROM clientes WHERE nome LIKE 'A%';">Nome com A</button>
+            <button class="sql-snippet" data-sql="SELECT * FROM clientes WHERE cidade IN ('São Paulo','Curitiba');">SP ou Curitiba</button>
+            <button class="sql-snippet" data-sql="SELECT nome, saldo FROM clientes ORDER BY saldo DESC LIMIT 3;">Top 3 saldos</button>
+            <button class="sql-snippet" data-sql="SELECT * FROM produtos WHERE preco BETWEEN 100 AND 500;">Preço 100-500</button>
+        </div>
+        <textarea id="sql-editor" placeholder="-- Ctrl+Enter para executar&#10;SELECT nome, saldo FROM clientes WHERE saldo > 1000 ORDER BY saldo DESC;"></textarea>
+        <div class="sql-vm-toolbar">
+            <button class="sql-run-btn" id="sql-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="sql-reset-btn" id="sql-reset"><i class="fa-solid fa-rotate"></i> Resetar BD</button>
+            <button class="sql-hint-btn" id="sql-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="sql-result-wrap"><div id="sql-result"><p style="color:var(--muted);font-size:.84rem">Execute uma query para ver o resultado.</p></div></div>
+    </div>
+    
+        <hr style="margin-top:30px;">
+        <div class="button-container">
+            <a href="{{ url_for('bd_mod3') }}" class="btn-voltar">&larr; Módulo 3</a>
+            <a href="{{ url_for('bd_mod5') }}" class="btn-proximo">Módulo 5: JOIN &rarr;</a>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/banco.js') }}"></script>
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

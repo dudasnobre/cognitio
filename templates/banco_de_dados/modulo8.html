@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Dados - Módulo 8</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/banco.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>8. Subconsultas (Subqueries)</h2>
+    <p>Uma subconsulta é uma consulta <code>SELECT</code> dentro de outra consulta. Ela permite responder perguntas em duas etapas: primeiro calcule algo, depois use esse resultado para filtrar ou comparar.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Subconsulta no WHERE</h3>
+        <pre><code>-- Clientes com saldo acima da média
+SELECT nome, saldo
+FROM clientes
+WHERE saldo > (SELECT AVG(saldo) FROM clientes);</code></pre>
+        <p>O banco primeiro calcula a subconsulta <code>(SELECT AVG(saldo) FROM clientes)</code>, obtém um único valor, e então usa esse valor para filtrar a consulta externa.</p>
+
+        <h3>- Subconsulta com IN</h3>
+        <pre><code>-- Produtos que já foram pedidos ao menos uma vez
+SELECT nome, preco
+FROM produtos
+WHERE id IN (SELECT DISTINCT produto_id FROM pedidos);</code></pre>
+
+        <h3>- Subconsulta Correlacionada</h3>
+        <pre><code>-- Clientes cujo saldo é maior que a média de saldo da PRÓPRIA cidade
+SELECT c1.nome, c1.cidade, c1.saldo
+FROM clientes c1
+WHERE c1.saldo > (
+    SELECT AVG(c2.saldo) FROM clientes c2 WHERE c2.cidade = c1.cidade
+);</code></pre>
+        <p>Diferente da subconsulta comum, a subconsulta correlacionada faz referência a uma coluna da consulta externa (<code>c1.cidade</code>) — por isso ela é recalculada para cada linha.</p>
+
+        <h3>- Subconsulta no FROM</h3>
+        <pre><code>-- Total gasto por cliente, filtrando depois quem gastou mais de 500
+SELECT * FROM (
+    SELECT c.nome, SUM(pe.quantidade * p.preco) AS total_gasto
+    FROM clientes c
+    JOIN pedidos pe ON c.id = pe.cliente_id
+    JOIN produtos p ON p.id = pe.produto_id
+    GROUP BY c.id
+) AS resumo
+WHERE total_gasto > 500;</code></pre>
+        <p>Uma subconsulta no <code>FROM</code> é tratada como se fosse uma tabela temporária, permitindo filtrar (<code>WHERE</code>) sobre um resultado já agregado — algo que <code>HAVING</code> sozinho nem sempre resolve com a mesma clareza.</p>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> EXISTS costuma ser mais eficiente que IN</strong><br>
+            Para checar apenas "existe pelo menos uma linha correspondente", <code>WHERE EXISTS (SELECT 1 FROM pedidos WHERE cliente_id = c.id)</code> costuma ser mais rápido que um <code>IN</code> com uma subconsulta grande, porque o banco pode parar assim que encontra a primeira ocorrência.
+        </div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Subconsulta deve retornar o formato certo</strong><br>
+            Uma subconsulta usada com <code>=</code> ou em uma comparação simples deve retornar exatamente uma linha e uma coluna. Se ela puder retornar várias linhas, use <code>IN</code> em vez de <code>=</code>.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Subconsultas permitem usar o resultado de um <code>SELECT</code> dentro de outro</li>
+            <li><code>IN</code> compara com uma lista de valores retornada pela subconsulta</li>
+            <li>Subconsultas correlacionadas fazem referência à consulta externa e recalculam por linha</li>
+            <li>Subconsulta no <code>FROM</code> funciona como uma tabela temporária</li>
+        </ul>
+
+    <div class="sql-vm-section">
+        <div class="sql-vm-header">
+            <div class="vm-title"><i class="fa-solid fa-database"></i> Máquina Virtual SQL</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="sql-snippet-btns">
+            <span class="sql-snippet-label">Snippets:</span>
+            <button class="sql-snippet" data-sql="SELECT nome, saldo FROM clientes WHERE saldo > (SELECT AVG(saldo) FROM clientes);">Acima da média</button>
+            <button class="sql-snippet" data-sql="SELECT nome, preco FROM produtos WHERE id IN (SELECT DISTINCT produto_id FROM pedidos);">Produtos já pedidos</button>
+            <button class="sql-snippet" data-sql="SELECT * FROM (SELECT c.nome, SUM(pe.quantidade * p.preco) AS total_gasto FROM clientes c JOIN pedidos pe ON c.id = pe.cliente_id JOIN produtos p ON p.id = pe.produto_id GROUP BY c.id) AS resumo WHERE total_gasto > 500;">Gasto por cliente > 500</button>
+        </div>
+        <textarea id="sql-editor" placeholder="-- Ctrl+Enter para executar">SELECT nome, saldo\nFROM clientes\nWHERE saldo > (SELECT AVG(saldo) FROM clientes);</textarea>
+        <div class="sql-vm-toolbar">
+            <button class="sql-run-btn" id="sql-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="sql-reset-btn" id="sql-reset"><i class="fa-solid fa-rotate"></i> Resetar BD</button>
+            <button class="sql-hint-btn" id="sql-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="sql-result-wrap"><div id="sql-result"><p style="color:var(--muted);font-size:.84rem">Execute uma query para ver o resultado.</p></div></div>
+    </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('bd_mod7') }}" class="btn-voltar">&larr; Módulo 7</a>
+        <a href="{{ url_for('bd_mod9') }}" class="btn-proximo">Módulo 9: Chaves e Índices &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/banco.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

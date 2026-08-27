@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python do Zero - Módulo 6</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/python.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>6. Funções</h2>
+    <p>Funções agrupam um bloco de código que pode ser reutilizado quantas vezes forem necessárias, evitando repetição e organizando melhor o programa.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Criando uma função</h3>
+        <pre><code>def saudacao(nome):
+    print(f"Olá, {nome}! Seja bem-vindo(a).")
+
+saudacao("Marcos")
+saudacao("Julia")</code></pre>
+        <div class="py-output">&gt;&gt;&gt; Olá, Marcos! Seja bem-vindo(a).
+&gt;&gt;&gt; Olá, Julia! Seja bem-vindo(a).</div>
+
+        <h3>- Retornando valores com return</h3>
+        <pre><code>def somar(a, b):
+    return a + b
+
+resultado = somar(5, 3)
+print(resultado)</code></pre>
+        <div class="py-output">&gt;&gt;&gt; 8</div>
+        <p><code>return</code> devolve um valor e encerra a função imediatamente — diferente de <code>print()</code>, que só exibe algo na tela sem devolver nada para ser usado depois.</p>
+
+        <h3>- Parâmetros com valor padrão</h3>
+        <pre><code>def saudacao(nome, saudacao_texto="Olá"):
+    print(f"{saudacao_texto}, {nome}!")
+
+saudacao("Ana")                 # usa o padrão "Olá"
+saudacao("Ana", "Bom dia")      # sobrescreve o padrão</code></pre>
+
+        <h3>- Argumentos nomeados (keyword arguments)</h3>
+        <pre><code>def criar_perfil(nome, idade, cidade):
+    print(f"{nome}, {idade} anos, mora em {cidade}")
+
+criar_perfil(nome="Bia", cidade="Recife", idade=22)</code></pre>
+        <p>Com argumentos nomeados, a ordem deixa de importar — o Python casa cada valor pelo nome.</p>
+
+        <h3>- Escopo de variáveis</h3>
+        <pre><code>x = 10   # variável global
+
+def teste():
+    x = 5   # variável local, só existe dentro da função
+    print(x)
+
+teste()
+print(x)</code></pre>
+        <div class="py-output">&gt;&gt;&gt; 5
+&gt;&gt;&gt; 10</div>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Boas práticas</strong><br>
+            Dê às suas funções nomes que descrevam <strong>o que elas fazem</strong> (verbos): <code>calcular_media()</code>, <code>enviar_email()</code>. Isso torna o código autoexplicativo.
+        </div>
+
+        <h3>- *args e **kwargs (número variável de argumentos)</h3>
+        <p>Às vezes você não sabe de antemão quantos valores serão passados para a função. <code>*args</code> recebe qualquer quantidade de argumentos posicionais como uma tupla, e <code>**kwargs</code> recebe argumentos nomeados como um dicionário:</p>
+        <pre><code>def somar_tudo(*numeros):
+    return sum(numeros)
+
+print(somar_tudo(1, 2, 3))       # 6
+print(somar_tudo(10, 20, 30, 40)) # 100
+
+def exibir_perfil(**dados):
+    for chave, valor in dados.items():
+        print(f"{chave}: {valor}")
+
+exibir_perfil(nome="Léo", idade=19, cidade="Recife")</code></pre>
+
+        <h3>- Funções Lambda</h3>
+        <p>Funções pequenas e anônimas, escritas em uma linha — úteis quando você precisa de uma função rápida e descartável, geralmente como argumento de outra função:</p>
+        <pre><code>dobro = lambda x: x * 2
+print(dobro(5))    # 10
+
+# Muito comum junto de sorted() para definir o critério de ordenação
+alunos = [("Bia", 22), ("Léo", 19), ("Ana", 26)]
+alunos_por_idade = sorted(alunos, key=lambda a: a[1])
+print(alunos_por_idade)</code></pre>
+        <div class="info-box">
+            <strong><i class="fa-solid fa-circle-info"></i> lambda vs def</strong><br>
+            <code>lambda</code> só pode conter uma expressão (sem <code>if</code> com blocos, sem múltiplas linhas). Para qualquer coisa mais elaborada, uma função normal com <code>def</code> é mais legível.
+        </div>
+
+        <h3>- Documentando Funções com Docstrings</h3>
+        <p>Uma docstring é um texto entre <code>"""</code> logo abaixo do <code>def</code>, explicando o que a função faz — boas ferramentas e editores mostram esse texto automaticamente:</p>
+        <pre><code>def calcular_media(notas):
+    """Recebe uma lista de notas e retorna a média aritmética."""
+    return sum(notas) / len(notas)</code></pre>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Função sem return devolve None</strong><br>
+            Se você esquecer o <code>return</code>, a função ainda "funciona", mas o valor devolvido será <code>None</code> — um erro silencioso muito comum entre iniciantes.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            Escreva uma função <code>eh_par(numero)</code> que retorna <code>True</code> ou <code>False</code>. Depois, use-a dentro de uma list comprehension para filtrar só os números pares de uma lista de 1 a 20.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Funções são criadas com <code>def</code> e podem receber parâmetros e devolver valores com <code>return</code></li>
+            <li>Parâmetros podem ter valor padrão e podem ser passados por nome (keyword arguments)</li>
+            <li><code>*args</code> e <code>**kwargs</code> lidam com número variável de argumentos</li>
+            <li><code>lambda</code> cria funções curtas e anônimas para uso pontual</li>
+        </ul>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('py_mod5') }}" class="btn-voltar">&larr; Módulo 5</a>
+        <a href="{{ url_for('py_mod7') }}" class="btn-proximo">Módulo 7: Arquivos e Próximos Passos &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/python.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

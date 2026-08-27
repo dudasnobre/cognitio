@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Módulo 2: Planejamento e Orçamento — Cognitio</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/financas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+
+    <div class="main-card">
+        <h2>2. Planejamento e Orçamento</h2>
+        <p>Aprenda a estruturar suas finanças criando um orçamento realista e sustentável para alcançar seus objetivos de curto, médio e longo prazo.</p>
+
+        <h3>O que é um Orçamento Financeiro?</h3>
+        <p>O orçamento é a bússola da sua vida financeira. Trata-se de um planejamento estratégico onde você mapeia todas as suas fontes de renda e define, antecipadamente, como cada centavo será distribuído ao longo do mês. Sem um orçamento, você perde o controle de para onde o seu dinheiro está indo.</p>
+
+        <div class="info-box">
+            <strong>Regra de Ouro:</strong> O segredo de um orçamento bem-sucedido não é cortar todos os gastos, mas sim gastar com intenção e priorizar o que realmente importa para o seu futuro.
+        </div>
+
+        <h3>A Regra dos 50/30/20</h3>
+        <p>Uma das metodologias mais eficazes e simples para organizar o seu orçamento mensal é a divisão percentual dos seus rendimentos líquidos:</p>
+        
+        <ul>
+            <li><strong>50% para Necessidades:</strong> Gastos essenciais para viver e manter sua rotina (aluguel, mercado, contas de água, luz, internet, saúde e transporte).</li>
+            <li><strong>30% para Desejos Pessoais:</strong> Gastos flexíveis e estilo de vida (restaurantes, assinaturas de streaming, lazer, hobbies, compras e viagens).</li>
+            <li><strong>20% para Destino Financeiro:</strong> Reservado exclusivamente para a construção do seu futuro (pagamento de dívidas estruturais, montagem da reserva de emergência e investimentos).</li>
+        </ul>
+
+        <h3>Passo a Passo para Montar seu Planejamento</h3>
+        <ol>
+            <li><strong>Registre sua Renda Líquida:</strong> Considere o valor real que cai na sua conta após os descontos de impostos.</li>
+            <li><strong>Mapeie e Categorize os Gastos:</strong> Separe o que é fixo/essencial do que é variável/supérfluo.</li>
+            <li><strong>Defina Tetos de Gastos:</strong> Estabeleça um limite máximo mensal para categorias fáceis de descontrolar, como delivery e compras por impulso.</li>
+            <li><strong>Acompanhe Semanalmente:</strong> Não espere o mês acabar para ver o saldo; revise seu aplicativo ou planilha ao menos uma vez por semana.</li>
+        </ol>
+
+        <div class="tip-box">
+            <strong>Dica Prática:</strong> Utilize ferramentas que se adaptem ao seu estilo. Se você é digital, use aplicativos de controle financeiro ou planilhas no Google Sheets. Se prefere o método tradicional, um caderno bem organizado funciona perfeitamente.
+        </div>
+
+        <h3>Erros Comuns no Orçamento</h3>
+        <p>Evite cair nessas armadilhas tradicionais que sabotam o planejamento de início de mês:</p>
+        
+        <ul>
+            <li><strong>Subestimar pequenos gastos:</strong> Aquele café diário ou pequenas assinaturas esquecidas pesam muito no acumulado do mês.</li>
+            <li><strong>Não contar com imprevistos:</strong> Todo orçamento precisa de uma pequena margem de manobra para gastos inesperados (como remédios ou pequenos consertos).</li>
+            <li><strong>Ser rígido demais:</strong> Um orçamento que elimina 100% do lazer é insustentável a longo prazo e costuma ser abandonado em poucos meses.</li>
+        </ul>
+
+        <h3>Renda Fixa vs. Renda Variável no Orçamento</h3>
+        <p>Se sua renda muda de mês para mês (freelancer, comissionado, autônomo), use a <strong>média dos últimos 6 meses</strong> como base do seu orçamento, e não o valor do seu melhor mês. Isso evita que você se comprometa com gastos fixos que não consegue sustentar num mês mais fraco.</p>
+
+        <div class="warn-box">
+            <strong>⚠️ Orçamento não é prisão, é liberdade</strong><br>
+            Muita gente desiste do orçamento porque o encara como uma punição. Na prática, é o oposto: saber exatamente quanto você pode gastar em lazer, sem culpa, é o que te dá tranquilidade para aproveitar o dinheiro que sobra.
+        </div>
+
+        <div class="info-box">
+            <strong>✏️ Exercício rápido</strong><br>
+            Pegue sua renda líquida mensal e aplique a regra dos 50/30/20 agora: calcule quanto seria 50%, 30% e 20% desse valor. Compare com o que você realmente gasta em cada categoria hoje.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Orçamento é mapear renda e planejar os gastos antes de gastar, não depois</li>
+            <li>A regra 50/30/20 divide a renda entre necessidades, desejos e futuro</li>
+            <li>Revise seu orçamento semanalmente — não espere o mês acabar</li>
+            <li>Um orçamento sustentável sempre reserva espaço para imprevistos e um pouco de lazer</li>
+        </ul>
+
+        <div class="button-container">
+            <a href="{{ url_for('financas') }}" class="btn-voltar">
+                <i class="fa-solid fa-arrow-left"></i> Módulo Anterior
+            </a>
+            <a href="{{ url_for('financas_modulo3') }}" class="btn-proximo">
+                Próximo Módulo <i class="fa-solid fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/financas.js') }}"></script>
+
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span>
+      <span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info">
+            <strong>Cognitio IA</strong>
+            <span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span>
+          </div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" title="Limpar conversa" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" title="Fechar" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" title="Enviar" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

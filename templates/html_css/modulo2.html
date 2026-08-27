@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>2. Texto, Listas, Links e Imagens</h2>
+    <p>Agora que você conhece a estrutura básica, vamos ver as tags mais usadas no dia a dia: formatação de texto, listas, links e imagens.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Formatação de Texto</h3>
+        <pre><code>&lt;strong&gt;Texto em negrito&lt;/strong&gt;
+&lt;em&gt;Texto em itálico&lt;/em&gt;
+&lt;span&gt;Um trecho qualquer de texto&lt;/span&gt;
+&lt;br&gt; &lt;!-- quebra de linha --&gt;</code></pre>
+
+        <h3>- Listas</h3>
+        <p>Lista não-ordenada (com marcadores):</p>
+        <pre><code>&lt;ul&gt;
+    &lt;li&gt;Café&lt;/li&gt;
+    &lt;li&gt;Leite&lt;/li&gt;
+    &lt;li&gt;Açúcar&lt;/li&gt;
+&lt;/ul&gt;</code></pre>
+        <p>Lista ordenada (numerada):</p>
+        <pre><code>&lt;ol&gt;
+    &lt;li&gt;Ferver a água&lt;/li&gt;
+    &lt;li&gt;Adicionar o café&lt;/li&gt;
+    &lt;li&gt;Servir&lt;/li&gt;
+&lt;/ol&gt;</code></pre>
+
+        <h3>- Links</h3>
+        <pre><code>&lt;a href="https://exemplo.com"&gt;Visite o site&lt;/a&gt;
+&lt;a href="https://exemplo.com" target="_blank"&gt;Abre em nova aba&lt;/a&gt;
+&lt;a href="#secao2"&gt;Ir para a Seção 2&lt;/a&gt; &lt;!-- link interno --&gt;</code></pre>
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Dica</strong><br>
+            <code>target="_blank"</code> abre o link em uma nova aba. É uma boa prática usar também <code>rel="noopener"</code> junto, por segurança.
+        </div>
+
+        <h3>- Imagens</h3>
+        <pre><code>&lt;img src="foto.jpg" alt="Descrição da imagem" width="300"&gt;</code></pre>
+        <ul>
+            <li><code>src</code> — caminho ou URL da imagem</li>
+            <li><code>alt</code> — texto alternativo (essencial para acessibilidade e SEO)</li>
+            <li><code>width</code>/<code>height</code> — dimensões em pixels</li>
+        </ul>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Nunca deixe o alt vazio</strong><br>
+            O atributo <code>alt</code> é lido em voz alta por leitores de tela para pessoas com deficiência visual, e aparece no lugar da imagem se o arquivo não carregar. Escreva algo descritivo, como <code>alt="Gráfico de vendas crescendo em 2025"</code>, nunca <code>alt="imagem1"</code>.
+        </div>
+
+        <h3>- Listas de Definição (menos comum, mas útil)</h3>
+        <pre><code>&lt;dl&gt;
+    &lt;dt&gt;HTML&lt;/dt&gt;
+    &lt;dd&gt;Linguagem de marcação da web&lt;/dd&gt;
+    &lt;dt&gt;CSS&lt;/dt&gt;
+    &lt;dd&gt;Linguagem de estilização visual&lt;/dd&gt;
+&lt;/dl&gt;</code></pre>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            No laboratório abaixo, crie uma lista não-ordenada com 3 dos seus filmes favoritos, e um link (com <code>target="_blank"</code>) para uma página qualquer.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li><code>&lt;strong&gt;</code> e <code>&lt;em&gt;</code> dão ênfase ao texto (negrito e itálico)</li>
+            <li><code>&lt;ul&gt;</code>/<code>&lt;ol&gt;</code> com <code>&lt;li&gt;</code> criam listas não-ordenadas e ordenadas</li>
+            <li><code>&lt;a href="..."&gt;</code> cria links; <code>target="_blank"</code> abre em nova aba</li>
+            <li><code>&lt;img src="..." alt="..."&gt;</code> exibe imagens — o <code>alt</code> nunca deve ficar vazio</li>
+        </ul>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<h2>Passo a passo</h2>
+<ol>
+  <li>Primeiro passo</li>
+  <li>Segundo passo</li>
+  <li>Terceiro passo</li>
+</ol>">Lista ordenada</button>
+                <button class="html-lab-snippet" data-code="<a href=&quot;#&quot; target=&quot;_blank&quot;>Link em nova aba</a>
+<br><br>
+<img src=&quot;https://placehold.co/200x120&quot; alt=&quot;Imagem de exemplo&quot;>">Link + imagem</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<h2>Minhas Bandas Favoritas</h2>
+<ul>
+  <li>Banda A</li>
+  <li>Banda B</li>
+</ul>
+<a href=&quot;https://exemplo.com&quot;>Saiba mais</a>" spellcheck="false"><h2>Minhas Bandas Favoritas</h2>
+<ul>
+  <li>Banda A</li>
+  <li>Banda B</li>
+</ul>
+<a href="https://exemplo.com">Saiba mais</a></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('htmlcss_curso') }}" class="btn-voltar">&larr; Módulo 1</a>
+        <a href="{{ url_for('hc_mod3') }}" class="btn-proximo">Módulo 3: Formulários e Tabelas &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

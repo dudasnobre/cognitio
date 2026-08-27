@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python do Zero - Módulo 7</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/python.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>7. Arquivos, Módulos e Próximos Passos</h2>
+    <p>Para fechar o curso, vamos aprender a ler e gravar arquivos, importar módulos prontos da biblioteca padrão e conhecer o caminho a seguir depois do básico.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Escrevendo em um arquivo</h3>
+        <pre><code>with open("dados.txt", "w") as arquivo:
+    arquivo.write("Primeira linha\n")
+    arquivo.write("Segunda linha\n")</code></pre>
+        <p><code>with open(...) as arquivo:</code> garante que o arquivo será fechado automaticamente, mesmo se ocorrer um erro no meio do caminho — é a forma recomendada de trabalhar com arquivos em Python.</p>
+        <ul>
+            <li><code>"w"</code> — escreve (apaga o conteúdo anterior, se existir)</li>
+            <li><code>"a"</code> — adiciona ao final do arquivo, sem apagar</li>
+            <li><code>"r"</code> — apenas leitura</li>
+        </ul>
+
+        <h3>- Lendo um arquivo</h3>
+        <pre><code>with open("dados.txt", "r") as arquivo:
+    conteudo = arquivo.read()
+    print(conteudo)
+
+# Ou linha por linha:
+with open("dados.txt", "r") as arquivo:
+    for linha in arquivo:
+        print(linha.strip())</code></pre>
+
+        <h3>- Importando módulos</h3>
+        <p>Python vem com uma biblioteca padrão enorme, pronta para usar com <code>import</code>:</p>
+        <pre><code>import random
+import datetime
+
+print(random.randint(1, 10))     # número aleatório entre 1 e 10
+print(datetime.date.today())     # data de hoje</code></pre>
+
+        <h3>- Organizando seu próprio código em módulos</h3>
+        <p>Qualquer arquivo <code>.py</code> pode ser importado por outro. Se você tem um arquivo <code>utils.py</code> com uma função <code>somar()</code>:</p>
+        <pre><code>from utils import somar
+print(somar(2, 3))</code></pre>
+
+        <h3>- Tratamento de Exceções (try / except)</h3>
+        <p>Em vez de deixar o programa travar quando algo dá errado — como o usuário digitar texto onde se esperava um número — você pode <strong>capturar o erro</strong> e decidir o que fazer:</p>
+        <pre><code>try:
+    idade = int(input("Digite sua idade: "))
+    print(f"Você tem {idade} anos.")
+except ValueError:
+    print("Isso não parece um número válido!")
+finally:
+    print("Obrigado por usar o programa.")</code></pre>
+        <p>Você pode capturar tipos específicos de erro (<code>ValueError</code>, <code>ZeroDivisionError</code>, <code>KeyError</code>...) ou usar <code>except Exception</code> para pegar qualquer erro:</p>
+        <pre><code>try:
+    resultado = 10 / 0
+except ZeroDivisionError:
+    print("Não é possível dividir por zero!")
+except Exception as erro:
+    print(f"Algo deu errado: {erro}")</code></pre>
+        <div class="info-box">
+            <strong><i class="fa-solid fa-circle-info"></i> Por que isso importa</strong><br>
+            Programas reais lidam com entradas imprevisíveis o tempo todo — arquivos que não existem, conexões de internet que caem, usuários que digitam qualquer coisa. <code>try/except</code> é o que separa um script frágil de um programa confiável.
+        </div>
+
+        <h3>- Ambientes Virtuais (venv)</h3>
+        <p>Quando seus projetos começam a usar bibliotecas de terceiros (como o <code>Flask</code> ou o <code>Groq</code> usados nesta plataforma), é boa prática isolar as dependências de cada projeto num <strong>ambiente virtual</strong>, evitando conflitos entre versões:</p>
+        <pre><code>python3 -m venv .venv          # cria o ambiente
+source .venv/bin/activate      # ativa (Linux/macOS)
+pip install flask               # instala pacotes só dentro do ambiente
+deactivate                      # sai do ambiente virtual</code></pre>
+
+        <h3>- Um gostinho de Orientação a Objetos</h3>
+        <pre><code>class Pessoa:
+    def __init__(self, nome, idade):
+        self.nome = nome
+        self.idade = idade
+
+    def apresentar(self):
+        print(f"Oi, eu sou {self.nome} e tenho {self.idade} anos.")
+
+p1 = Pessoa("Laura", 28)
+p1.apresentar()</code></pre>
+        <div class="py-output">&gt;&gt;&gt; Oi, eu sou Laura e tenho 28 anos.</div>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Para onde ir a partir daqui?</strong><br>
+            Com o básico consolidado, os próximos passos naturais são: <strong>Programação Orientada a Objetos</strong> a fundo, o framework <strong>Flask</strong> (que, aliás, é o que roda esta própria plataforma!), manipulação de dados com <strong>Pandas</strong> e automações com bibliotecas como <strong>requests</strong> e <strong>os</strong>.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício final</strong><br>
+            Escreva um pequeno programa de "agenda de contatos": use um dicionário para guardar nome e telefone, uma função para adicionar contatos, um <code>try/except</code> para lidar com entradas inválidas, e grave a lista final num arquivo <code>contatos.txt</code> usando <code>with open()</code>.
+        </div>
+
+        <h3>- Revisão Geral do Curso</h3>
+        <ul>
+            <li><strong>Módulo 1-2:</strong> sintaxe básica, variáveis e tipos de dados</li>
+            <li><strong>Módulo 3-4:</strong> condicionais e laços de repetição</li>
+            <li><strong>Módulo 5:</strong> listas, tuplas e dicionários</li>
+            <li><strong>Módulo 6:</strong> funções, <code>*args</code>/<code>**kwargs</code> e lambdas</li>
+            <li><strong>Módulo 7:</strong> arquivos, módulos, tratamento de erros e uma introdução a classes</li>
+        </ul>
+
+        <h3>- Parabéns!</h3>
+        <p>Você concluiu os fundamentos de Python. Continue praticando escrevendo pequenos programas todos os dias — é assim que a fluência em programação se constrói de verdade.</p>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('py_mod6') }}" class="btn-voltar">&larr; Módulo 6</a>
+        <a href="{{ url_for('py_mod8') }}" class="btn-proximo">Módulo 8: Tratamento de Erros &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/python.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

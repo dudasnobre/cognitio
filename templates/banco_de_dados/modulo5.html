@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Dados - Módulo 5</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/banco.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+    <div class="main-card">
+        <h2>5. JOIN — Relacionando Tabelas</h2>
+                <p>Na vida real, os dados ficam em várias tabelas. O <strong>JOIN</strong> combina linhas de duas ou mais tabelas com base em uma coluna relacionada — é um dos recursos mais poderosos do SQL.</p>
+        <div class="conteudo-modulo">
+            <h3>- INNER JOIN: A Interseção</h3>
+            <p>Retorna apenas as linhas onde existe correspondência nas duas tabelas.</p>
+            <pre><code>-- Pedidos com nome do cliente e do produto
+SELECT
+    c.nome       AS cliente,
+    p.nome       AS produto,
+    pe.quantidade
+FROM       pedidos   pe
+INNER JOIN clientes  c  ON pe.cliente_id = c.id
+INNER JOIN produtos  p  ON pe.produto_id = p.id;</code></pre>
+
+            <div class="tip-box">
+                <strong>Alias de tabela:</strong> <code>pe</code>, <code>c</code>, <code>p</code> são atalhos para os nomes longos. Torna o código muito mais legível.
+            </div>
+
+            <h3>- LEFT JOIN: Tudo da Esquerda</h3>
+            <p>Retorna todas as linhas da tabela da esquerda, e as correspondentes da direita (ou NULL se não houver).</p>
+            <pre><code>-- Todos os clientes, mesmo sem pedidos
+SELECT c.nome, pe.id AS pedido_id
+FROM      clientes c
+LEFT JOIN pedidos  pe ON c.id = pe.cliente_id;</code></pre>
+
+            <h3>- Calculando o Valor de Cada Pedido</h3>
+            <pre><code>SELECT
+    c.nome,
+    p.nome                      AS produto,
+    pe.quantidade * p.preco     AS total
+FROM       pedidos  pe
+INNER JOIN clientes c  ON pe.cliente_id = c.id
+INNER JOIN produtos p  ON pe.produto_id = p.id
+ORDER BY total DESC;</code></pre>
+
+            <div class="warn-box">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> Atenção:</strong> Sem o <code>ON</code>, você cria um produto cartesiano — multiplica CADA linha de uma tabela por CADA linha da outra, gerando um resultado enorme e incorreto!
+            </div>
+
+            <h3>- RIGHT JOIN e FULL OUTER JOIN (Conceito)</h3>
+            <p>Além do <code>LEFT JOIN</code>, existem duas variações que você vai encontrar em outros bancos de dados:</p>
+            <ul>
+                <li><strong>RIGHT JOIN:</strong> o espelho do LEFT JOIN — traz tudo da tabela da direita, com NULL onde não houver correspondência à esquerda.</li>
+                <li><strong>FULL OUTER JOIN:</strong> traz tudo das duas tabelas, com NULL nos dois lados onde não houver correspondência.</li>
+            </ul>
+            <div class="info-box">
+                <strong><i class="fa-solid fa-circle-info"></i> Nem todo banco suporta os dois</strong><br>
+                O SQLite (usado nesta plataforma) não suporta <code>RIGHT JOIN</code> nem <code>FULL OUTER JOIN</code> nativamente — na prática, basta inverter a ordem das tabelas e usar <code>LEFT JOIN</code> para simular um RIGHT JOIN. PostgreSQL e MySQL 8+ já suportam ambos diretamente.
+            </div>
+
+            <h3>- Quantos Pedidos Cada Cliente Fez?</h3>
+            <p>Combinar JOIN com uma função de contagem responde perguntas de negócio reais, como "quantos pedidos cada cliente tem, incluindo quem nunca comprou":</p>
+            <pre><code>SELECT c.nome, COUNT(pe.id) AS total_pedidos
+FROM      clientes c
+LEFT JOIN pedidos  pe ON c.id = pe.cliente_id
+GROUP BY c.id;</code></pre>
+
+            <div class="info-box">
+                <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+                No terminal abaixo, use o snippet "Pedidos por cliente" e depois tente adaptar a consulta para mostrar só os clientes que <strong>nunca</strong> fizeram pedido (dica: adicione <code>WHERE pe.id IS NULL</code> antes do <code>GROUP BY</code>).
+            </div>
+
+            <h3>- Resumo do Módulo</h3>
+            <ul>
+                <li><code>INNER JOIN</code> traz só as linhas com correspondência nas duas tabelas</li>
+                <li><code>LEFT JOIN</code> traz tudo da tabela da esquerda, com NULL quando não houver par</li>
+                <li>Sempre use <code>ON</code> para definir a condição de junção — sem ele, é produto cartesiano</li>
+                <li>Alias de tabela (<code>c</code>, <code>p</code>, <code>pe</code>) tornam consultas com JOIN muito mais legíveis</li>
+            </ul>
+        </div>
+    <div class="sql-vm-section">
+        <div class="sql-vm-header">
+            <div class="vm-title"><i class="fa-solid fa-terminal"></i> Terminal SQL</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="sql-snippet-btns">
+            <span class="sql-snippet-label">Snippets:</span>
+            <button class="sql-snippet" data-sql="SELECT c.nome, p.nome AS produto, pe.quantidade FROM pedidos pe INNER JOIN clientes c ON pe.cliente_id = c.id INNER JOIN produtos p ON pe.produto_id = p.id;">Pedidos completos</button>
+            <button class="sql-snippet" data-sql="SELECT c.nome, pe.quantidade * p.preco AS total FROM pedidos pe INNER JOIN clientes c ON pe.cliente_id = c.id INNER JOIN produtos p ON pe.produto_id = p.id ORDER BY total DESC;">Total por pedido</button>
+            <button class="sql-snippet" data-sql="SELECT c.nome, COUNT(pe.id) AS pedidos FROM clientes c LEFT JOIN pedidos pe ON c.id = pe.cliente_id GROUP BY c.id;">Pedidos por cliente</button>
+        </div>
+        <textarea id="sql-editor" placeholder="-- Ctrl+Enter para executar&#10;SELECT c.nome, p.nome AS produto, pe.quantidade
+FROM pedidos pe
+INNER JOIN clientes c ON pe.cliente_id = c.id
+INNER JOIN produtos p ON pe.produto_id = p.id;"></textarea>
+        <div class="sql-vm-toolbar">
+            <button class="sql-run-btn" id="sql-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="sql-reset-btn" id="sql-reset"><i class="fa-solid fa-rotate"></i> Resetar BD</button>
+            <button class="sql-hint-btn" id="sql-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="sql-result-wrap"><div id="sql-result"><p style="color:var(--muted);font-size:.84rem">Execute uma query para ver o resultado.</p></div></div>
+    </div>
+    
+        <hr style="margin-top:30px;">
+        <div class="button-container">
+            <a href="{{ url_for('bd_mod4') }}" class="btn-voltar">&larr; Módulo 4</a>
+            <a href="{{ url_for('bd_mod6') }}" class="btn-proximo">Módulo 6: INSERT, UPDATE, DELETE &rarr;</a>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/banco.js') }}"></script>
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

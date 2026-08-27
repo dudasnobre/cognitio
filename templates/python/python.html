@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python do Zero - Módulo 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/python.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>1. Introdução ao Python</h2>
+    <p>Python é uma das linguagens de programação mais usadas do mundo — simples de ler, poderosa o suficiente para ciência de dados, automação, inteligência artificial e desenvolvimento web. Vamos começar do absoluto zero.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- O que é Python?</h3>
+        <p>Criado por Guido van Rossum em 1991, o Python é uma linguagem <strong>interpretada, de alto nível e multiparadigma</strong>. Sua sintaxe foi pensada para se parecer com inglês simples, o que torna o aprendizado muito mais natural para quem está começando.</p>
+        <ul>
+            <li>Usado por empresas como Google, Netflix, Instagram e NASA</li>
+            <li>Base de frameworks como <strong>Flask</strong> e <strong>Django</strong> (web) e <strong>Pandas</strong>/<strong>TensorFlow</strong> (dados e IA)</li>
+            <li>Não precisa de ponto e vírgula nem chaves — a indentação organiza o código</li>
+            <li>Roda em Windows, Linux e macOS</li>
+        </ul>
+
+        <h3>- Instalando o Python</h3>
+        <p>No Linux, o Python já costuma vir instalado. Para verificar a versão, abra o terminal e digite:</p>
+        <pre><code>python3 --version</code></pre>
+        <p>Se não estiver instalado, no Debian/Ubuntu (e derivados, como o seu Policorp OEM):</p>
+        <pre><code>sudo apt update
+sudo apt install python3 python3-pip</code></pre>
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Dica</strong><br>
+            No Windows, baixe o instalador em <code>python.org/downloads</code> e marque a opção <strong>"Add Python to PATH"</strong> durante a instalação — isso evita boa parte dos erros de iniciante.
+        </div>
+
+        <h3>- Seu Primeiro Programa</h3>
+        <p>A função <code>print()</code> exibe qualquer coisa na tela. É o "Olá, Mundo!" de toda linguagem:</p>
+        <pre><code>print("Olá, Mundo!")
+print(2 + 2)
+print(True)</code></pre>
+        <div class="py-output">&gt;&gt;&gt; Olá, Mundo!
+&gt;&gt;&gt; 4
+&gt;&gt;&gt; True</div>
+
+        <h3>- Como Executar um Arquivo Python</h3>
+        <p>Crie um arquivo chamado <code>ola.py</code> com o código acima e execute pelo terminal:</p>
+        <pre><code>python3 ola.py</code></pre>
+
+        <h3>- Comentários</h3>
+        <p>Comentários são ignorados pelo interpretador — servem para explicar o código para humanos:</p>
+        <pre><code># Isso é um comentário de uma linha
+
+"""
+Isso é um comentário
+de múltiplas linhas
+"""</code></pre>
+
+        <h3>- Como o Python Executa seu Código</h3>
+        <p>Python é uma linguagem <strong>interpretada</strong>: não existe uma etapa separada de "compilação" que você precisa rodar antes. O interpretador lê seu arquivo <code>.py</code> de cima para baixo e vai executando linha por linha, na hora. É por isso que testar uma ideia rápida em Python é tão mais ágil do que em linguagens compiladas como C ou Java.</p>
+        <ul>
+            <li>Você escreve código em um arquivo <code>.py</code> (ou digita direto no terminal)</li>
+            <li>O interpretador <code>python3</code> traduz cada linha para instruções que o computador entende</li>
+            <li>Se houver um erro de sintaxe, a execução para exatamente naquele ponto — por isso os erros mostram o número da linha</li>
+        </ul>
+
+        <h3>- O Modo Interativo (REPL)</h3>
+        <p>Digite apenas <code>python3</code> no terminal (sem nome de arquivo) para abrir o <strong>REPL</strong> — Read-Eval-Print Loop. É um terminal onde cada linha que você digita é executada na hora, ótimo para testar pequenos trechos:</p>
+        <pre><code>$ python3
+&gt;&gt;&gt; 10 + 5
+15
+&gt;&gt;&gt; nome = "Cognitio"
+&gt;&gt;&gt; print(f"Olá, {nome}!")
+Olá, Cognitio!
+&gt;&gt;&gt; exit()</code></pre>
+        <div class="info-box">
+            <strong><i class="fa-solid fa-circle-info"></i> Use o REPL para experimentar</strong><br>
+            Sempre que tiver dúvida se um trecho de código funciona, teste primeiro no REPL antes de colocar no seu arquivo <code>.py</code> — é mais rápido que salvar e rodar o arquivo toda vez.
+        </div>
+
+        <h3>- Erros Comuns de Quem Está Começando</h3>
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Fique de olho nestas armadilhas</strong>
+            <ul style="margin-top:8px;margin-bottom:0;">
+                <li><strong>Indentação inconsistente:</strong> Python usa espaços para definir blocos de código — misturar tabs e espaços causa <code>IndentationError</code>.</li>
+                <li><strong>Esquecer os dois-pontos <code>:</code></strong> ao abrir blocos como <code>if</code>, <code>for</code> e funções.</li>
+                <li><strong>Confundir <code>=</code> com <code>==</code>:</strong> um único <code>=</code> atribui um valor; dois <code>==</code> comparam valores.</li>
+                <li><strong>Misturar aspas simples e duplas</strong> sem fechar corretamente a string.</li>
+            </ul>
+        </div>
+
+        <div class="tip-box" style="margin-top:20px">
+            <strong><i class="fa-solid fa-lightbulb"></i> Neste curso você vai aprender</strong><br>
+            Em 7 módulos você vai dominar variáveis, tipos de dados, condicionais, laços de repetição, listas, dicionários, funções, tratamento de erros e manipulação de arquivos — tudo com exemplos práticos e prontos para copiar.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            Abra o terminal, entre no modo interativo (<code>python3</code>) e faça o Python imprimir seu nome e a sua idade em uma única frase, usando <code>print()</code> e uma f-string. Se travar, use o botão <strong>Tutor IA</strong> no canto da tela.
+        </div>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('trilhas') }}" class="btn-voltar">&larr; Voltar às Trilhas</a>
+        <a href="{{ url_for('py_mod2') }}" class="btn-proximo">Próximo: Variáveis e Tipos de Dados &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/python.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

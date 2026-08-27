@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educação Financeira - Módulo 8</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/financas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>8. Impostos e Obrigações Financeiras Básicas</h2>
+    <p>Entender o básico de impostos e obrigações financeiras evita surpresas desagradáveis e multas — e ajuda você a planejar melhor o seu orçamento ao longo do ano.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Imposto de Renda (IR): o Essencial</h3>
+        <p>No Brasil, quem recebe acima de um determinado valor anual precisa declarar o Imposto de Renda. Pontos-chave para iniciantes:</p>
+        <ul>
+            <li>O IR é cobrado sobre a <strong>renda</strong> (salário, aluguéis recebidos, alguns investimentos)</li>
+            <li>Existe uma faixa de isenção — quem ganha pouco pode não precisar pagar nada</li>
+            <li>Guardar comprovantes (recibos médicos, educação) ao longo do ano facilita a declaração e pode reduzir o imposto devido</li>
+        </ul>
+
+        <h3>- MEI: Microempreendedor Individual</h3>
+        <p>Para quem presta serviços ou vende produtos por conta própria, o MEI é uma forma simplificada de formalização:</p>
+        <ul>
+            <li>Pagamento de uma guia mensal única (DAS), com valor fixo</li>
+            <li>Permite emitir nota fiscal e ter CNPJ próprio</li>
+            <li>Tem um limite de faturamento anual — acima dele, é preciso migrar para outro regime</li>
+        </ul>
+
+        <h3>- Boletos, Juros e Multas por Atraso</h3>
+        <pre><code># Exemplo simplificado de multa + juros por atraso em um boleto
+valor_original = 200
+multa = valor_original * 0.02        # 2% de multa comum em contratos
+juros_por_dia = valor_original * 0.0033  # ~1% ao mês, dividido por 30
+dias_atraso = 5
+
+total = valor_original + multa + (juros_por_dia * dias_atraso)
+print(f"Total a pagar: R$ {total:.2f}")</code></pre>
+        <p>Mesmo pequenos atrasos acumulam custo — por isso vale sempre priorizar contas com vencimento próximo dentro do seu orçamento (lembra do módulo de Planejamento?).</p>
+
+        <h3>- Taxas Bancárias Comuns</h3>
+        <ul>
+            <li>Tarifa de manutenção de conta — muitos bancos digitais não cobram</li>
+            <li>IOF — imposto sobre operações financeiras (câmbio, alguns empréstimos)</li>
+            <li>Taxas de saque em caixas eletrônicos de outros bancos</li>
+        </ul>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Organização vale mais que memorização</strong><br>
+            Você não precisa decorar alíquotas de imposto. O que faz diferença de verdade é manter uma pasta (física ou digital) com comprovantes e documentos organizados ao longo do ano — isso economiza tempo e, muitas vezes, dinheiro.
+        </div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Atraso gera "bola de neve"</strong><br>
+            Contas em atraso viram dívidas com juros compostos rapidamente (veja o Módulo 3). Priorizar impostos e boletos no seu orçamento mensal evita que eles se transformem em uma dívida muito maior no futuro.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Imposto de Renda incide sobre a renda, com faixa de isenção para quem ganha menos</li>
+            <li>MEI formaliza pequenos negócios com uma guia mensal simplificada</li>
+            <li>Atrasos em boletos geram multa + juros que se acumulam rapidamente</li>
+            <li>Manter documentos organizados facilita declarações e evita surpresas</li>
+        </ul>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('financas_modulo7') }}" class="btn-voltar">&larr; Módulo 7</a>
+        <a href="{{ url_for('financas_modulo9') }}" class="btn-proximo">Módulo 9: Empreendedorismo &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/financas.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

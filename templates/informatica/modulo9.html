@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informática Básica - Módulo 9</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/infor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>9. Segurança Digital e Proteção de Dados</h2>
+    <p>No Módulo 5 você viu o básico de navegação segura. Agora vamos aprofundar em proteção de dados, backups e boas práticas que reduzem drasticamente o risco de você ser vítima de golpes ou perder informações importantes.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Senhas Fortes e Gerenciadores de Senha</h3>
+        <ul>
+            <li>Use senhas longas (12+ caracteres), combinando letras, números e símbolos</li>
+            <li><strong>Nunca reutilize</strong> a mesma senha em serviços diferentes</li>
+            <li>Use um gerenciador de senhas (como Bitwarden ou o gerenciador do seu navegador) para não precisar memorizar todas</li>
+        </ul>
+
+        <h3>- Autenticação em Duas Etapas (2FA)</h3>
+        <p>Mesmo que alguém descubra sua senha, a autenticação em duas etapas exige um segundo código (enviado por SMS, e-mail ou um app autenticador) para acessar a conta — uma camada extra de proteção essencial em e-mail, redes sociais e bancos.</p>
+
+        <h3>- Backups: A Regra 3-2-1</h3>
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Regra 3-2-1 de backup</strong><br>
+            Mantenha <strong>3</strong> cópias dos seus arquivos importantes, em <strong>2</strong> tipos de mídia diferentes (ex: HD externo + nuvem), sendo <strong>1</strong> cópia fora do local físico principal (ex: na nuvem, caso a casa/escritório tenha um problema).
+        </div>
+
+        <h3>- Identificando Golpes Comuns</h3>
+        <ul>
+            <li><strong>Phishing</strong> — e-mails/mensagens fingindo ser de bancos ou empresas, pedindo dados ou cliques em links suspeitos</li>
+            <li><strong>Golpe do falso suporte técnico</strong> — ligações ou pop-ups alegando que seu computador está infectado</li>
+            <li><strong>Golpe do WhatsApp clonado</strong> — pedidos de dinheiro urgentes de "contatos conhecidos" com números diferentes</li>
+        </ul>
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Desconfie de urgência</strong><br>
+            Golpes quase sempre criam um senso de urgência ("sua conta será bloqueada em 24h", "clique agora"). Essa pressão para agir rápido, sem pensar, é o principal sinal de alerta.
+        </div>
+
+        <h3>- Proteção de Dados Pessoais (LGPD, em resumo)</h3>
+        <p>A Lei Geral de Proteção de Dados (LGPD) garante que empresas só podem usar seus dados pessoais com consentimento e para finalidades específicas. Como usuário, isso significa que você tem direito de saber quais dados uma empresa guarda sobre você e pedir sua exclusão.</p>
+
+        <h3>- Checklist de Segurança Básica</h3>
+        <div class="info-box">
+            <strong><i class="fa-solid fa-shield-halved"></i> Revise hoje mesmo</strong><br>
+            1. Ative a autenticação em duas etapas no seu e-mail principal<br>
+            2. Troque senhas repetidas entre serviços diferentes<br>
+            3. Configure um backup automático dos seus arquivos mais importantes<br>
+            4. Desconfie de qualquer mensagem urgente pedindo dados ou dinheiro
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Senhas fortes e únicas + gerenciador de senhas reduzem muito o risco de invasão</li>
+            <li>2FA adiciona uma camada extra de proteção mesmo se a senha vazar</li>
+            <li>Regra 3-2-1 de backup evita perda definitiva de arquivos importantes</li>
+            <li>Urgência excessiva em uma mensagem é o principal sinal de golpe</li>
+        </ul>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('modulo8') }}" class="btn-voltar">&larr; Módulo 8</a>
+        <a href="{{ url_for('modulo10') }}" class="btn-proximo">Módulo 10: Mercado de Trabalho Digital &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/infor.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

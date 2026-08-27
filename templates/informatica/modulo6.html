@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informática Básica - Módulo 6</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/infor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+
+    <div class="main-card">
+        
+        <h2>6. E-mail e Comunicação Digital</h2>
+        <p>O correio eletrônico (e-mail) funciona como a sua carteira de identidade oficial dentro da rede mundial de computadores. Possuir um endereço profissional é imprescindível para entrar no mercado de trabalho atual e realizar cadastros seguros em qualquer site civil ou comercial.</p>
+        
+        <div class="conteudo-modulo">
+            <h3>- Estrutura de uma Mensagem de E-mail</h3>
+            <p>Ao enviar uma mensagem corporativa ou pessoal, você se deparará com três campos indispensáveis:</p>
+            <ul>
+                <li><strong>Para / Destinatário:</strong> Onde você insere o endereço eletrônico exato de quem vai receber a mensagem (exemplo: <code>empresa@email.com</code>). Uma única letra errada fará a mensagem voltar como erro.</li>
+                <li><strong>Assunto:</strong> O título curto do e-mail. Deve resumir claramente o que há lá dentro (exemplo: <em>"Envio de Currículo - Vaga de Recepcionista"</em>). Deixar esse campo em branco diminui as chances do e-mail ser lido.</li>
+                <li><strong>Corpo da Mensagem:</strong> É o texto principal, onde você saúda, escreve o conteúdo desejado detalhadamente e se despede cordialmente.</li>
+            </ul>
+
+            <h3>- Como enviar um Documento ou Foto (Anexo)</h3>
+            <p>Para enviar arquivos guardados em seu computador junto com o texto do e-mail (como o arquivo PDF do seu currículo ou uma foto digitalizada):</p>
+            <p>Procure sempre pelo ícone universal representado por um <strong>clipe de papel</strong> localizado na barra inferior ou superior da caixa de composição da mensagem. Ao clicar nele, uma janela de arquivos abrirá para você escolher qual documento anexar antes de clicar no botão final de <b>Enviar</b>.</p>
+
+            <h3>- CC e CCO: Copiando Outras Pessoas</h3>
+            <p>Além do campo "Para", existem dois campos opcionais úteis em contextos profissionais:</p>
+            <ul>
+                <li><strong>CC (Com Cópia):</strong> outras pessoas recebem o e-mail para conhecimento, mesmo sem serem o destinatário principal. Todos veem quem mais recebeu.</li>
+                <li><strong>CCO (Com Cópia Oculta):</strong> funciona igual ao CC, mas os destinatários não conseguem ver quem mais recebeu a cópia — útil para enviar o mesmo e-mail a várias pessoas sem expor a lista de contatos de todo mundo.</li>
+            </ul>
+
+            <h3>- Escrevendo um E-mail Profissional</h3>
+            <p>Um e-mail bem escrito segue uma estrutura simples: saudação (ex: "Prezado(a)..."), corpo curto e direto explicando o motivo do contato, e um fechamento cordial (ex: "Atenciosamente,"). Evite gírias e emojis em contextos formais.</p>
+
+            <div class="tip-box">
+                <strong><i class="fa-solid fa-lightbulb"></i> Crie um e-mail sério para uso profissional</strong><br>
+                Se o seu e-mail atual tem apelidos informais (como "gatinha2010@..."), crie um segundo endereço apenas com seu nome (ex: "joao.silva@..."). Isso passa mais credibilidade em candidaturas de emprego.
+            </div>
+
+            <div class="warn-box">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> Cuidado com e-mails suspeitos</strong><br>
+                Nunca clique em anexos ou links de e-mails inesperados, mesmo que pareçam vir de bancos ou empresas conhecidas — é uma das formas mais comuns de phishing (veja o Módulo 5). Na dúvida, entre em contato com a empresa por outro canal para confirmar.
+            </div>
+
+            <div class="info-box">
+                <strong><i class="fa-solid fa-pen"></i> Exercício final</strong><br>
+                Escreva um e-mail de exemplo se candidatando a uma vaga fictícia: preencha o campo Assunto de forma clara, escreva um corpo curto e profissional, e imagine anexar seu currículo em PDF.
+            </div>
+
+            <h3>- Revisão Geral do Curso</h3>
+            <ul>
+                <li><strong>Módulo 1:</strong> hardware, software e o ritual seguro de desligar o computador</li>
+                <li><strong>Módulo 2:</strong> organização de pastas e arquivos no sistema operacional</li>
+                <li><strong>Módulo 3:</strong> escrita profissional e formatação básica no Word</li>
+                <li><strong>Módulo 4:</strong> fórmulas e cálculos automáticos no Excel</li>
+                <li><strong>Módulo 5:</strong> segurança na internet, senhas fortes e phishing</li>
+                <li><strong>Módulo 6:</strong> e-mail profissional e comunicação digital</li>
+            </ul>
+        </div>
+
+        
+
+        <hr style="margin-top: 30px;"> 
+        
+        <div class="button-container">
+            <a href="{{ url_for('modulo5') }}" class="btn-voltar">&larr; Voltar para o Módulo 5</a>
+            <a href="{{ url_for('modulo7') }}" class="btn-proximo">Módulo 7: Apresentações (PowerPoint) &rarr;</a>
+        </div>
+        
+    </div>
+
+    <script src="{{ url_for('static', filename='js/infor.js') }}"></script>
+    
+
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span>
+      <span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info">
+            <strong>Cognitio IA</strong>
+            <span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span>
+          </div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" title="Limpar conversa" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" title="Fechar" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" title="Enviar" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

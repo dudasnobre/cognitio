@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 7</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>7. HTML Semântico e Estrutura Acessível</h2>
+    <p>Até aqui você usou <code>&lt;div&gt;</code> para quase tudo. Mas o HTML tem tags que <strong>descrevem o significado</strong> do conteúdo, não só sua aparência. Isso se chama HTML semântico — e ele é essencial para SEO, acessibilidade e organização do código.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Por que não usar só &lt;div&gt;?</h3>
+        <p>Uma <code>&lt;div&gt;</code> não diz nada sobre o que ela contém. Leitores de tela, motores de busca e outros desenvolvedores não sabem se aquela div é um menu, um rodapé ou o conteúdo principal. As tags semânticas resolvem isso:</p>
+        <pre><code>&lt;body&gt;
+  &lt;header&gt;...&lt;/header&gt;
+  &lt;nav&gt;...&lt;/nav&gt;
+  &lt;main&gt;
+    &lt;article&gt;...&lt;/article&gt;
+    &lt;aside&gt;...&lt;/aside&gt;
+  &lt;/main&gt;
+  &lt;footer&gt;...&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+
+        <h3>- As Principais Tags Semânticas</h3>
+        <ul>
+            <li><code>&lt;header&gt;</code> — cabeçalho da página ou de uma seção</li>
+            <li><code>&lt;nav&gt;</code> — bloco de navegação (menus, links principais)</li>
+            <li><code>&lt;main&gt;</code> — conteúdo principal da página (único por página)</li>
+            <li><code>&lt;section&gt;</code> — agrupa conteúdo relacionado sob um mesmo tema</li>
+            <li><code>&lt;article&gt;</code> — conteúdo independente (um post, uma notícia)</li>
+            <li><code>&lt;aside&gt;</code> — conteúdo complementar (barra lateral, dica)</li>
+            <li><code>&lt;footer&gt;</code> — rodapé da página ou de uma seção</li>
+        </ul>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Regra prática</strong><br>
+            Se existe uma tag semântica que descreve o bloco que você está criando, use-a. Só volte para <code>&lt;div&gt;</code> quando nenhuma tag semântica se encaixar (por exemplo, um wrapper puramente visual).
+        </div>
+
+        <h3>- Introdução à Acessibilidade (a11y)</h3>
+        <p>HTML semântico já é a base da acessibilidade: leitores de tela usam essas tags para montar um "mapa" da página que a pessoa pode navegar por atalhos de teclado. Duas práticas simples que fazem enorme diferença:</p>
+        <pre><code>&lt;img src="grafico.png" alt="Gráfico de vendas crescendo 40% em 2025"&gt;
+
+&lt;button aria-label="Fechar janela"&gt;
+  &lt;i class="icone-x"&gt;&lt;/i&gt;
+&lt;/button&gt;</code></pre>
+        <ul>
+            <li><code>alt</code> em imagens — descreve a imagem para quem não pode vê-la</li>
+            <li><code>aria-label</code> — dá um nome acessível a elementos sem texto visível (ícones)</li>
+        </ul>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Erro comum: usar &lt;h1&gt; a &lt;h6&gt; pela aparência</strong><br>
+            Não escolha um heading pelo tamanho da fonte que ele produz — escolha pela hierarquia real do conteúdo. Se precisar de um título menor visualmente, use CSS; não pule de <code>&lt;h1&gt;</code> direto para <code>&lt;h4&gt;</code> só porque "ficou do tamanho certo".
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            No laboratório abaixo, tente montar a estrutura de uma página de blog: <code>header</code> com o título, <code>nav</code> com links, <code>main</code> com um <code>article</code>, e <code>footer</code> com direitos autorais.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Tags semânticas descrevem o <em>significado</em> do conteúdo, não só a aparência</li>
+            <li><code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>article</code>, <code>aside</code>, <code>footer</code> organizam a página</li>
+            <li><code>alt</code> e <code>aria-label</code> são o ponto de partida da acessibilidade</li>
+        </ul>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<header>
+  <h1>Meu Blog</h1>
+</header>
+<nav>
+  <a href=&quot;#&quot;>Início</a>
+  <a href=&quot;#&quot;>Sobre</a>
+</nav>
+<main>
+  <article>
+    <h2>Meu primeiro post</h2>
+    <p>Conteúdo do artigo aqui...</p>
+  </article>
+</main>
+<footer>
+  <p>&copy; 2026 Meu Blog</p>
+</footer>">Estrutura de blog</button>
+                <button class="html-lab-snippet" data-code="<img src=&quot;https://via.placeholder.com/300x150&quot; alt=&quot;Paisagem de montanhas ao pôr do sol&quot;>
+<button aria-label=&quot;Curtir esta foto&quot;>❤️</button>">Imagem acessível</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<header>
+  <h1>Título do site</h1>
+</header>
+<main>
+  <section>
+    <h2>Sobre nós</h2>
+    <p>Texto de exemplo.</p>
+  </section>
+</main>
+<footer>
+  <p>Rodapé</p>
+</footer>" spellcheck="false"><header>
+  <h1>Título do site</h1>
+</header>
+<main>
+  <section>
+    <h2>Sobre nós</h2>
+    <p>Texto de exemplo.</p>
+  </section>
+</main>
+<footer>
+  <p>Rodapé</p>
+</footer></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('hc_mod6') }}" class="btn-voltar">&larr; Módulo 6</a>
+        <a href="{{ url_for('hc_mod8') }}" class="btn-proximo">Módulo 8: Flexbox Avançado &rarr;</a>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

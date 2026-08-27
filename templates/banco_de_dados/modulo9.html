@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Dados - Módulo 9</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/banco.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>9. Chaves Estrangeiras, Índices e Integridade Referencial</h2>
+    <p>O que garante que um pedido não referencie um cliente que não existe? O que faz uma consulta em uma tabela com milhões de linhas continuar rápida? As respostas são chaves estrangeiras e índices.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Chave Primária (revisão)</h3>
+        <pre><code>CREATE TABLE clientes (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL
+);</code></pre>
+        <p>A chave primária identifica cada linha de forma única — nunca se repete, nunca é nula.</p>
+
+        <h3>- Chave Estrangeira (FOREIGN KEY)</h3>
+        <pre><code>CREATE TABLE pedidos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    cliente_id INTEGER REFERENCES clientes(id),
+    produto_id INTEGER REFERENCES produtos(id),
+    quantidade INTEGER NOT NULL
+);</code></pre>
+        <p>A chave estrangeira diz: "o valor de <code>cliente_id</code> aqui precisa corresponder a um <code>id</code> que realmente existe na tabela <code>clientes</code>". Isso é chamado de <strong>integridade referencial</strong> — o banco impede pedidos "órfãos", associados a clientes inexistentes.</p>
+
+        <h3>- O que Acontece ao Excluir um Registro Referenciado?</h3>
+        <pre><code>CREATE TABLE pedidos (
+    ...
+    cliente_id INTEGER REFERENCES clientes(id) ON DELETE CASCADE
+    -- CASCADE: exclui os pedidos junto com o cliente
+    -- SET NULL: zera o cliente_id do pedido, mantendo o pedido
+    -- RESTRICT: impede a exclusão do cliente enquanto houver pedidos
+);</code></pre>
+
+        <h3>- Índices: Acelerando Consultas</h3>
+        <pre><code>CREATE INDEX idx_pedidos_cliente ON pedidos(cliente_id);
+CREATE INDEX idx_clientes_email ON clientes(email);</code></pre>
+        <p>Um índice funciona como o índice remissivo de um livro: em vez de o banco varrer linha por linha (o que é lento em tabelas grandes), ele consulta uma estrutura organizada que aponta diretamente para onde os dados estão.</p>
+        <ul>
+            <li>Colunas usadas com frequência em <code>WHERE</code> e <code>JOIN</code> são boas candidatas a índice</li>
+            <li>Chaves primárias já são indexadas automaticamente na maioria dos bancos</li>
+            <li>Índices demais podem deixar operações de <code>INSERT</code>/<code>UPDATE</code> mais lentas — use com moderação</li>
+        </ul>
+
+        <h3>- Normalização (Conceito Básico)</h3>
+        <p>Normalizar um banco significa organizar os dados para evitar repetição desnecessária. Em vez de repetir o nome do cliente em cada pedido, guardamos apenas o <code>cliente_id</code> e buscamos o nome na tabela <code>clientes</code> quando necessário — é exatamente o que o <code>JOIN</code> faz.</p>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Chaves estrangeiras evitam bugs silenciosos</strong><br>
+            Sem integridade referencial, é fácil acabar com pedidos "fantasmas" apontando para clientes já excluídos — bugs difíceis de rastrear que só aparecem quando alguém tenta exibir os dados relacionados.
+        </div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Índice não é solução para tudo</strong><br>
+            Criar um índice em toda coluna "só por garantia" pode piorar a performance de escrita sem ganho real de leitura. Crie índices com base em como as consultas realmente filtram e relacionam os dados.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li><code>FOREIGN KEY</code> garante que relacionamentos entre tabelas sejam sempre válidos</li>
+            <li><code>ON DELETE CASCADE/SET NULL/RESTRICT</code> define o comportamento em exclusões</li>
+            <li>Índices aceleram buscas e joins, mas têm custo em operações de escrita</li>
+            <li>Normalização evita repetição de dados, mantendo relações via chaves</li>
+        </ul>
+
+    <div class="sql-vm-section">
+        <div class="sql-vm-header">
+            <div class="vm-title"><i class="fa-solid fa-database"></i> Máquina Virtual SQL</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="sql-snippet-btns">
+            <span class="sql-snippet-label">Snippets:</span>
+            <button class="sql-snippet" data-sql="SELECT * FROM pedidos LIMIT 5;">Ver estrutura de pedidos</button>
+            <button class="sql-snippet" data-sql="SELECT c.nome, COUNT(pe.id) AS total_pedidos FROM clientes c LEFT JOIN pedidos pe ON c.id = pe.cliente_id GROUP BY c.id;">Pedidos por cliente (join)</button>
+        </div>
+        <textarea id="sql-editor" placeholder="-- Ctrl+Enter para executar">SELECT c.nome, COUNT(pe.id) AS total_pedidos\nFROM clientes c\nLEFT JOIN pedidos pe ON c.id = pe.cliente_id\nGROUP BY c.id;</textarea>
+        <div class="sql-vm-toolbar">
+            <button class="sql-run-btn" id="sql-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="sql-reset-btn" id="sql-reset"><i class="fa-solid fa-rotate"></i> Resetar BD</button>
+            <button class="sql-hint-btn" id="sql-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="sql-result-wrap"><div id="sql-result"><p style="color:var(--muted);font-size:.84rem">Execute uma query para ver o resultado.</p></div></div>
+    </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('bd_mod8') }}" class="btn-voltar">&larr; Módulo 8</a>
+        <a href="{{ url_for('bd_mod10') }}" class="btn-proximo">Módulo 10: Projeto Final &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/banco.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Módulo 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/javascript.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>1. Introdução ao JavaScript</h2>
+    <p>JavaScript é a linguagem de programação da web — ela roda diretamente no navegador e é responsável por tudo que se <em>move, reage e interage</em> numa página. Junto com HTML e CSS, forma a tríade fundamental do desenvolvimento web.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- O que é JavaScript?</h3>
+        <p>JavaScript (JS) é uma linguagem de programação <strong>interpretada, dinâmica e multiparadigma</strong>. Criada em 1995 por Brendan Eich em apenas 10 dias, hoje é a linguagem mais usada do mundo segundo pesquisas anuais do Stack Overflow.</p>
+        <ul>
+            <li>Roda no <strong>navegador</strong> (front-end) e no servidor com <strong>Node.js</strong> (back-end)</li>
+            <li>Permite criar páginas dinâmicas, jogos, apps mobile (React Native) e APIs</li>
+            <li>Não precisa de instalação — todo navegador já tem um motor JS</li>
+            <li>Sintaxe inspirada em C/Java, mas muito mais flexível</li>
+        </ul>
+
+        <h3>- Seu Primeiro Código</h3>
+        <p>O <code>console.log()</code> é o <em>print</em> do JavaScript — exibe valores no console do navegador (e no nosso terminal abaixo):</p>
+        <pre><code>console.log("Olá, Mundo!");
+console.log(2 + 2);
+console.log(true);</code></pre>
+
+        <h3>- Onde o JS vive?</h3>
+        <p>No navegador, você insere JS numa página HTML com a tag <code>&lt;script&gt;</code>:</p>
+        <pre><code>&lt;script&gt;
+  console.log("JS embutido no HTML");
+&lt;/script&gt;
+
+&lt;!-- Ou como arquivo externo: --&gt;
+&lt;script src="meu-script.js"&gt;&lt;/script&gt;</code></pre>
+
+        <h3>- Comentários</h3>
+        <pre><code>// Comentário de linha única
+
+/* Comentário
+   de múltiplas linhas */</code></pre>
+
+        <h3>- Como o Navegador Executa seu Código</h3>
+        <p>Cada navegador tem um <strong>motor JavaScript</strong> embutido — o Chrome e o Edge usam o V8 (o mesmo que roda o Node.js), o Firefox usa o SpiderMonkey. Esse motor lê seu código, o transforma em instruções que a máquina entende e executa, tudo isso em milissegundos, sem você precisar instalar nada.</p>
+        <div class="info-box">
+            <strong><i class="fa-solid fa-circle-info"></i> Abra o console do seu navegador</strong><br>
+            Pressione <code>F12</code> (ou <code>Ctrl+Shift+I</code>) em qualquer página e vá na aba "Console" — é um REPL de JavaScript de verdade, rodando ao vivo na página que você está vendo.
+        </div>
+
+        <h3>- Erros Comuns de Quem Está Começando</h3>
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Fique de olho nestas armadilhas</strong>
+            <ul style="margin-top:8px;margin-bottom:0;">
+                <li><strong>Esquecer o ponto e vírgula <code>;</code></strong> no fim das instruções — o JS costuma tolerar, mas é boa prática usar sempre.</li>
+                <li><strong>Confundir <code>=</code> com <code>===</code>:</strong> um <code>=</code> atribui; <code>===</code> compara valor e tipo ao mesmo tempo.</li>
+                <li><strong>Chaves <code>{ }</code> ou parênteses <code>( )</code> sem fechar</strong> — geram <code>SyntaxError</code> e às vezes travam blocos inteiros de código.</li>
+                <li><strong>JavaScript é case-sensitive:</strong> <code>Nome</code> e <code>nome</code> são variáveis totalmente diferentes.</li>
+            </ul>
+        </div>
+
+        <div class="tip-box" style="margin-top:20px">
+            <strong><i class="fa-solid fa-lightbulb"></i> Neste curso você vai aprender</strong><br>
+            Em 7 módulos você dominará variáveis, tipos, condicionais, funções, arrays, objetos, manipulação do DOM e requisições assíncronas (Fetch/APIs). Tudo com terminal interativo em cada módulo — pratique agora mesmo!
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            Use o terminal JavaScript logo abaixo para fazer o console exibir seu nome e a operação <code>7 * 6</code> em duas linhas separadas com <code>console.log()</code>.
+        </div>
+    </div>
+
+    
+
+    <!-- Terminal JS -->
+    <div class="js-vm-section" style="margin-top:36px;">
+        <div class="js-vm-header">
+            <div class="vm-title"><i class="fa-brands fa-js"></i> Terminal JavaScript — Cognitio</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="js-snippet-btns">
+            <span class="js-snippet-label">Snippets:</span>
+            <button class="js-snippet" data-js='console.log("Olá, Mundo!");'>Olá Mundo!</button>
+            <button class="js-snippet" data-js='console.log(2 + 2);&#10;console.log(10 * 5);&#10;console.log(7 / 2);'>Operações</button>
+            <button class="js-snippet" data-js='console.log(typeof "texto");&#10;console.log(typeof 42);&#10;console.log(typeof true);'>typeof</button>
+            <button class="js-snippet" data-js='// Comentário de linha&#10;console.log("JS rodando!"); // inline&#10;/* Bloco */&#10;console.log("Bloco OK");'>Comentários</button>
+        </div>
+        <textarea id="js-editor" data-default='console.log("Olá, Mundo!");&#10;console.log("JavaScript é incrível!");&#10;console.log(2025);' placeholder="// Ctrl+Enter para executar">console.log("Olá, Mundo!");
+console.log("JavaScript é incrível!");
+console.log(2025);</textarea>
+        <div class="js-vm-toolbar">
+            <button class="js-run-btn" id="js-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="js-reset-btn" id="js-reset"><i class="fa-solid fa-rotate"></i> Resetar</button>
+            <button class="js-hint-btn" id="js-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="js-result-wrap"><div id="js-result"><p style="color:rgba(205,214,244,.4);font-size:.84rem;font-family:monospace"><i class="fa-solid fa-arrow-up"></i> Execute o código para ver o resultado.</p></div></div>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('trilhas') }}" class="btn-voltar">&larr; Voltar às Trilhas</a>
+        <a href="{{ url_for('js_mod2') }}" class="btn-proximo">Próximo: Variáveis e Tipos &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/javascript.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

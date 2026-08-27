@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 9</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>9. CSS Grid Avançado</h2>
+    <p>Você já viu o básico do Grid. Agora vamos dominar as ferramentas que fazem do Grid o sistema ideal para layouts de página inteira: áreas nomeadas, colunas flexíveis automáticas e posicionamento preciso.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- grid-template-areas: Desenhando o Layout</h3>
+        <pre><code>.pagina {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+        "cabecalho cabecalho"
+        "menu      conteudo"
+        "rodape    rodape";
+    min-height: 100vh;
+}
+header { grid-area: cabecalho; }
+nav     { grid-area: menu; }
+main    { grid-area: conteudo; }
+footer  { grid-area: rodape; }</code></pre>
+        <p>Você literalmente desenha o layout com texto — cada palavra repetida ocupa aquele espaço na grade. É a forma mais legível de montar uma página inteira com Grid.</p>
+
+        <h3>- repeat(), auto-fit e auto-fill</h3>
+        <pre><code>.galeria {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+}</code></pre>
+        <p>Essa linha cria <strong>quantas colunas de 180px+ couberem</strong> na tela, e distribui o espaço sobrando entre elas — uma grade responsiva completa em uma única linha de CSS, sem media queries.</p>
+        <ul>
+            <li><code>auto-fit</code> — colunas vazias encolhem, os itens existentes esticam para preencher o espaço</li>
+            <li><code>auto-fill</code> — mantém o espaço reservado para colunas vazias (útil quando o número de itens é sempre parecido)</li>
+        </ul>
+
+        <h3>- Posicionando Itens Manualmente</h3>
+        <pre><code>.destaque {
+    grid-column: 1 / 3;   /* ocupa da linha 1 até a linha 3 (2 colunas) */
+    grid-row: 1 / 2;
+}
+/* Atalho equivalente: */
+.destaque { grid-column: span 2; }</code></pre>
+
+        <h3>- Grid dentro de Flexbox (e vice-versa)</h3>
+        <p>Grid e Flexbox não competem — eles se complementam. É muito comum usar Grid para o layout geral da página e Flexbox dentro de cada componente (como um card com ícone + texto alinhados):</p>
+        <pre><code>.card {
+    display: flex;       /* alinhamento interno do card */
+    align-items: center;
+    gap: 12px;
+}
+.galeria {
+    display: grid;        /* organização geral dos cards */
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> fr é sua unidade favorita</strong><br>
+            <code>1fr</code> significa "uma fração do espaço disponível". <code>grid-template-columns: 2fr 1fr</code> cria duas colunas onde a primeira é sempre o dobro da largura da segunda, em qualquer tamanho de tela.
+        </div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Nomes de área precisam bater exatamente</strong><br>
+            O valor em <code>grid-area</code> precisa ser idêntico ao nome usado em <code>grid-template-areas</code> (mesma grafia, sem espaços extras) — um erro de digitação silenciosamente quebra o layout, sem mensagem de erro.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li><code>grid-template-areas</code> permite desenhar o layout como um mapa de texto</li>
+            <li><code>repeat(auto-fit, minmax(...))</code> cria grades responsivas sem media query</li>
+            <li><code>grid-column</code>/<code>grid-row</code> posicionam itens manualmente na grade</li>
+            <li>Grid organiza a página; Flexbox organiza o conteúdo dentro de cada peça</li>
+        </ul>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<style>
+  .pagina { display: grid; grid-template-columns: 120px 1fr; grid-template-areas: &quot;cab cab&quot; &quot;menu conteudo&quot;; gap: 8px; font-family: sans-serif; }
+  header { grid-area: cab; background: #003049; color: white; padding: 10px; }
+  nav { grid-area: menu; background: #eee; padding: 10px; }
+  main { grid-area: conteudo; background: #f7f7f7; padding: 10px; }
+</style>
+<div class=&quot;pagina&quot;>
+  <header>Cabeçalho</header>
+  <nav>Menu</nav>
+  <main>Conteúdo</main>
+</div>">Layout com áreas nomeadas</button>
+                <button class="html-lab-snippet" data-code="<style>
+  .galeria { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 10px; }
+  .foto { background: #7C5CFF; color: white; padding: 30px 10px; text-align: center; border-radius: 6px; }
+</style>
+<div class=&quot;galeria&quot;>
+  <div class=&quot;foto&quot;>1</div>
+  <div class=&quot;foto&quot;>2</div>
+  <div class=&quot;foto&quot;>3</div>
+  <div class=&quot;foto&quot;>4</div>
+  <div class=&quot;foto&quot;>5</div>
+</div>">Galeria auto-fit</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<style>
+  .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; }
+  .principal { background: #0ea5b7; color: white; padding: 20px; border-radius: 6px; }
+  .lateral { background: #F77F00; color: white; padding: 20px; border-radius: 6px; }
+</style>
+
+<div class=&quot;grid&quot;>
+  <div class=&quot;principal&quot;>Conteúdo principal (2fr)</div>
+  <div class=&quot;lateral&quot;>Barra lateral (1fr)</div>
+</div>" spellcheck="false"><style>
+  .grid { display: grid; grid-template-columns: 2fr 1fr; gap: 10px; }
+  .principal { background: #0ea5b7; color: white; padding: 20px; border-radius: 6px; }
+  .lateral { background: #F77F00; color: white; padding: 20px; border-radius: 6px; }
+</style>
+
+<div class="grid">
+  <div class="principal">Conteúdo principal (2fr)</div>
+  <div class="lateral">Barra lateral (1fr)</div>
+</div></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('hc_mod8') }}" class="btn-voltar">&larr; Módulo 8</a>
+        <a href="{{ url_for('hc_mod10') }}" class="btn-proximo">Módulo 10: Variáveis CSS e Temas &rarr;</a>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

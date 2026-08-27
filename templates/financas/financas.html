@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educação Financeira - Módulo 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/financas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+    <div class="main-card">
+        <h2>1. Introdução à Educação Financeira</h2>
+        <p>Bem-vindo ao Curso Gratuito de Educação Financeira. Aqui aprenderá as bases para transformar a sua relação com o dinheiro.</p>
+
+        <div class="conteudo-modulo">
+            <h3>1.1 O que é Educação Financeira</h3>
+            <p>Educação financeira é o estudo prático de como lidar corretamente com o dinheiro, aprendendo a ganhar, gastar, economizar e investir de forma inteligente.</p>
+            <div class="tip-box">
+                <strong>📖 Explicação Pedagógica:</strong> Ter educação financeira não significa apenas “ter muito dinheiro”, mas sim saber controlar com precisão os recursos que já possui. Isso evita dívidas, melhora a qualidade de vida e ajuda na realização de grandes objetivos de vida.
+            </div>
+            
+            <h3>1.2 Por que ela é Importante</h3>
+            <p>A falta de conhecimento financeiro é a raiz da maioria das crises familiares. Desenvolver esta habilidade ajuda a evitar de forma direta:</p>
+            <ul>
+                <li>Endividamento excessivo e descontrolado.</li>
+                <li>Gastos supérfluos e desnecessários por impulso.</li>
+                <li>Falta total de planeamento para o futuro.</li>
+            </ul>
+            <div class="tip-box">
+                <strong>📖 Explicação Pedagógica:</strong> Muitas pessoas ganham bons salários, mas não sabem administrá-los. Isso faz com que vivam constantemente no “modo sobrevivência”, sem conseguir guardar ou investir um único cêntimo.
+            </div>
+
+            <h3>1.3 Mentalidade Financeira</h3>
+            <p>A sua mentalidade financeira é o conjunto de crenças e a forma exata como pensa e reage em relação ao dinheiro.</p>
+            <div class="tip-box">
+                <strong>📖 Explicação Pedagógica:</strong> Uma mentalidade saudável entende que o dinheiro é apenas uma ferramenta de troca e liberdade, e não o objetivo final da vida. Pessoas com boa mentalidade planeiam antes de gastar e procuram sempre o crescimento constante.
+            </div>
+
+            <h3>1.4 Renda Ativa vs. Renda Passiva</h3>
+            <p>Entender essa diferença muda completamente a forma como você planeja sua vida financeira a longo prazo:</p>
+            <ul>
+                <li><strong>Renda Ativa:</strong> o dinheiro que você recebe trocando seu tempo e trabalho diretamente — seu salário, um serviço prestado. Se você parar de trabalhar, ela para.</li>
+                <li><strong>Renda Passiva:</strong> o dinheiro que continua entrando mesmo sem seu esforço direto no momento — juros de investimentos, aluguéis, dividendos.</li>
+            </ul>
+            <div class="tip-box">
+                <strong>📖 Explicação Pedagógica:</strong> A liberdade financeira não significa necessariamente "ficar rico", mas sim ter renda passiva suficiente para cobrir suas despesas essenciais, dando a você a opção de escolher como usar seu tempo.
+            </div>
+
+            <div class="warn-box">
+                <strong>⚠️ Cuidado com a "mentalidade de escassez"</strong><br>
+                Achar que "dinheiro nunca é suficiente" ou evitar até pensar sobre finanças por ansiedade também é um problema. O primeiro passo da educação financeira é encarar sua situação atual de frente, sem julgamento, para poder melhorá-la.
+            </div>
+
+            <div class="info-box">
+                <strong>✏️ Exercício rápido</strong><br>
+                Pegue papel e caneta (ou um app de notas) e escreva por 5 minutos: qual é sua primeira lembrança relacionada a dinheiro? Isso ajuda a identificar crenças que você carrega sem perceber.
+            </div>
+
+            <h3>- Resumo do Módulo</h3>
+            <ul>
+                <li>Educação financeira é sobre controlar o que você já tem, não só sobre ganhar mais</li>
+                <li>Falta de planejamento é a raiz da maioria dos problemas financeiros familiares</li>
+                <li>Mentalidade financeira saudável prioriza planejamento antes do gasto</li>
+                <li>Renda passiva é o caminho para mais liberdade sobre seu próprio tempo</li>
+            </ul>
+        </div>
+
+        
+
+        <hr style="margin-top: 30px;"> 
+        <div class="button-container">
+            <a href="{{ url_for('trilhas') }}" class="btn-voltar">Voltar ao Menu</a>
+            <a href="{{ url_for('financas_modulo2') }}" class="btn-proximo">Próxima Página (Módulo 2) &rarr;</a>
+        </div>
+    </div>
+
+
+    <script src="{{ url_for('static', filename='js/financas.js') }}"></script>
+
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span>
+      <span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info">
+            <strong>Cognitio IA</strong>
+            <span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span>
+          </div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" title="Limpar conversa" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" title="Fechar" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" title="Enviar" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

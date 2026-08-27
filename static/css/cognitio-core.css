@@ -1,0 +1,255 @@
+/* ══════════════════════════════════════════════════════════════
+   COGNITIO CORE · cognitio-core.css
+   Componentes compartilhados (dock, toasts, certificado, XP bar,
+   conquistas, trilha, cards) + rede de segurança para mobile.
+   Usa var(--primary), var(--dark) etc. já definidas em cada tema,
+   com fallback em laranja/azul-marinho quando ausentes.
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Acessibilidade: foco visível consistente em todo o site ──── */
+a:focus-visible, button:focus-visible, input:focus-visible,
+textarea:focus-visible, select:focus-visible, [tabindex]:focus-visible {
+  outline: 3px solid var(--primary, #F77F00);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Rede de segurança para mobile (não deve alterar o desktop) ── */
+html { -webkit-text-size-adjust: 100%; }
+img, video, iframe, canvas, svg { max-width: 100%; height: auto; }
+pre, table, .cog-scroll-x { max-width: 100%; overflow-x: auto; }
+input, select, textarea, button { max-width: 100%; }
+* { -webkit-tap-highlight-color: transparent; }
+
+/* Evita o zoom automático do iOS Safari em inputs com fonte < 16px */
+@media (max-width: 900px) {
+  input, select, textarea { font-size: 16px !important; }
+}
+
+/* ── Dock de navegação rápida (flutuante, todas as páginas) ─────── */
+#cog-dock {
+  position: fixed;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%) translateY(0);
+  z-index: 998;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(20, 20, 25, 0.92);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: 50px;
+  padding: 6px 10px;
+  box-shadow: 0 10px 34px rgba(0,0,0,0.25);
+  transition: opacity .25s ease, transform .25s ease;
+}
+#cog-dock-toggle { display: none; }
+
+.cog-dock-item, .cog-dock-stat {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #fff;
+  text-decoration: none;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 8px 12px;
+  border-radius: 40px;
+  white-space: nowrap;
+}
+.cog-dock-item i, .cog-dock-stat i { font-size: 0.9rem; color: var(--primary, #F77F00); }
+.cog-dock-item:hover { background: rgba(255,255,255,0.12); }
+.cog-dock-stat { color: #e9e9ee; cursor: default; }
+.cog-dock-stat i { color: #ffd166; }
+
+@media (max-width: 720px) {
+  #cog-dock {
+    left: auto; right: 14px; bottom: 14px; transform: none;
+    flex-direction: column; align-items: stretch;
+    border-radius: 20px; padding: 10px;
+    max-height: 0; overflow: hidden; opacity: 0; pointer-events: none;
+  }
+  #cog-dock.cog-dock-open {
+    max-height: 320px; opacity: 1; pointer-events: all; padding: 10px;
+  }
+  .cog-dock-item, .cog-dock-stat { padding: 10px 12px; font-size: 0.85rem; }
+  #cog-dock-toggle {
+    display: flex; align-items: center; justify-content: center;
+    position: fixed; bottom: 14px; right: 14px; z-index: 999;
+    width: 50px; height: 50px; border-radius: 50%;
+    background: var(--primary, #F77F00); color: #fff; border: none;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.25); font-size: 1.1rem;
+  }
+  body:has(#cog-dock.cog-dock-open) #cog-dock-toggle { transform: rotate(90deg); }
+}
+/* Evita conflito com o botão flutuante da IA (canto inferior direito) */
+@media (max-width: 720px) {
+  #cog-dock-toggle { right: 78px; }
+}
+
+/* ── Toasts (XP / conquistas) ─────────────────────────────────── */
+#cog-toast-root {
+  position: fixed; top: 16px; right: 16px; z-index: 1201;
+  display: flex; flex-direction: column; gap: 10px;
+  max-width: min(360px, calc(100vw - 32px));
+}
+.cog-toast {
+  background: #14141a; color: #fff; border-radius: 14px;
+  padding: 12px 16px; font-size: 0.85rem; line-height: 1.4;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  opacity: 0; transform: translateY(-12px) scale(0.98);
+  transition: opacity .3s ease, transform .3s ease;
+  border-left: 4px solid var(--primary, #F77F00);
+}
+.cog-toast.show { opacity: 1; transform: translateY(0) scale(1); }
+.cog-toast-xp { border-left-color: #ffd166; }
+.cog-toast-achievement { border-left-color: #7ee787; }
+.cog-toast i { margin-right: 4px; }
+
+/* ── Modal de certificado ────────────────────────────────────── */
+#cog-cert-overlay {
+  position: fixed; inset: 0; z-index: 1300;
+  background: rgba(10,10,15,0.72);
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  opacity: 0; transition: opacity .3s ease;
+}
+#cog-cert-overlay.show { opacity: 1; }
+.cog-cert-card {
+  background: #fff; color: var(--dark, #003049);
+  border-radius: 22px; max-width: 480px; width: 100%;
+  padding: 36px 30px 30px; text-align: center; position: relative;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+  transform: scale(0.92); transition: transform .3s ease;
+  border-top: 8px solid var(--primary, #F77F00);
+}
+#cog-cert-overlay.show .cog-cert-card { transform: scale(1); }
+.cog-cert-close {
+  position: absolute; top: 14px; right: 14px; background: none; border: none;
+  font-size: 1.4rem; color: var(--dark, #003049); opacity: 0.5; cursor: pointer; line-height: 1;
+}
+.cog-cert-close:hover { opacity: 1; }
+.cog-cert-emoji { font-size: 3rem; margin-bottom: 6px; }
+.cog-cert-card h2 { font-size: 1.5rem; margin-bottom: 4px; }
+.cog-cert-curso { font-weight: 700; color: var(--primary, #F77F00); margin-bottom: 14px; }
+.cog-cert-linha { height: 1px; background: var(--border, rgba(0,48,73,0.12)); margin: 16px 0; }
+.cog-cert-aluno { margin-bottom: 4px; }
+.cog-cert-stats { display: flex; justify-content: center; gap: 22px; margin: 22px 0 8px; }
+.cog-cert-stats div { display: flex; flex-direction: column; }
+.cog-cert-stats strong { font-size: 1.3rem; color: var(--primary, #F77F00); }
+.cog-cert-stats span { font-size: 0.72rem; opacity: 0.65; }
+.cog-cert-btn {
+  margin-top: 18px; background: var(--primary, #F77F00); color: #fff; border: none;
+  padding: 12px 26px; border-radius: 50px; font-weight: 700; cursor: pointer; font-size: 0.9rem;
+  transition: transform .2s ease;
+}
+.cog-cert-btn:hover { transform: translateY(-2px); }
+
+/* ── Componentes reutilizáveis: XP bar, streak, conquistas, trilha, metas ── */
+.cog-card {
+  background: var(--surface, #fff);
+  border: 1px solid var(--border, rgba(0,48,73,0.09));
+  border-radius: var(--radius, 18px);
+  padding: 22px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.05);
+}
+.cog-card h3 { display: flex; align-items: center; gap: 8px; margin-bottom: 14px; font-size: 1.05rem; }
+
+.cog-xp-bar-track {
+  width: 100%; height: 12px; border-radius: 20px;
+  background: var(--dark-dim, var(--primary-dim, rgba(0,48,73,0.08)));
+  overflow: hidden; position: relative;
+}
+.cog-xp-bar-fill {
+  height: 100%; border-radius: 20px;
+  background: linear-gradient(90deg, var(--primary, #F77F00), var(--primary-glow, rgba(247,127,0,0.6)));
+  transition: width .6s ease;
+}
+.cog-xp-label { display: flex; justify-content: space-between; font-size: 0.78rem; opacity: 0.75; margin-top: 6px; }
+
+.cog-streak-row { display: flex; gap: 6px; justify-content: space-between; margin-top: 10px; }
+.cog-streak-day { flex: 1; text-align: center; }
+.cog-streak-day .dot {
+  width: 30px; height: 30px; border-radius: 50%; margin: 0 auto 4px;
+  display: flex; align-items: center; justify-content: center; font-size: 0.85rem;
+  background: var(--dark-dim, rgba(0,48,73,0.06)); color: var(--dark, #003049);
+}
+.cog-streak-day.done .dot { background: var(--primary, #F77F00); color: #fff; }
+.cog-streak-day.today .dot { box-shadow: 0 0 0 2px var(--primary, #F77F00); }
+.cog-streak-day span.lbl { font-size: 0.65rem; opacity: 0.6; font-weight: 700; }
+
+.cog-badges { display: flex; flex-wrap: wrap; gap: 10px; }
+.cog-badge {
+  display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px; border-radius: 14px;
+  background: var(--dark-dim, rgba(0,48,73,0.05));
+  font-size: 0.8rem; font-weight: 600; opacity: 0.4; filter: grayscale(0.6);
+  flex: 1 1 220px;
+}
+.cog-badge.unlocked { opacity: 1; filter: none; background: var(--primary-dim, rgba(247,127,0,0.12)); }
+.cog-badge .emoji { font-size: 1.3rem; }
+.cog-badge .txt { display: flex; flex-direction: column; }
+.cog-badge .txt small { font-weight: 400; opacity: 0.7; font-size: 0.7rem; }
+
+.cog-trilha { display: flex; flex-direction: column; gap: 0; }
+.cog-trilha-step {
+  display: flex; align-items: center; gap: 14px; padding: 12px 6px; position: relative;
+}
+.cog-trilha-step:not(:last-child)::after {
+  content: ''; position: absolute; left: 23px; top: 46px; bottom: -12px; width: 2px;
+  background: var(--border, rgba(0,48,73,0.12));
+}
+.cog-trilha-icon {
+  width: 46px; height: 46px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; background: var(--dark-dim, rgba(0,48,73,0.06)); flex-shrink: 0; z-index: 1;
+}
+.cog-trilha-step.concluido .cog-trilha-icon { background: #22c55e; color: #fff; }
+.cog-trilha-step.atual .cog-trilha-icon { background: var(--primary, #F77F00); color: #fff; box-shadow: 0 0 0 4px var(--primary-dim, rgba(247,127,0,0.25)); }
+.cog-trilha-step.bloqueado .cog-trilha-icon { opacity: 0.45; }
+.cog-trilha-info strong { display: block; font-size: 0.92rem; }
+.cog-trilha-info span { font-size: 0.75rem; opacity: 0.65; }
+.cog-trilha-tag {
+  margin-left: auto; font-size: 0.68rem; font-weight: 700; padding: 4px 10px; border-radius: 20px;
+  text-transform: uppercase; letter-spacing: 0.03em; white-space: nowrap;
+}
+.cog-trilha-step.concluido .cog-trilha-tag { background: rgba(34,197,94,0.14); color: #16a34a; }
+.cog-trilha-step.atual .cog-trilha-tag { background: var(--primary-dim, rgba(247,127,0,0.15)); color: var(--primary, #F77F00); }
+.cog-trilha-step.recomendado .cog-trilha-tag { background: rgba(0,0,0,0.06); color: var(--dark, #003049); }
+.cog-trilha-step.bloqueado .cog-trilha-tag { background: rgba(0,0,0,0.05); color: rgba(0,0,0,0.4); }
+
+.cog-goal-bar-wrap { margin-top: 10px; }
+.cog-goal-text { font-size: 0.85rem; margin-top: 8px; opacity: 0.8; }
+
+.cog-btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--primary, #F77F00); color: #fff; border: none;
+  padding: 11px 22px; border-radius: 50px; font-weight: 700; font-size: 0.85rem;
+  cursor: pointer; text-decoration: none; transition: transform .2s ease, box-shadow .2s ease;
+}
+.cog-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 22px rgba(0,0,0,0.15); }
+.cog-btn-outline { background: transparent; color: var(--primary, #F77F00); border: 2px solid var(--primary, #F77F00); }
+
+.cog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 18px; }
+
+/* ── Widget "Perguntar à IA" contextual, para dentro de páginas de módulo ── */
+.cog-ask-ia-box {
+  margin-top: 26px; padding: 16px 18px; border-radius: 16px;
+  background: var(--primary-dim, rgba(247,127,0,0.1));
+  border: 1px dashed var(--primary, #F77F00);
+  display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap;
+}
+.cog-ask-ia-box p { margin: 0; font-weight: 600; font-size: 0.9rem; }
+.cog-ask-ia-box button {
+  background: var(--primary, #F77F00); color: #fff; border: none; padding: 9px 16px;
+  border-radius: 50px; font-weight: 700; font-size: 0.82rem; cursor: pointer; white-space: nowrap;
+}
+
+/* ── Responsividade geral extra para conteúdo típico das páginas ── */
+@media (max-width: 640px) {
+  .cog-grid { grid-template-columns: 1fr; }
+  .cog-cert-stats { gap: 14px; }
+  .cog-cert-card { padding: 28px 20px 24px; }
+  #cog-toast-root { left: 12px; right: 12px; max-width: none; }
+  .cog-ask-ia-box { flex-direction: column; align-items: stretch; text-align: center; }
+}

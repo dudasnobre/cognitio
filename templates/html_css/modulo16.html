@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 16</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>16. Projeto Final: Construindo um Site Responsivo Completo</h2>
+    <p>Chegou a hora de juntar tudo o que você aprendeu nos 15 módulos anteriores em um único projeto: uma landing page completa, semântica, responsiva, com tema personalizável e acessível.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- O Desafio</h3>
+        <p>Construa uma landing page de uma página (pode ser para um produto, um evento ou um portfólio pessoal) que inclua:</p>
+        <ul>
+            <li>✅ HTML semântico completo (<code>header</code>, <code>nav</code>, <code>main</code>, <code>section</code>, <code>footer</code>)</li>
+            <li>✅ Um cabeçalho com navegação usando <strong>Flexbox</strong></li>
+            <li>✅ Uma seção de conteúdo (cards de destaque) usando <strong>Grid</strong></li>
+            <li>✅ Cores e espaçamentos definidos com <strong>Custom Properties</strong></li>
+            <li>✅ Ao menos uma <strong>animação/transição</strong> sutil (hover em botões, entrada de seção)</li>
+            <li>✅ Layout <strong>mobile-first</strong>, funcional em qualquer tamanho de tela</li>
+            <li>✅ Contraste de cores adequado e foco visível em elementos interativos</li>
+        </ul>
+
+        <h3>- Estrutura Sugerida</h3>
+        <pre><code>&lt;body&gt;
+  &lt;header&gt;
+    &lt;nav&gt;&lt;!-- logo + links, flexbox --&gt;&lt;/nav&gt;
+  &lt;/header&gt;
+
+  &lt;main&gt;
+    &lt;section id="hero"&gt;&lt;!-- título + chamada para ação --&gt;&lt;/section&gt;
+    &lt;section id="destaques"&gt;&lt;!-- grid de cards --&gt;&lt;/section&gt;
+    &lt;section id="sobre"&gt;&lt;!-- texto + imagem --&gt;&lt;/section&gt;
+  &lt;/main&gt;
+
+  &lt;footer&gt;&lt;!-- direitos autorais, redes sociais --&gt;&lt;/footer&gt;
+&lt;/body&gt;</code></pre>
+
+        <h3>- Checklist de Qualidade Antes de Finalizar</h3>
+        <div class="info-box">
+            <strong><i class="fa-solid fa-list-check"></i> Revise sua página</strong><br>
+            1. Navegue por Tab — chega em todos os links e botões?<br>
+            2. Redimensione a janela — nada quebra ou "estoura" a tela?<br>
+            3. Toda imagem tem <code>alt</code>?<br>
+            4. Os títulos seguem uma hierarquia lógica (<code>h1</code> → <code>h2</code> → <code>h3</code>, sem pular níveis)?<br>
+            5. As cores de texto têm contraste suficiente com o fundo?
+        </div>
+
+        <h3>- Use o Laboratório Abaixo</h3>
+        <p>Monte seu projeto diretamente no laboratório interativo abaixo. Comece pelo esqueleto semântico, depois adicione o CSS aos poucos: primeiro o layout (Flexbox/Grid), depois as cores (variáveis), por último os toques finais (animações, hover).</p>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Você concluiu a trilha de HTML e CSS!</strong><br>
+            Da estrutura básica até arquitetura e acessibilidade — você agora tem a base completa para construir qualquer interface web estática. O próximo passo natural é adicionar interatividade com <strong>JavaScript</strong>.
+        </div>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<style>
+  :root { --primaria: #F77F00; --escuro: #003049; --radius: 12px; }
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: sans-serif; }
+  header { background: var(--escuro); padding: 16px; display: flex; justify-content: space-between; align-items: center; }
+  header a { color: white; text-decoration: none; margin-left: 16px; }
+  #hero { padding: 60px 20px; text-align: center; background: linear-gradient(135deg, var(--escuro), var(--primaria)); color: white; }
+  #hero button { margin-top: 20px; padding: 12px 28px; border: none; border-radius: var(--radius); background: white; color: var(--escuro); font-weight: bold; cursor: pointer; transition: transform .2s; }
+  #hero button:hover { transform: scale(1.05); }
+  #destaques { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; padding: 40px 20px; }
+  .card { background: #f5f5f5; border-radius: var(--radius); padding: 20px; text-align: center; }
+  footer { background: var(--escuro); color: white; text-align: center; padding: 16px; }
+</style>
+<header>
+  <strong style=&quot;color:white&quot;>MinhaMarca</strong>
+  <nav><a href=&quot;#&quot;>Início</a><a href=&quot;#&quot;>Sobre</a></nav>
+</header>
+<main>
+  <section id=&quot;hero&quot;>
+    <h1>Bem-vindo(a)</h1>
+    <p>Uma landing page construída do zero.</p>
+    <button>Começar agora</button>
+  </section>
+  <section id=&quot;destaques&quot;>
+    <div class=&quot;card&quot;>Recurso 1</div>
+    <div class=&quot;card&quot;>Recurso 2</div>
+    <div class=&quot;card&quot;>Recurso 3</div>
+  </section>
+</main>
+<footer>&copy; 2026 MinhaMarca</footer>">Esqueleto inicial</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<style>
+  :root { --primaria: #0ea5b7; }
+  body { font-family: sans-serif; margin: 0; }
+  header { background: #003049; color: white; padding: 16px 24px; }
+</style>
+
+<header>
+  <h1>Meu Projeto Final</h1>
+</header>
+<main style=&quot;padding:20px;&quot;>
+  <p>Comece a construir sua landing page aqui!</p>
+</main>" spellcheck="false"><style>
+  :root { --primaria: #0ea5b7; }
+  body { font-family: sans-serif; margin: 0; }
+  header { background: #003049; color: white; padding: 16px 24px; }
+</style>
+
+<header>
+  <h1>Meu Projeto Final</h1>
+</header>
+<main style="padding:20px;">
+  <p>Comece a construir sua landing page aqui!</p>
+</main></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('hc_mod15') }}" class="btn-voltar">&larr; Módulo 15</a>
+        <a href="{{ url_for('trilhas') }}" class="btn-proximo" style="background:#0ea5b7;border-color:#0ea5b7;" data-cognitio-complete-course="htmlcss">Concluir Curso de HTML e CSS! 🏆</a>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

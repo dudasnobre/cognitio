@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 14</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>14. Arquitetura CSS e Organização de Projetos</h2>
+    <p>Escrever CSS que funciona é uma coisa. Escrever CSS que continua fácil de manter depois que o projeto cresce para centenas de componentes é outra. Esse módulo mostra como organizar seus estilos como um profissional.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- O Problema da Especificidade Descontrolada</h3>
+        <pre><code>/* Cada regra tentando "vencer" a anterior... */
+.card p { color: black; }
+#conteudo .card p { color: blue; }
+.pagina #conteudo .card p.destaque { color: red !important; }</code></pre>
+        <p>Esse padrão — chamado de "guerra de especificidade" — torna o CSS cada vez mais difícil de sobrescrever e depurar. A solução é uma <strong>metodologia de nomenclatura</strong> consistente.</p>
+
+        <h3>- BEM: Block, Element, Modifier</h3>
+        <pre><code>/* Block: o componente em si */
+.card { }
+
+/* Element: uma parte do bloco (dois underlines) */
+.card__titulo { }
+.card__imagem { }
+
+/* Modifier: uma variação do bloco ou elemento (dois hífens) */
+.card--destaque { }
+.card__titulo--grande { }</code></pre>
+        <pre><code>&lt;div class="card card--destaque"&gt;
+  &lt;img class="card__imagem" src="..."&gt;
+  &lt;h3 class="card__titulo card__titulo--grande"&gt;Título&lt;/h3&gt;
+&lt;/div&gt;</code></pre>
+        <p>Com BEM, toda classe tem <strong>a mesma especificidade</strong> (uma única classe), então a ordem no arquivo é o que decide, não uma corrida por seletores mais específicos.</p>
+
+        <h3>- Organização de Arquivos</h3>
+        <pre><code>styles/
+  base/
+    reset.css        /* zera estilos padrão do navegador */
+    variaveis.css     /* :root com custom properties */
+    tipografia.css
+  componentes/
+    botao.css
+    card.css
+    navbar.css
+  layout/
+    grid.css
+    header.css
+    footer.css
+  main.css            /* importa todos os outros, na ordem certa */</code></pre>
+
+        <h3>- Evitando !important</h3>
+        <p><code>!important</code> quebra a cascata natural do CSS e torna estilos futuros muito difíceis de sobrescrever. Quase sempre existe uma alternativa melhor:</p>
+        <ul>
+            <li>Reduza a especificidade da regra que está "vencendo" indevidamente</li>
+            <li>Reorganize a ordem de importação dos arquivos CSS</li>
+            <li>Use uma classe modificadora (BEM) em vez de tentar sobrescrever à força</li>
+        </ul>
+
+        <h3>- Mobile-First como Parte da Arquitetura</h3>
+        <p>Organizar media queries dentro de cada componente (em vez de um arquivo gigante só de responsividade no final) mantém tudo relacionado a um componente no mesmo lugar:</p>
+        <pre><code>.navbar { display: block; }
+.navbar__links { display: none; }
+
+@media (min-width: 900px) {
+    .navbar { display: flex; }
+    .navbar__links { display: flex; }
+}</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Consistência importa mais que a metodologia escolhida</strong><br>
+            BEM é popular, mas existem outras (SMACSS, Atomic CSS, utility-first como o Tailwind). O que realmente importa é escolher uma abordagem e aplicá-la <strong>consistentemente</strong> em todo o projeto.
+        </div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Seletores de tag genéricos em excesso</strong><br>
+            Regras como <code>div { }</code> ou <code>p { }</code> aplicadas globalmente afetam todo o projeto e são fáceis de esquecer. Prefira sempre classes específicas do componente.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>BEM (<code>bloco__elemento--modificador</code>) mantém a especificidade uniforme e o CSS previsível</li>
+            <li>Organize arquivos por responsabilidade: base, componentes, layout</li>
+            <li>Evite <code>!important</code> — ele quebra a cascata natural do CSS</li>
+            <li>Mantenha media queries próximas do componente a que pertencem</li>
+        </ul>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<style>
+  .card { border: 1px solid #ddd; border-radius: 10px; overflow: hidden; font-family: sans-serif; max-width: 260px; }
+  .card__imagem { background: #0ea5b7; height: 100px; }
+  .card__corpo { padding: 14px; }
+  .card__titulo { margin: 0 0 6px; font-size: 1.1rem; }
+  .card--destaque { border-color: #F77F00; box-shadow: 0 0 0 2px #F77F00; }
+</style>
+<div class=&quot;card card--destaque&quot;>
+  <div class=&quot;card__imagem&quot;></div>
+  <div class=&quot;card__corpo&quot;>
+    <h3 class=&quot;card__titulo&quot;>Card em destaque</h3>
+    <p>Usando a metodologia BEM.</p>
+  </div>
+</div>">Componente com BEM</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<style>
+  .botao { padding: 10px 20px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; }
+  .botao--primario { background: #F77F00; color: white; }
+  .botao--secundario { background: #eee; color: #003049; }
+</style>
+
+<button class=&quot;botao botao--primario&quot;>Confirmar</button>
+<button class=&quot;botao botao--secundario&quot;>Cancelar</button>" spellcheck="false"><style>
+  .botao { padding: 10px 20px; border-radius: 8px; border: none; font-weight: bold; cursor: pointer; }
+  .botao--primario { background: #F77F00; color: white; }
+  .botao--secundario { background: #eee; color: #003049; }
+</style>
+
+<button class="botao botao--primario">Confirmar</button>
+<button class="botao botao--secundario">Cancelar</button></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('hc_mod13') }}" class="btn-voltar">&larr; Módulo 13</a>
+        <a href="{{ url_for('hc_mod15') }}" class="btn-proximo">Módulo 15: Acessibilidade Web &rarr;</a>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

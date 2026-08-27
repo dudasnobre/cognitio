@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Módulo 12</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/javascript.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>12. Projeto Final: Aplicação Interativa</h2>
+    <p>Hora de juntar tudo: DOM, eventos, arrays, localStorage e JavaScript moderno em um projeto clássico e extremamente comum no mercado — uma lista de tarefas (To-Do List) funcional e persistente.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- O Desafio</h3>
+        <ul>
+            <li>✅ Um formulário para adicionar novas tarefas</li>
+            <li>✅ Marcar uma tarefa como concluída (clique para alternar)</li>
+            <li>✅ Remover uma tarefa da lista</li>
+            <li>✅ Salvar tudo no <code>localStorage</code>, para não perder ao recarregar a página</li>
+            <li>✅ Mostrar quantas tarefas restam</li>
+        </ul>
+
+        <h3>- Estrutura de Dados</h3>
+        <pre><code>let tarefas = JSON.parse(localStorage.getItem('tarefas') || '[]');
+// Cada tarefa: { id: 1, texto: 'Estudar JS', concluida: false }</code></pre>
+
+        <h3>- Funções Principais</h3>
+        <pre><code>function adicionarTarefa(texto) {
+    tarefas.push({ id: Date.now(), texto, concluida: false });
+    salvar();
+    renderizar();
+}
+
+function alternarTarefa(id) {
+    tarefas = tarefas.map(t =>
+        t.id === id ? { ...t, concluida: !t.concluida } : t
+    );
+    salvar();
+    renderizar();
+}
+
+function removerTarefa(id) {
+    tarefas = tarefas.filter(t => t.id !== id);
+    salvar();
+    renderizar();
+}
+
+function salvar() {
+    localStorage.setItem('tarefas', JSON.stringify(tarefas));
+}</code></pre>
+
+        <h3>- Renderizando a Lista</h3>
+        <pre><code>function renderizar() {
+    const lista = document.querySelector('#lista-tarefas');
+    lista.innerHTML = '';
+    tarefas.forEach(t => {
+        const li = document.createElement('li');
+        li.textContent = t.texto;
+        li.style.textDecoration = t.concluida ? 'line-through' : 'none';
+        li.addEventListener('click', () => alternarTarefa(t.id));
+        lista.appendChild(li);
+    });
+    document.querySelector('#contador').textContent =
+        `${tarefas.filter(t => !t.concluida).length} tarefa(s) pendente(s)`;
+}
+renderizar(); // chamada inicial, ao carregar a página</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Este é o padrão de toda aplicação com estado</strong><br>
+            Estado (o array <code>tarefas</code>) → funções que alteram o estado → uma função <code>renderizar()</code> que redesenha a tela a partir do estado atual. Esse ciclo é a base conceitual de frameworks como React e Vue — você já entende a ideia central!
+        </div>
+
+        <h3>- Teste no Laboratório Abaixo</h3>
+        <p>Use o terminal interativo para montar e testar a lógica da sua To-Do List antes de integrá-la a um HTML completo com formulário e lista visual.</p>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Parabéns por concluir o curso de JavaScript!</strong><br>
+            Você percorreu desde variáveis básicas até estado persistente e ES6+. O próximo passo natural na trilha da Cognitio é aprofundar em back-end com <strong>Python</strong> ou dados com <strong>Banco de Dados SQL</strong>.
+        </div>
+
+    <div class="js-vm-section" style="margin-top:36px;">
+        <div class="js-vm-header">
+            <div class="vm-title"><i class="fa-brands fa-js"></i> Terminal JavaScript — Projeto Final</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="js-snippet-btns">
+            <span class="js-snippet-label">Snippets:</span>
+            <button class="js-snippet" data-js="let tarefas = [];&#10;&#10;function adicionarTarefa(texto) {&#10;  tarefas.push({ id: Date.now(), texto, concluida: false });&#10;}&#10;function alternarTarefa(id) {&#10;  tarefas = tarefas.map(t => t.id === id ? { ...t, concluida: !t.concluida } : t);&#10;}&#10;&#10;adicionarTarefa('Estudar JS');&#10;adicionarTarefa('Fazer exercícios');&#10;alternarTarefa(tarefas[0].id);&#10;console.table(tarefas);">Testar lógica da lista</button>
+            <button class="js-snippet" data-js="const tarefas = [&#10;  { texto: 'A', concluida: true },&#10;  { texto: 'B', concluida: false },&#10;  { texto: 'C', concluida: false }&#10;];&#10;&#10;const pendentes = tarefas.filter(t => !t.concluida).length;&#10;console.log(`${pendentes} tarefa(s) pendente(s)`);">Contador de pendentes</button>
+        </div>
+        <textarea id="js-editor" data-default="// Monte aqui a lógica completa da sua To-Do List&#10;let tarefas = JSON.parse(localStorage.getItem('demo_tarefas') || '[]');&#10;&#10;function adicionarTarefa(texto) {&#10;  tarefas.push({ id: Date.now(), texto, concluida: false });&#10;  localStorage.setItem('demo_tarefas', JSON.stringify(tarefas));&#10;}&#10;&#10;adicionarTarefa('Minha primeira tarefa');&#10;console.log(tarefas);" placeholder="// Ctrl+Enter para executar">// Monte aqui a lógica completa da sua To-Do List&#10;let tarefas = JSON.parse(localStorage.getItem('demo_tarefas') || '[]');&#10;&#10;function adicionarTarefa(texto) {&#10;  tarefas.push({ id: Date.now(), texto, concluida: false });&#10;  localStorage.setItem('demo_tarefas', JSON.stringify(tarefas));&#10;}&#10;&#10;adicionarTarefa('Minha primeira tarefa');&#10;console.log(tarefas);</textarea>
+        <div class="js-vm-toolbar">
+            <button class="js-run-btn" id="js-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="js-reset-btn" id="js-reset"><i class="fa-solid fa-rotate"></i> Resetar</button>
+            <button class="js-hint-btn" id="js-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="js-result-wrap"><div id="js-result"><p style="color:rgba(205,214,244,.4);font-size:.84rem;font-family:monospace"><i class="fa-solid fa-arrow-up"></i> Execute o código para ver o resultado.</p></div></div>
+    </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('js_mod11') }}" class="btn-voltar">&larr; Módulo 11</a>
+        <a href="{{ url_for('trilhas') }}" class="btn-proximo" data-cognitio-complete-course="javascript">Concluir Curso! 🏆</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/javascript.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

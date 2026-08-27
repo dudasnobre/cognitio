@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 5</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>5. Flexbox e Grid</h2>
+    <p>Flexbox e Grid são os dois sistemas modernos de layout do CSS. Eles resolveram, de vez, o problema de alinhar e distribuir elementos na tela — algo que era muito complicado nos primeiros anos da web.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Flexbox: alinhando em uma linha ou coluna</h3>
+        <pre><code>.container {
+    display: flex;
+    justify-content: space-between;  /* eixo horizontal */
+    align-items: center;             /* eixo vertical */
+    gap: 16px;
+}</code></pre>
+        <ul>
+            <li><code>display: flex</code> — ativa o Flexbox no elemento pai</li>
+            <li><code>justify-content</code> — alinha os filhos no eixo principal (<code>flex-start</code>, <code>center</code>, <code>space-between</code>, <code>space-around</code>)</li>
+            <li><code>align-items</code> — alinha os filhos no eixo cruzado (<code>flex-start</code>, <code>center</code>, <code>stretch</code>)</li>
+            <li><code>flex-direction: column</code> — muda a direção para vertical</li>
+            <li><code>gap</code> — espaço entre os itens, sem precisar de margin</li>
+        </ul>
+
+        <h3>- Grid: linhas e colunas ao mesmo tempo</h3>
+        <pre><code>.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}</code></pre>
+        <p><code>repeat(3, 1fr)</code> cria 3 colunas de larguras iguais (<code>1fr</code> = uma "fração" do espaço disponível). Você também pode misturar tamanhos:</p>
+        <pre><code>grid-template-columns: 200px 1fr 1fr;   /* uma coluna fixa + duas flexíveis */</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Flexbox ou Grid?</strong><br>
+            Use <strong>Flexbox</strong> para alinhar itens em uma única direção (uma barra de navegação, por exemplo). Use <strong>Grid</strong> quando precisar controlar linhas E colunas ao mesmo tempo (uma galeria de cards, um dashboard).
+        </div>
+
+        <h3>- flex-wrap: Permitindo Quebra de Linha</h3>
+        <p>Por padrão, o Flexbox tenta espremer todos os itens numa única linha. Para permitir que eles "quebrem" para a linha de baixo quando não couberem, use <code>flex-wrap</code>:</p>
+        <pre><code>.container {
+    display: flex;
+    flex-wrap: wrap;   /* permite quebrar linha em vez de espremer */
+    gap: 16px;
+}</code></pre>
+
+        <h3>- grid-template-areas: Nomeando o Layout</h3>
+        <p>Uma forma bastante visual de montar um layout de página inteira com Grid — você literalmente "desenha" onde cada seção vai:</p>
+        <pre><code>.pagina {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    grid-template-areas:
+        "cabecalho cabecalho"
+        "menu      conteudo";
+}
+header  { grid-area: cabecalho; }
+nav     { grid-area: menu; }
+main    { grid-area: conteudo; }</code></pre>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Erro comum: esquecer display: flex/grid no pai</strong><br>
+            Propriedades como <code>justify-content</code> e <code>grid-template-columns</code> só funcionam no elemento que tem <code>display: flex</code> ou <code>display: grid</code>. Escrever essas propriedades no elemento filho não faz nada.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            No laboratório abaixo, use o exemplo "Grid 3 colunas" e tente mudar para <code>repeat(2, 1fr)</code> — observe como os itens se reorganizam automaticamente em 2 colunas.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li><code>display: flex</code> alinha itens numa única direção (linha ou coluna)</li>
+            <li><code>display: grid</code> controla linhas e colunas simultaneamente</li>
+            <li><code>gap</code> cria espaço entre itens sem precisar de margin</li>
+            <li><code>flex-wrap: wrap</code> permite que itens quebrem para a próxima linha</li>
+        </ul>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<style>
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .item {
+    background: #E44D26;
+    color: white;
+    padding: 24px;
+    text-align: center;
+    border-radius: 6px;
+  }
+</style>
+<div class=&quot;grid&quot;>
+  <div class=&quot;item&quot;>A</div>
+  <div class=&quot;item&quot;>B</div>
+  <div class=&quot;item&quot;>C</div>
+  <div class=&quot;item&quot;>D</div>
+  <div class=&quot;item&quot;>E</div>
+  <div class=&quot;item&quot;>F</div>
+</div>">Grid 3 colunas</button>
+                <button class="html-lab-snippet" data-code="<style>
+  nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0b3a40;
+    padding: 14px 20px;
+  }
+  nav a { color: white; text-decoration: none; margin-left: 16px; }
+</style>
+<nav>
+  <strong style=&quot;color:white&quot;>MeuSite</strong>
+  <div>
+    <a href=&quot;#&quot;>Início</a>
+    <a href=&quot;#&quot;>Sobre</a>
+    <a href=&quot;#&quot;>Contato</a>
+  </div>
+</nav>">Navbar com flex</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<style>
+  .container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .card {
+    background: #0ea5b7;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1;
+    text-align: center;
+  }
+</style>
+
+<div class=&quot;container&quot;>
+  <div class=&quot;card&quot;>1</div>
+  <div class=&quot;card&quot;>2</div>
+  <div class=&quot;card&quot;>3</div>
+</div>" spellcheck="false"><style>
+  .container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .card {
+    background: #0ea5b7;
+    color: white;
+    padding: 20px;
+    border-radius: 8px;
+    flex: 1;
+    text-align: center;
+  }
+</style>
+
+<div class="container">
+  <div class="card">1</div>
+  <div class="card">2</div>
+  <div class="card">3</div>
+</div></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('hc_mod4') }}" class="btn-voltar">&larr; Módulo 4</a>
+        <a href="{{ url_for('hc_mod6') }}" class="btn-proximo">Módulo 6: Responsividade &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

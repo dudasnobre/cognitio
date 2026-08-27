@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educação Financeira - Módulo 5</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/financas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+    <div class="main-card">
+        <h2>5. Introdução aos Investimentos</h2>
+        <p>Com a reserva de emergência formada, chega a hora de fazer seu dinheiro trabalhar para você através dos investimentos.</p>
+
+        <div class="conteudo-modulo">
+            <h3>5.1 O que é Investir</h3>
+            <p>Investir significa aplicar o seu capital em ativos financeiros que gerem valorização ou rendimentos recorrentes ao longo do tempo.</p>
+
+            <h3>5.2 Renda Fixa vs. Renda Variável</h3>
+            <ul>
+                <li><strong>Renda Fixa (Segurança):</strong> Funciona como um empréstimo do seu dinheiro ao Governo ou Bancos em troca de uma taxa de juro acordada (Ex: Tesouro Direto, Certificados de Aforro).</li>
+                <li><strong>Renda Variável (Risco e Ganho):</strong> Compra de fatias de empresas ou fundos. Não há garantias de retorno fixo, podendo valorizar muito ou perder valor (Ex: Ações de empresas, Fundos Imobiliários).</li>
+            </ul>
+
+            <h3>5.3 A Relação Inseparável: Risco e Retorno</h3>
+            <p>No mundo financeiro, a regra é clara: <strong>Quanto maior for o potencial de ganho de um investimento, maior será o risco de perda associado a ele.</strong> Nunca invista em produtos que promete rentabilidades absurdas com risco zero.</p>
+
+            <h3>5.4 Diversificação: Não Coloque Todos os Ovos na Mesma Cesta</h3>
+            <p>Diversificar significa espalhar seu dinheiro entre diferentes tipos de investimento, para que o mau desempenho de um não comprometa todo o seu patrimônio. Um investidor iniciante pode combinar, por exemplo, Tesouro Selic (segurança) com uma pequena parcela em fundos de ações (crescimento).</p>
+
+            <div class="tip-box">
+                <strong>Dica Prática:</strong> Antes de investir em qualquer produto, pergunte-se: eu entendo como esse investimento ganha dinheiro? Se a resposta for não, estude mais antes de aplicar seu dinheiro nele.
+            </div>
+
+            <div class="warn-box">
+                <strong>⚠️ Desconfie de promessas de rentabilidade garantida</strong><br>
+                "Pirâmides financeiras" e golpes de investimento sempre prometem retornos altos e garantidos com risco zero — isso não existe em nenhum investimento legítimo. Se parece bom demais para ser verdade, provavelmente é uma fraude.
+            </div>
+
+            <div class="info-box">
+                <strong>✏️ Exercício rápido</strong><br>
+                Pesquise o que é o CDI (Certificado de Depósito Interbancário) — ele é a referência mais usada para comparar a rentabilidade de investimentos de renda fixa no Brasil.
+            </div>
+
+            <h3>- Resumo do Módulo</h3>
+            <ul>
+                <li>Renda fixa prioriza segurança; renda variável busca crescimento com mais risco</li>
+                <li>Risco e retorno andam sempre juntos — desconfie de promessas de ganho garantido</li>
+                <li>Diversificar entre tipos de investimento reduz o risco geral da sua carteira</li>
+                <li>Só invista naquilo que você entende como funciona</li>
+            </ul>
+        </div>
+
+        <div class="button-container">
+            <a href="{{ url_for('financas_modulo4') }}" class="btn-voltar">&larr; Voltar para o Módulo 4</a>
+            <a href="{{ url_for('financas_modulo6') }}" class="btn-proximo">Próxima Página (Módulo 6) &rarr;</a>
+        </div>
+    </div>
+
+<script src="{{ url_for('static', filename='js/financas.js') }}"></script>
+
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span>
+      <span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info">
+            <strong>Cognitio IA</strong>
+            <span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span>
+          </div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" title="Limpar conversa" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" title="Fechar" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" title="Enviar" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

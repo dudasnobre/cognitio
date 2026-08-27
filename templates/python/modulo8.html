@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python do Zero - Módulo 8</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/python.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>8. Tratamento de Erros e Depuração</h2>
+    <p>Erros acontecem — arquivos que não existem, divisões por zero, dados no formato errado. Python oferece um sistema robusto para lidar com essas situações sem que o programa simplesmente pare de funcionar.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- try / except</h3>
+        <pre><code>try:
+    idade = int(input("Digite sua idade: "))
+    print(f"Você tem {idade} anos")
+except ValueError:
+    print("Isso não é um número válido!")</code></pre>
+        <p>O código dentro de <code>try</code> é executado normalmente. Se um erro do tipo especificado acontecer, o Python pula direto para o bloco <code>except</code> correspondente, em vez de travar o programa.</p>
+
+        <h3>- Tipos Comuns de Exceção</h3>
+        <ul>
+            <li><code>ValueError</code> — valor com tipo certo mas conteúdo inválido (ex: <code>int("abc")</code>)</li>
+            <li><code>ZeroDivisionError</code> — divisão por zero</li>
+            <li><code>FileNotFoundError</code> — arquivo não encontrado</li>
+            <li><code>KeyError</code> — chave inexistente em um dicionário</li>
+            <li><code>IndexError</code> — índice fora dos limites de uma lista</li>
+        </ul>
+
+        <h3>- Capturando Múltiplos Tipos de Erro</h3>
+        <pre><code>try:
+    resultado = 10 / int(input("Divisor: "))
+    print(resultado)
+except ValueError:
+    print("Digite um número válido!")
+except ZeroDivisionError:
+    print("Não é possível dividir por zero!")
+except Exception as erro:
+    print(f"Erro inesperado: {erro}")</code></pre>
+
+        <h3>- else e finally</h3>
+        <pre><code>try:
+    numero = int("42")
+except ValueError:
+    print("Erro na conversão")
+else:
+    print("Conversão deu certo:", numero)  # só roda se NÃO houve erro
+finally:
+    print("Isso roda sempre, com erro ou sem")  # limpeza, fechar arquivos, etc.</code></pre>
+
+        <h3>- Lançando Seus Próprios Erros</h3>
+        <pre><code>def sacar(saldo, valor):
+    if valor > saldo:
+        raise ValueError("Saldo insuficiente para este saque")
+    return saldo - valor
+
+try:
+    novo_saldo = sacar(100, 500)
+except ValueError as e:
+    print(f"Operação negada: {e}")</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Seja específico com except</strong><br>
+            Capturar <code>except:</code> (sem especificar o tipo) esconde até erros de digitação no seu código. Sempre que possível, capture o tipo exato de exceção que você espera.
+        </div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Não use try/except para controlar o fluxo normal</strong><br>
+            Tratamento de erros é para o <strong>inesperado</strong>. Se uma condição é previsível (ex: verificar se uma lista está vazia), prefira um <code>if</code> simples em vez de provocar e capturar uma exceção.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício final</strong><br>
+            Escreva uma função <code>dividir_seguro(a, b)</code> que retorna o resultado da divisão, ou uma mensagem de erro amigável caso <code>b</code> seja zero ou não numérico.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li><code>try/except</code> evita que erros travem o programa inteiro</li>
+            <li>Capture tipos específicos de exceção sempre que possível</li>
+            <li><code>else</code> roda se não houve erro; <code>finally</code> roda sempre</li>
+            <li><code>raise</code> permite lançar seus próprios erros com mensagens claras</li>
+        </ul>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('py_mod7') }}" class="btn-voltar">&larr; Módulo 7</a>
+        <a href="{{ url_for('py_mod9') }}" class="btn-proximo">Módulo 9: Orientação a Objetos &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/python.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

@@ -1,0 +1,8 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="cognitioLogoTitle">
+  <title id="cognitioLogoTitle">Cognitio</title>
+  <rect width="40" height="40" rx="11" fill="#003049"/>
+  <path d="M20 9.5 L32 14.5 L20 19.5 L8 14.5 Z" fill="#F77F00"/>
+  <path d="M13 17.2 V23.6 C13 25.6 16.1 27.2 20 27.2 C23.9 27.2 27 25.6 27 23.6 V17.2 L20 20.1 Z" fill="#FFFFFF"/>
+  <path d="M31 15.2 V22.6" stroke="#F77F00" stroke-width="1.6" stroke-linecap="round"/>
+  <circle cx="31" cy="24.3" r="1.5" fill="#F77F00"/>
+</svg>

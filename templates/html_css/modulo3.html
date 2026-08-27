@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>3. Formulários e Tabelas</h2>
+    <p>Formulários coletam dados do usuário (login, cadastro, contato) e tabelas organizam informação em linhas e colunas. São dois dos elementos mais usados em sistemas reais.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Estrutura de um Formulário</h3>
+        <pre><code>&lt;form action="/enviar" method="POST"&gt;
+    &lt;label for="nome"&gt;Nome:&lt;/label&gt;
+    &lt;input type="text" id="nome" name="nome"&gt;
+
+    &lt;label for="email"&gt;E-mail:&lt;/label&gt;
+    &lt;input type="email" id="email" name="email"&gt;
+
+    &lt;button type="submit"&gt;Enviar&lt;/button&gt;
+&lt;/form&gt;</code></pre>
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Dica</strong><br>
+            Sempre associe <code>&lt;label&gt;</code> ao campo com <code>for="id_do_input"</code> — além de ajudar leitores de tela, clicar no texto do label foca automaticamente o campo.
+        </div>
+
+        <h3>- Tipos de Input</h3>
+        <pre><code>&lt;input type="text"&gt;       &lt;!-- texto livre --&gt;
+&lt;input type="email"&gt;      &lt;!-- valida formato de e-mail --&gt;
+&lt;input type="password"&gt;   &lt;!-- oculta os caracteres --&gt;
+&lt;input type="number"&gt;     &lt;!-- só números --&gt;
+&lt;input type="checkbox"&gt;   &lt;!-- caixa de seleção --&gt;
+&lt;input type="radio"&gt;      &lt;!-- escolha única entre opções --&gt;
+&lt;input type="date"&gt;       &lt;!-- seletor de data --&gt;</code></pre>
+
+        <h3>- Select (menu suspenso) e Textarea</h3>
+        <pre><code>&lt;select name="curso"&gt;
+    &lt;option value="html"&gt;HTML &amp; CSS&lt;/option&gt;
+    &lt;option value="python"&gt;Python&lt;/option&gt;
+&lt;/select&gt;
+
+&lt;textarea rows="4" placeholder="Escreva sua mensagem..."&gt;&lt;/textarea&gt;</code></pre>
+
+        <h3>- Tabelas</h3>
+        <pre><code>&lt;table&gt;
+    &lt;thead&gt;
+        &lt;tr&gt;
+            &lt;th&gt;Nome&lt;/th&gt;
+            &lt;th&gt;Idade&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/thead&gt;
+    &lt;tbody&gt;
+        &lt;tr&gt;
+            &lt;td&gt;Ana&lt;/td&gt;
+            &lt;td&gt;25&lt;/td&gt;
+        &lt;/tr&gt;
+    &lt;/tbody&gt;
+&lt;/table&gt;</code></pre>
+        <ul>
+            <li><code>&lt;table&gt;</code> — a tabela inteira</li>
+            <li><code>&lt;tr&gt;</code> — uma linha (table row)</li>
+            <li><code>&lt;th&gt;</code> — célula de cabeçalho (table header)</li>
+            <li><code>&lt;td&gt;</code> — célula comum (table data)</li>
+        </ul>
+
+        <h3>- Atributos Importantes de Validação</h3>
+        <pre><code>&lt;input type="text" required&gt;              &lt;!-- campo obrigatório --&gt;
+&lt;input type="text" placeholder="Seu nome"&gt; &lt;!-- texto de exemplo --&gt;
+&lt;input type="number" min="0" max="120"&gt;    &lt;!-- limite de valores --&gt;
+&lt;input type="text" maxlength="20"&gt;         &lt;!-- limite de caracteres --&gt;</code></pre>
+        <div class="info-box">
+            <strong><i class="fa-solid fa-circle-info"></i> Validação HTML não é suficiente sozinha</strong><br>
+            Atributos como <code>required</code> ajudam a experiência do usuário, mas nunca confie só neles para segurança — sempre valide os dados também no servidor (back-end), pois um usuário mal-intencionado pode burlar validações do navegador.
+        </div>
+
+        <h3>- Agrupando Opções com fieldset</h3>
+        <pre><code>&lt;fieldset&gt;
+    &lt;legend&gt;Escolha seu curso&lt;/legend&gt;
+    &lt;label&gt;&lt;input type="radio" name="curso" value="html"&gt; HTML &amp; CSS&lt;/label&gt;
+    &lt;label&gt;&lt;input type="radio" name="curso" value="python"&gt; Python&lt;/label&gt;
+&lt;/fieldset&gt;</code></pre>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Erro comum: radios com name diferente</strong><br>
+            Botões de opção (<code>radio</code>) só funcionam como grupo de escolha única se todos tiverem o <strong>mesmo</strong> valor no atributo <code>name</code>. Se cada um tiver um <code>name</code> diferente, o usuário poderá marcar vários ao mesmo tempo.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            No laboratório abaixo, crie uma tabela com 3 colunas (Produto, Preço, Estoque) e 2 linhas de dados de exemplo.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li><code>&lt;form&gt;</code> agrupa campos; <code>&lt;label&gt;</code> conecta um texto ao campo via <code>for</code></li>
+            <li>Diferentes <code>type</code> de <code>&lt;input&gt;</code> validam formatos diferentes (email, número, data...)</li>
+            <li><code>&lt;table&gt;</code>, <code>&lt;tr&gt;</code>, <code>&lt;th&gt;</code> e <code>&lt;td&gt;</code> estruturam dados tabulares</li>
+            <li>Validação HTML (<code>required</code>, <code>min</code>, <code>max</code>) melhora a UX, mas não substitui validação no servidor</li>
+        </ul>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<form>
+  <label>Nome:<br><input type=&quot;text&quot;></label><br><br>
+  <label>E-mail:<br><input type=&quot;email&quot;></label><br><br>
+  <button type=&quot;submit&quot;>Cadastrar</button>
+</form>">Formulário completo</button>
+                <button class="html-lab-snippet" data-code="<table border=&quot;1&quot;>
+  <tr><th>Nome</th><th>Idade</th></tr>
+  <tr><td>Ana</td><td>25</td></tr>
+  <tr><td>Bruno</td><td>30</td></tr>
+</table>">Tabela simples</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<form>
+  <label for=&quot;nome&quot;>Nome:</label><br>
+  <input type=&quot;text&quot; id=&quot;nome&quot;>
+  <br><br>
+  <button type=&quot;submit&quot;>Enviar</button>
+</form>" spellcheck="false"><form>
+  <label for="nome">Nome:</label><br>
+  <input type="text" id="nome">
+  <br><br>
+  <button type="submit">Enviar</button>
+</form></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('hc_mod2') }}" class="btn-voltar">&larr; Módulo 2</a>
+        <a href="{{ url_for('hc_mod4') }}" class="btn-proximo">Módulo 4: Introdução ao CSS &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cognitio</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/favicon.svg') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+
+<div class="auth-container">
+    <div class="auth-brand"><img src="{{ url_for('static', filename='img/logosemfundo.png') }}" alt="Cognitio — ideias que educam, conhecimento que transforma"></div>
+
+    <div class="auth-card">
+        <h2>Entrar no Sistema</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+          {% if messages %}
+            <ul class="flash-messages">
+            {% for category, message in messages %}
+              <li class="msg-{{ category }}">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('login') }}" method="POST" novalidate>
+            <div class="form-group">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" required placeholder="seu@email.com"
+                       value="{{ email or '' }}" autocomplete="email">
+            </div>
+
+            <div class="form-group">
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="senha" required placeholder="Digite sua senha"
+                       autocomplete="current-password">
+            </div>
+
+            <button type="submit" class="btn-auth-submit">Acessar Painel</button>
+        </form>
+
+        <div class="link-alternativo">
+            <p>Não tem uma conta? <a href="{{ url_for('cadastro') }}">Cadastre-se agora</a></p>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

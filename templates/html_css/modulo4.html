@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 4</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>4. Introdução ao CSS</h2>
+    <p>CSS (Cascading Style Sheets) é o que transforma um HTML sem graça em uma página bonita: cores, espaçamentos, fontes e posicionamento. A partir de agora, HTML estrutura e CSS estiliza.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- 3 Formas de Aplicar CSS</h3>
+        <pre><code>&lt;!-- 1. Inline (direto na tag, evite usar sempre) --&gt;
+&lt;p style="color: red;"&gt;Texto vermelho&lt;/p&gt;
+
+&lt;!-- 2. Interno (dentro do &lt;head&gt;) --&gt;
+&lt;style&gt;
+    p { color: red; }
+&lt;/style&gt;
+
+&lt;!-- 3. Externo (recomendado — arquivo .css separado) --&gt;
+&lt;link rel="stylesheet" href="estilo.css"&gt;</code></pre>
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Dica</strong><br>
+            Use sempre CSS <strong>externo</strong> em projetos reais — mantém o HTML limpo e permite reaproveitar o mesmo estilo em várias páginas (é assim que esta plataforma funciona!).
+        </div>
+
+        <h3>- Seletores</h3>
+        <pre><code>p { }              /* todas as tags &lt;p&gt; */
+.destaque { }      /* todo elemento com class="destaque" */
+#titulo { }        /* o elemento com id="titulo" */
+p.destaque { }     /* &lt;p&gt; que também tenha a classe destaque */
+div p { }          /* todo &lt;p&gt; dentro de um &lt;div&gt; */</code></pre>
+
+        <h3>- Cores e Texto</h3>
+        <pre><code>h1 {
+    color: #306998;
+    font-size: 32px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    font-weight: bold;
+}</code></pre>
+
+        <h3>- O Box Model</h3>
+        <p>Todo elemento HTML é uma caixa retangular, composta por quatro camadas:</p>
+        <pre><code>div {
+    width: 200px;
+    padding: 20px;    /* espaço interno, entre o conteúdo e a borda */
+    border: 2px solid #333;
+    margin: 10px;     /* espaço externo, entre a caixa e outros elementos */
+}</code></pre>
+        <ul>
+            <li><strong>content</strong> — o conteúdo em si (texto, imagem)</li>
+            <li><strong>padding</strong> — respiro interno</li>
+            <li><strong>border</strong> — a borda da caixa</li>
+            <li><strong>margin</strong> — respiro externo, entre elementos</li>
+        </ul>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Pegadinha clássica do Box Model</strong><br>
+            Por padrão, <code>width: 200px</code> mede só o <em>conteúdo</em> — padding e border são somados por fora, então a caixa real fica maior que 200px! A solução usada por quase todo projeto moderno é adicionar <code>box-sizing: border-box;</code>, que faz o <code>width</code> já incluir padding e border.
+        </div>
+        <pre><code>* {
+    box-sizing: border-box; /* aplique isso no início de todo projeto */
+}</code></pre>
+
+        <h3>- Especificidade: Qual Regra Vence?</h3>
+        <p>Quando duas regras CSS tentam estilizar o mesmo elemento, existe uma ordem de prioridade — dos mais fracos aos mais fortes:</p>
+        <ol>
+            <li>Seletor de tag (<code>p</code>) — o mais fraco</li>
+            <li>Seletor de classe (<code>.destaque</code>)</li>
+            <li>Seletor de id (<code>#titulo</code>)</li>
+            <li>Estilo inline (<code>style="..."</code>) — o mais forte</li>
+        </ol>
+        <div class="info-box">
+            <strong><i class="fa-solid fa-circle-info"></i> Regra prática</strong><br>
+            Se seu CSS "não está funcionando", quase sempre é uma questão de especificidade — outra regra mais forte está vencendo a sua. Evite estilo inline e <code>!important</code> justamente para não perder o controle dessa hierarquia.
+        </div>
+
+        <h3>- Herança de Propriedades</h3>
+        <p>Algumas propriedades (como <code>color</code> e <code>font-family</code>) são herdadas automaticamente pelos elementos filhos, sem precisar repetir a regra:</p>
+        <pre><code>body {
+    font-family: Arial, sans-serif; /* todo texto da página herda essa fonte */
+    color: #333;
+}</code></pre>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            No laboratório abaixo, crie uma caixa (<code>div</code>) com fundo colorido, borda arredondada (<code>border-radius</code>) e um pouco de padding, e escreva um texto dentro.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>CSS externo (via <code>&lt;link&gt;</code>) é sempre a melhor prática</li>
+            <li>Seletores de tag, classe e id têm níveis de especificidade diferentes</li>
+            <li>Todo elemento é uma caixa: content → padding → border → margin</li>
+            <li><code>box-sizing: border-box;</code> evita a surpresa da largura crescer sozinha</li>
+        </ul>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<style>
+  div {
+    width: 200px;
+    padding: 16px;
+    border: 3px solid #0ea5b7;
+    margin: 10px;
+    background: #eafcff;
+  }
+</style>
+<div>Eu sou uma caixa!</div>">Box model</button>
+                <button class="html-lab-snippet" data-code="<style>
+  .destaque { color: white; background: #E44D26; padding: 6px 10px; }
+  #titulo { text-align: center; }
+</style>
+<h2 id=&quot;titulo&quot;>Bem-vindo</h2>
+<p class=&quot;destaque&quot;>Texto destacado</p>">Classes e ids</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<style>
+  h2 { color: #0ea5b7; }
+  p { font-family: Arial; color: #333; }
+</style>
+
+<h2>Título estilizado</h2>
+<p>Este parágrafo já tem uma cor definida via CSS.</p>" spellcheck="false"><style>
+  h2 { color: #0ea5b7; }
+  p { font-family: Arial; color: #333; }
+</style>
+
+<h2>Título estilizado</h2>
+<p>Este parágrafo já tem uma cor definida via CSS.</p></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('hc_mod3') }}" class="btn-voltar">&larr; Módulo 3</a>
+        <a href="{{ url_for('hc_mod5') }}" class="btn-proximo">Módulo 5: Flexbox e Grid &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

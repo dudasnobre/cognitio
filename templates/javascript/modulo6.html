@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Módulo 6</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/javascript.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>6. DOM — Manipulando a Página</h2>
+    <p>O <strong>DOM (Document Object Model)</strong> é a representação da página HTML como uma árvore de objetos JavaScript. Com ele você pode ler, criar, modificar e remover elementos HTML em tempo real — é isso que torna as páginas interativas.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Selecionando Elementos</h3>
+        <pre><code>// Retorna o primeiro elemento que bate com o seletor CSS
+const titulo = document.querySelector('h1');
+const btn    = document.querySelector('#meu-botao');
+const cards  = document.querySelectorAll('.card'); // NodeList (todos)
+
+// Formas antigas (ainda úteis)
+document.getElementById('id');
+document.getElementsByClassName('classe');</code></pre>
+
+        <h3>- Lendo e Modificando Conteúdo</h3>
+        <pre><code>const p = document.querySelector('p');
+
+// Ler
+console.log(p.textContent);  // texto puro
+console.log(p.innerHTML);    // HTML interno
+
+// Modificar
+p.textContent = "Novo texto";
+p.innerHTML   = "Texto com <strong>negrito</strong>";</code></pre>
+
+        <h3>- Modificando Estilos e Classes</h3>
+        <pre><code>const box = document.querySelector('.box');
+
+// Estilos inline
+box.style.backgroundColor = '#f0b429';
+box.style.borderRadius    = '8px';
+
+// Classes (recomendado)
+box.classList.add('destaque');
+box.classList.remove('antigo');
+box.classList.toggle('ativo');      // adiciona/remove
+box.classList.contains('ativo');    // true/false</code></pre>
+
+        <h3>- Criando e Inserindo Elementos</h3>
+        <pre><code>// Cria o elemento
+const novoItem = document.createElement('li');
+novoItem.textContent = 'Item dinâmico';
+novoItem.classList.add('item');
+
+// Insere na página
+const lista = document.querySelector('ul');
+lista.appendChild(novoItem);   // no final
+lista.prepend(novoItem);       // no início
+lista.removeChild(novoItem);   // remove</code></pre>
+
+        <h3>- Atributos</h3>
+        <pre><code>const img = document.querySelector('img');
+img.setAttribute('alt', 'Imagem de exemplo');
+img.getAttribute('src');
+img.removeAttribute('hidden');</code></pre>
+
+        <h3>- Navegando pela Árvore DOM</h3>
+        <p>Todo elemento HTML tem relações de parentesco que você pode percorrer via JavaScript:</p>
+        <pre><code>const item = document.querySelector('.item');
+
+item.parentElement;       // o elemento "pai"
+item.children;            // os elementos "filhos" diretos
+item.nextElementSibling;  // o próximo elemento "irmão"
+item.previousElementSibling; // o elemento "irmão" anterior</code></pre>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> textContent vs innerHTML</strong><br>
+            Use <code>innerHTML</code> apenas quando o conteúdo for confiável (não vindo de um input de usuário) — inserir HTML não sanitizado é uma porta aberta para ataques XSS. Para texto puro, prefira sempre <code>textContent</code>.
+        </div>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Nota sobre o terminal</strong><br>
+            Nosso terminal JS executa em sandbox sem acesso ao DOM desta página para não causar conflitos. Para praticar DOM, abra o DevTools do seu navegador (F12 → Console) e experimente os comandos acima diretamente na página!
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            No simulador abaixo, clique em "Criar Elemento" algumas vezes e observe o código gerado. Depois, tente reproduzir o mesmo efeito no Console do seu navegador (F12) usando <code>createElement</code> e <code>appendChild</code> numa página sua.
+        </div>
+    </div>
+
+    <!-- Mini simulador DOM -->
+    <div style="margin-top:32px;padding:24px;background:#fffdf0;border:2px dashed #f0b429;border-radius:12px;">
+        <h3 style="margin-top:0;color:#1a1200;"><i class="fa-solid fa-flask" style="color:#f0b429"></i> Simulador DOM Interativo</h3>
+        <p style="color:#555;font-size:.9rem;">Clique nos botões abaixo para ver o DOM em ação — código real, efeito real!</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;">
+            <button onclick="domDemo('texto')"    style="background:#1a1200;color:#f0b429;border:none;padding:8px 14px;border-radius:6px;cursor:pointer;font-weight:600;font-size:.82rem;">Mudar Texto</button>
+            <button onclick="domDemo('cor')"      style="background:#f0b429;color:#1a1200;border:none;padding:8px 14px;border-radius:6px;cursor:pointer;font-weight:600;font-size:.82rem;">Mudar Cor</button>
+            <button onclick="domDemo('criar')"    style="background:#1a6b3c;color:white;border:none;padding:8px 14px;border-radius:6px;cursor:pointer;font-weight:600;font-size:.82rem;">Criar Elemento</button>
+            <button onclick="domDemo('reset')"    style="background:#aaa;color:white;border:none;padding:8px 14px;border-radius:6px;cursor:pointer;font-weight:600;font-size:.82rem;">Reset</button>
+        </div>
+        <div id="dom-area" style="background:white;border:1px solid #e0d9c0;border-radius:8px;padding:16px;min-height:80px;">
+            <p id="dom-p" style="margin:0;color:#333;">Este parágrafo pode ser modificado pelo JavaScript!</p>
+            <ul id="dom-lista" style="margin:8px 0 0;padding-left:20px;"></ul>
+        </div>
+        <div id="dom-code" style="margin-top:10px;background:#1e1e2e;color:#a6e3a1;padding:10px 14px;border-radius:8px;font-size:.8rem;font-family:monospace;"></div>
+    </div>
+
+    
+
+    <div class="js-vm-section" style="margin-top:36px;">
+        <div class="js-vm-header">
+            <div class="vm-title"><i class="fa-brands fa-js"></i> Terminal JavaScript — Pratique lógica DOM</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="js-snippet-btns">
+            <span class="js-snippet-label">Snippets:</span>
+            <button class="js-snippet" data-js="// Simula seleção e modificação&#10;const elemento = { textContent: 'original', classList: { add(c){ console.log('addClass:', c); } } };&#10;elemento.textContent = 'modificado!';&#10;elemento.classList.add('destaque');&#10;console.log(elemento.textContent);">querySelector</button>
+            <button class="js-snippet" data-js="// Criação dinâmica (lógica)&#10;const itens = ['Home', 'Sobre', 'Contato'];&#10;const html = itens.map(item => `&lt;li&gt;${item}&lt;/li&gt;`).join('');&#10;console.log('HTML gerado:');&#10;console.log(html);">criar lista</button>
+            <button class="js-snippet" data-js="// Manipulação de classes&#10;const classes = ['btn', 'btn-primary'];&#10;classes.push('ativo');&#10;classes.splice(classes.indexOf('btn-primary'), 1);&#10;console.log(classes);">classList</button>
+        </div>
+        <textarea id="js-editor" data-default="// Simula lógica de geração de HTML&#10;const usuarios = [&#10;  { nome: 'Ana', ativo: true },&#10;  { nome: 'Bob', ativo: false },&#10;  { nome: 'Carlos', ativo: true },&#10;];&#10;&#10;usuarios.forEach(u => {&#10;  const status = u.ativo ? 'online' : 'offline';&#10;  console.log(`${u.nome}: ${status}`);&#10;});" placeholder="// Ctrl+Enter para executar">// Simula lógica de geração de HTML
+const usuarios = [
+  { nome: 'Ana', ativo: true },
+  { nome: 'Bob', ativo: false },
+  { nome: 'Carlos', ativo: true },
+];
+
+usuarios.forEach(u => {
+  const status = u.ativo ? 'online' : 'offline';
+  console.log(`${u.nome}: ${status}`);
+});</textarea>
+        <div class="js-vm-toolbar">
+            <button class="js-run-btn" id="js-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="js-reset-btn" id="js-reset"><i class="fa-solid fa-rotate"></i> Resetar</button>
+            <button class="js-hint-btn" id="js-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="js-result-wrap"><div id="js-result"><p style="color:rgba(205,214,244,.4);font-size:.84rem;font-family:monospace"><i class="fa-solid fa-arrow-up"></i> Execute o código para ver o resultado.</p></div></div>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('js_mod5') }}" class="btn-voltar">&larr; Módulo 5</a>
+        <a href="{{ url_for('js_mod7') }}" class="btn-proximo">Módulo 7: Eventos e Fetch &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/javascript.js') }}"></script>
+<script>
+let domCount = 0;
+function domDemo(acao) {
+    const p = document.getElementById('dom-p');
+    const lista = document.getElementById('dom-lista');
+    const area = document.getElementById('dom-area');
+    const codeBox = document.getElementById('dom-code');
+    if (acao === 'texto') {
+        p.textContent = '✅ Texto modificado pelo JavaScript!';
+        codeBox.textContent = "p.textContent = '✅ Texto modificado pelo JavaScript!';";
+    } else if (acao === 'cor') {
+        const cores = ['#fff3cd','#d4edda','#cce5ff','#f8d7da'];
+        area.style.background = cores[domCount++ % cores.length];
+        codeBox.textContent = `area.style.background = '${area.style.background}';`;
+    } else if (acao === 'criar') {
+        const li = document.createElement('li');
+        li.textContent = `Item ${lista.children.length + 1} criado dinamicamente`;
+        lista.appendChild(li);
+        codeBox.textContent = `const li = document.createElement('li');\nli.textContent = 'Item ${lista.children.length}';\nlista.appendChild(li);`;
+    } else if (acao === 'reset') {
+        p.textContent = 'Este parágrafo pode ser modificado pelo JavaScript!';
+        lista.innerHTML = '';
+        area.style.background = 'white';
+        codeBox.textContent = '';
+    }
+}
+</script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

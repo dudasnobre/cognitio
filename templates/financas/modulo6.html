@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educação Financeira - Módulo 6</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/financas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+    <div class="main-card">
+        <h2>6. Consumo Consciente</h2>
+        <p>Ganhar mais e investir bem não adianta se o dinheiro escorre pelos dedos em compras por impulso. Vamos falar sobre consumo consciente.</p>
+
+        <div class="conteudo-modulo">
+            <h3>6.1 O Conceito de Consumo Consciente</h3>
+            <p>É o ato de adquirir bens e serviços equilibrando a necessidade real com o impacto financeiro pessoal, evitando o desperdício.</p>
+
+            <h3>6.2 Compras por Impulso e Emoção</h3>
+            <p>A maioria dos gastos desnecessários ocorre quando compramos para satisfazer sentimentos momentâneos (ansiedade, tristeza ou vaidade), em vez de uma necessidade física e lógica.</p>
+
+            <h3>6.3 A Influência Externa da Publicidade</h3>
+            <p>As campanhas publicitárias e os algoritmos das redes sociais são desenhados cientificamente para gerar urgência artificial e convencer o utilizador a gastar o dinheiro que ainda não tem.</p>
+
+            <h3>6.4 A Técnica dos 30 Dias</h3>
+            <p>Antes de fazer uma compra não essencial e de valor considerável, anote o item numa lista e espere 30 dias antes de decidir. Na maioria das vezes, o desejo de compra diminui ou desaparece completamente nesse período — sinal de que era impulso, não necessidade real.</p>
+
+            <div class="tip-box">
+                <strong>Dica Prática:</strong> Antes de comprar algo, pergunte-se três coisas: "Eu realmente preciso disso?", "Eu já tenho algo parecido em casa?" e "Eu consigo pagar à vista sem comprometer meu orçamento?".
+            </div>
+
+            <h3>6.5 Comparação Social e Redes Sociais</h3>
+            <p>Ver constantemente a vida "perfeita" de outras pessoas nas redes sociais alimenta o desejo de consumo para "acompanhar" um padrão de vida — muitas vezes financiado por dívidas que não aparecem nas fotos. Lembre-se: você está comparando seus bastidores com o palco editado de outra pessoa.</p>
+
+            <div class="warn-box">
+                <strong>⚠️ Cuidado com o "eu mereço"</strong><br>
+                Usar compras como recompensa emocional é uma armadilha comum. Comemorar conquistas é saudável, mas vale perguntar: essa recompensa cabe no meu orçamento, ou vai criar um problema financeiro daqui a 30 dias?
+            </div>
+
+            <div class="info-box">
+                <strong>✏️ Exercício rápido</strong><br>
+                Olhe para os últimos 3 gastos não planejados que você fez. Para cada um, pergunte-se: foi uma necessidade real ou uma resposta emocional a algum sentimento do momento?
+            </div>
+
+            <h3>- Resumo do Módulo</h3>
+            <ul>
+                <li>Consumo consciente equilibra necessidade real com impacto financeiro</li>
+                <li>Compras por impulso geralmente respondem a emoções, não a necessidades reais</li>
+                <li>A técnica dos 30 dias ajuda a separar desejo passageiro de necessidade genuína</li>
+                <li>Redes sociais alimentam comparação social que estimula consumo desnecessário</li>
+            </ul>
+        </div>
+
+        <div class="button-container">
+            <a href="{{ url_for('financas_modulo5') }}" class="btn-voltar">&larr; Voltar para o Módulo 5</a>
+            <a href="{{ url_for('financas_modulo7') }}" class="btn-proximo">Próxima Página (Módulo 7) &rarr;</a>
+        </div>
+    </div>
+
+<script src="{{ url_for('static', filename='js/financas.js') }}"></script>
+
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span>
+      <span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info">
+            <strong>Cognitio IA</strong>
+            <span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span>
+          </div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" title="Limpar conversa" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" title="Fechar" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" title="Enviar" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

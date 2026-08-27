@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educação Financeira - Módulo 7</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/financas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+    <div class="main-card">
+        <h2>7. Planeamento Financeiro na Vida Real</h2>
+        <p>Chegou a hora de juntar tudo o que você aprendeu num plano prático que você pode aplicar já no seu próximo mês.</p>
+
+        <div class="conteudo-modulo">
+            <h3>7.1 Definição de Objetivos Financeiros</h3>
+            <p>Para o dinheiro ter um propósito claro, separe as suas metas por prazos temporais:</p>
+            <ul>
+                <li><strong>Curto Prazo (Até 1 ano):</strong> Comprar um equipamento, pagar um curso específico.</li>
+                <li><strong>Médio Prazo (1 a 5 anos):</strong> Entrada para uma habitação própria, viagem internacional.</li>
+                <li><strong>Longo Prazo (Mais de 5 anos):</strong> Independência financeira e reforma segura.</li>
+            </ul>
+
+            <h3>7.2 Execução Prática Mensal</h3>
+            <p>O sucesso financeiro não depende de grandes teorias, mas sim do hábito semanal de registar todas as entradas e saídas numa folha, aplicação ou folha de Excel, ajustando a rota sempre que os limites forem atingidos.</p>
+
+            <h3>7.3 Definindo Metas SMART</h3>
+            <p>Uma meta financeira vaga como "quero economizar mais" raramente funciona. Use o método SMART para transformar desejos em planos concretos:</p>
+            <ul>
+                <li><strong>Específica:</strong> "Juntar R$ 6.000" em vez de "juntar dinheiro"</li>
+                <li><strong>Mensurável:</strong> você consegue acompanhar o progresso em números</li>
+                <li><strong>Atingível:</strong> compatível com sua renda real, não fantasiosa</li>
+                <li><strong>Relevante:</strong> algo que realmente importa para você</li>
+                <li><strong>Temporal:</strong> com prazo definido, ex: "em 12 meses"</li>
+            </ul>
+
+            <h3>7.4 Revisão Trimestral do Plano</h3>
+            <p>Sua vida muda — salário, gastos e prioridades mudam junto. Reserve um momento a cada 3 meses para revisar seu orçamento, suas dívidas e o progresso das suas metas, ajustando o que for necessário.</p>
+
+            <div class="info-box">
+                <strong>✏️ Exercício final</strong><br>
+                Defina agora uma meta financeira SMART para os próximos 12 meses: escreva o valor exato, o prazo e o motivo pelo qual ela importa para você.
+            </div>
+
+            <h3>- Revisão Geral do Curso</h3>
+            <ul>
+                <li><strong>Módulo 1:</strong> mentalidade financeira e renda ativa vs. passiva</li>
+                <li><strong>Módulo 2:</strong> orçamento e a regra dos 50/30/20</li>
+                <li><strong>Módulo 3:</strong> dívidas, juros compostos e como sair do endividamento</li>
+                <li><strong>Módulo 4:</strong> reserva de emergência (3 a 6 meses de gastos)</li>
+                <li><strong>Módulo 5:</strong> renda fixa, renda variável e diversificação</li>
+                <li><strong>Módulo 6:</strong> consumo consciente e a técnica dos 30 dias</li>
+                <li><strong>Módulo 7:</strong> metas SMART e planejamento financeiro contínuo</li>
+            </ul>
+
+            <div class="tip-box" style="background-color: #e8f5e9 !important; border-left: 4px solid #1a6b3c !important;">
+                <strong>🎯 CONCLUSÃO DO CURSO:</strong> A educação financeira é a chave mestra para a sua liberdade. Ela não limita a sua vida; pelo contrário, ensina a usar os recursos de maneira focada para construir estabilidade, proteção e prosperidade duradoura. Parabéns por concluir o curso!
+            </div>
+        </div>
+
+        <div class="button-container">
+            <a href="{{ url_for('financas_modulo6') }}" class="btn-voltar">&larr; Voltar para o Módulo 6</a>
+            <a href="{{ url_for('financas_modulo8') }}" class="btn-proximo" style="background-color: #1a6b3c; border-color: #1a6b3c;">Módulo 8: Impostos e Obrigações &rarr;</a>
+        </div>
+    </div>
+
+<script src="{{ url_for('static', filename='js/financas.js') }}"></script>
+
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span>
+      <span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info">
+            <strong>Cognitio IA</strong>
+            <span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span>
+          </div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" title="Limpar conversa" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" title="Fechar" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" title="Enviar" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>1. Introdução ao HTML</h2>
+    <p>HTML (HyperText Markup Language) é a estrutura de toda página da web. Ele não é uma linguagem de programação — é uma linguagem de marcação, que descreve o que cada parte do conteúdo é: um título, um parágrafo, uma imagem.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- A Estrutura Básica de uma Página</h3>
+        <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html lang="pt-br"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;title&gt;Minha Página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Olá, Mundo!&lt;/h1&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+        <ul>
+            <li><code>&lt;!DOCTYPE html&gt;</code> — avisa o navegador que é HTML5</li>
+            <li><code>&lt;html&gt;</code> — elemento raiz de toda a página</li>
+            <li><code>&lt;head&gt;</code> — metadados: título da aba, charset, links de CSS (não aparece na tela)</li>
+            <li><code>&lt;body&gt;</code> — tudo que aparece visualmente na página</li>
+        </ul>
+
+        <h3>- O que é uma Tag?</h3>
+        <p>Tags são os "blocos de construção" do HTML. A maioria vem em pares — abertura e fechamento:</p>
+        <pre><code>&lt;p&gt;Isto é um parágrafo.&lt;/p&gt;</code></pre>
+        <p>Algumas tags não têm fechamento, pois não envolvem conteúdo (são "auto-fecháveis"):</p>
+        <pre><code>&lt;br&gt;   &lt;!-- quebra de linha --&gt;
+&lt;img&gt;  &lt;!-- imagem --&gt;
+&lt;hr&gt;   &lt;!-- linha horizontal --&gt;</code></pre>
+
+        <h3>- Títulos e Parágrafos</h3>
+        <pre><code>&lt;h1&gt;Título Principal&lt;/h1&gt;
+&lt;h2&gt;Subtítulo&lt;/h2&gt;
+&lt;h3&gt;Título menor&lt;/h3&gt;
+&lt;p&gt;Um parágrafo de texto normal.&lt;/p&gt;</code></pre>
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Dica</strong><br>
+            Existem 6 níveis de título, de <code>&lt;h1&gt;</code> (mais importante) a <code>&lt;h6&gt;</code> (menos importante). Use apenas <strong>um</strong> <code>&lt;h1&gt;</code> por página — ele representa o assunto principal.
+        </div>
+
+        <h3>- Atributos</h3>
+        <p>Atributos dão informações extras a uma tag, sempre dentro da tag de abertura:</p>
+        <pre><code>&lt;p class="destaque" id="intro"&gt;Texto especial&lt;/p&gt;</code></pre>
+
+        <h3>- Comentários em HTML</h3>
+        <p>Comentários não aparecem na página — servem para você (ou colegas de equipe) deixar anotações no código:</p>
+        <pre><code>&lt;!-- Isto é um comentário e não aparece na tela --&gt;
+&lt;p&gt;Isto aparece normalmente.&lt;/p&gt;</code></pre>
+
+        <h3>- Como o Navegador Lê seu HTML</h3>
+        <p>O navegador lê o arquivo de cima para baixo e monta uma estrutura em forma de árvore chamada <strong>DOM</strong> (Document Object Model) — cada tag vira um "nó" dessa árvore. É essa árvore que o CSS estiliza e o JavaScript manipula depois.</p>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Erros comuns de quem está começando</strong>
+            <ul style="margin-top:8px;margin-bottom:0;">
+                <li><strong>Esquecer de fechar uma tag</strong> (ex: abrir <code>&lt;p&gt;</code> sem o <code>&lt;/p&gt;</code> correspondente) — o navegador tenta adivinhar onde termina, e o resultado pode ficar bagunçado.</li>
+                <li><strong>Aninhar tags fora de ordem:</strong> <code>&lt;b&gt;&lt;i&gt;texto&lt;/b&gt;&lt;/i&gt;</code> está errado — a última tag aberta deve ser a primeira a fechar: <code>&lt;b&gt;&lt;i&gt;texto&lt;/i&gt;&lt;/b&gt;</code>.</li>
+                <li><strong>Usar aspas erradas em atributos:</strong> sempre use aspas retas (<code>"</code>), nunca aspas curvas do Word (<code>"</code> <code>"</code>).</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            No laboratório abaixo, crie uma pequena página com um <code>&lt;h1&gt;</code> com seu nome, um <code>&lt;h2&gt;</code> "Sobre mim" e dois <code>&lt;p&gt;</code> contando um pouco sobre você.
+        </div>
+
+        <div class="tip-box" style="margin-top:20px">
+            <strong><i class="fa-solid fa-lightbulb"></i> Neste curso você vai aprender</strong><br>
+            Em 6 módulos você vai dominar a estrutura do HTML, formulários e tabelas, os fundamentos do CSS, layout com Flexbox e Grid, e vai fechar com responsividade — tudo com laboratório de código ao vivo em cada módulo.
+        </div>
+    </div>
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<h1>Minha Página</h1>
+<h2>Um subtítulo</h2>
+<p>Um parágrafo de texto.</p>">Estrutura básica</button>
+                <button class="html-lab-snippet" data-code="<p id=&quot;intro&quot;>Parágrafo com id</p>
+<hr>
+<p>Depois de uma linha horizontal</p>">Com atributos</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<h1>Olá, Mundo!</h1>
+<p>Esta é a minha primeira página HTML.</p>" spellcheck="false"><h1>Olá, Mundo!</h1>
+<p>Esta é a minha primeira página HTML.</p></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('trilhas') }}" class="btn-voltar">&larr; Voltar às Trilhas</a>
+        <a href="{{ url_for('hc_mod2') }}" class="btn-proximo">Próximo: Texto, Listas e Links &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

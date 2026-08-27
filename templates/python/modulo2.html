@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python do Zero - Módulo 2</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/python.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>2. Variáveis e Tipos de Dados</h2>
+    <p>Variáveis guardam informações para usar depois. Em Python, você não precisa declarar o tipo — o interpretador descobre sozinho, o que chamamos de <strong>tipagem dinâmica</strong>.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Criando Variáveis</h3>
+        <pre><code>nome = "Ana"
+idade = 25
+altura = 1.68
+esta_ativo = True</code></pre>
+        <ul>
+            <li>Nomes de variáveis usam <strong>snake_case</strong> (letras minúsculas e underscore): <code>nome_completo</code></li>
+            <li>Não podem começar com número nem ter espaços</li>
+            <li>Python diferencia maiúsculas de minúsculas: <code>idade</code> e <code>Idade</code> são variáveis diferentes</li>
+        </ul>
+
+        <h3>- Os Tipos de Dados Básicos</h3>
+        <ul>
+            <li><strong>str</strong> — texto: <code>"olá"</code>, <code>'mundo'</code></li>
+            <li><strong>int</strong> — números inteiros: <code>42</code>, <code>-7</code></li>
+            <li><strong>float</strong> — números decimais: <code>3.14</code>, <code>-0.5</code></li>
+            <li><strong>bool</strong> — verdadeiro/falso: <code>True</code>, <code>False</code></li>
+            <li><strong>NoneType</strong> — ausência de valor: <code>None</code></li>
+        </ul>
+        <p>Use a função <code>type()</code> para descobrir o tipo de qualquer valor:</p>
+        <pre><code>print(type(nome))
+print(type(idade))
+print(type(altura))</code></pre>
+        <div class="py-output">&gt;&gt;&gt; &lt;class 'str'&gt;
+&gt;&gt;&gt; &lt;class 'int'&gt;
+&gt;&gt;&gt; &lt;class 'float'&gt;</div>
+
+        <h3>- Atribuição Múltipla e Constantes</h3>
+        <p>Python permite atribuir vários valores em uma única linha — útil para deixar o código mais enxuto:</p>
+        <pre><code>nome, idade, cidade = "Ana", 25, "Fortaleza"
+x = y = z = 0   # os três recebem o mesmo valor</code></pre>
+        <p>Python não tem uma palavra-chave própria para constantes (como <code>const</code>), mas por convenção usamos <strong>letras maiúsculas</strong> para sinalizar que um valor não deve mudar:</p>
+        <pre><code>PI = 3.14159
+LIMITE_MAXIMO = 100</code></pre>
+
+        <h3>- Operadores Aritméticos</h3>
+        <p>Antes de seguir em frente, vale conhecer os operadores matemáticos que você vai usar o tempo todo:</p>
+        <pre><code>soma = 10 + 3        # 13
+sub  = 10 - 3         # 7
+mul  = 10 * 3         # 30
+div  = 10 / 3         # 3.333... (sempre retorna float)
+div_inteira = 10 // 3 # 3  (descarta a parte decimal)
+resto = 10 % 3        # 1  (resto da divisão)
+pot  = 10 ** 2        # 100 (potência)</code></pre>
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Divisão: / vs //</strong><br>
+            <code>/</code> sempre devolve um número decimal (<code>float</code>), mesmo quando o resultado é exato. Se você precisa de um número inteiro na divisão, use <code>//</code>.
+        </div>
+
+        <h3>- f-strings (interpolação de texto)</h3>
+        <p>A forma moderna de inserir variáveis dentro de um texto é com <code>f""</code>:</p>
+        <pre><code>nome = "Carlos"
+idade = 30
+print(f"Olá, {nome}! Você tem {idade} anos.")</code></pre>
+        <div class="py-output">&gt;&gt;&gt; Olá, Carlos! Você tem 30 anos.</div>
+
+        <h3>- Conversão de Tipos</h3>
+        <pre><code>int("42")      # → 42
+str(100)       # → "100"
+float("3.14")  # → 3.14
+bool(0)        # → False   (0, "", None são "falsy")
+bool("oi")     # → True</code></pre>
+
+        <h3>- Recebendo Dados do Usuário</h3>
+        <p>A função <code>input()</code> pausa o programa e espera o usuário digitar algo — o retorno é <strong>sempre texto (str)</strong>, então normalmente convertemos:</p>
+        <pre><code>nome = input("Qual é o seu nome? ")
+idade = int(input("Qual é a sua idade? "))
+print(f"{nome} tem {idade} anos.")</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Dica: nomeie bem suas variáveis</strong><br>
+            <code>x = 25</code> funciona, mas <code>idade = 25</code> deixa o código muito mais fácil de entender — inclusive para você mesmo, daqui a um mês.
+        </div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Cuidado com o tipo errado</strong><br>
+            Tentar somar um número com um texto gera erro: <code>"idade: " + 25</code> quebra com <code>TypeError</code>. Converta primeiro: <code>"idade: " + str(25)</code> — ou, melhor ainda, use uma f-string.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            Crie três variáveis — <code>preco</code> (float), <code>quantidade</code> (int) e <code>produto</code> (str) — e imprima com uma f-string a frase: "3 unidades de Caderno custam R$ 15.90". Calcule o total (<code>preco * quantidade</code>) e mostre também.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Variáveis guardam valores e não precisam de tipo declarado</li>
+            <li><code>str</code>, <code>int</code>, <code>float</code>, <code>bool</code> e <code>None</code> são os tipos básicos</li>
+            <li>f-strings (<code>f"{variavel}"</code>) são a forma moderna de compor textos</li>
+            <li><code>input()</code> sempre retorna texto — converta quando precisar de número</li>
+        </ul>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('python_curso') }}" class="btn-voltar">&larr; Módulo 1</a>
+        <a href="{{ url_for('py_mod3') }}" class="btn-proximo">Módulo 3: Estruturas Condicionais &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/python.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

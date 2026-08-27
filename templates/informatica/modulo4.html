@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informática Básica - Módulo 4</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/infor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+
+    <div class="main-card">
+        
+        <h2>4. O Segredo das Planilhas Sem Medo (Excel)</h2>
+        <p>Muitas pessoas fogem e correm do Excel porque acham que ele envolve matemática avançada e programação complexa. Na verdade, ele funciona simplesmente como uma grande folha quadriculada inteligente que faz contas automáticas para você.</p>
+        
+        <div class="conteudo-modulo">
+            <h3>- Entendendo a Grade (Linhas e Colunas)</h3>
+            <p>Uma planilha é inteiramente composta por pequenos retângulos individuais chamados de <strong>Células</strong>. Cada célula existente possui uma identificação única ou "endereço" baseado no cruzamento da sua coluna (representada sempre por letras) e na sua linha (representada por números).</p>
+            <ul>
+                <li>A primeira célula localizada exatamente no canto superior esquerdo chama-se <strong>A1</strong>.</li>
+                <li>Se você clicar com o mouse na coluna B e na linha horizontal número 3, você estará editando a célula de endereço <strong>B3</strong>.</li>
+            </ul>
+
+            <h3>- Sua Primeira Fórmula Prática</h3>
+            <p>Para fazer o Excel calcular qualquer operação matemática automaticamente, o segredo de ouro mais importante é <strong>sempre começar digitando o sinal de igual (<code>=</code>)</strong> dentro da célula. Se você esquecer de colocar o sinal de igual, o programa achará que aquilo é apenas um texto comum e não calculará nada.</p>
+            <pre>Imagine a seguinte situação prática:
+Na célula A1 você digitou o valor em reais da sua conta de luz: 150
+Na célula A2 você digitou o valor em reais da sua conta de água: 50
+
+Para somar as duas despesas automaticamente na célula A3, basta selecionar a célula A3 e digitar:
+=A1+A2
+
+Ao apertar a tecla Enter, o Excel resolve a soma instantaneamente e exibe o resultado final: 200</pre>
+
+            <h3>- Outras Operações Básicas</h3>
+            <ul>
+                <li><strong>Subtração:</strong> <code>=A1-A2</code></li>
+                <li><strong>Multiplicação:</strong> <code>=A1*A2</code> (o sinal é o asterisco, não o "x")</li>
+                <li><strong>Divisão:</strong> <code>=A1/A2</code></li>
+                <li><strong>Soma de uma coluna inteira:</strong> <code>=SOMA(A1:A10)</code> soma todos os valores da célula A1 até a A10</li>
+            </ul>
+
+            <div class="tip-box">
+                <strong><i class="fa-solid fa-lightbulb"></i> A função SOMA economiza tempo</strong><br>
+                Em vez de escrever <code>=A1+A2+A3+A4+A5</code>, use <code>=SOMA(A1:A5)</code> — funciona igual, mas é bem mais rápido de digitar quando há muitas células.
+            </div>
+
+            <h3>- Arrastando Fórmulas (Alça de Preenchimento)</h3>
+            <p>Depois de criar uma fórmula numa célula, você pode "arrastá-la" para as células vizinhas sem reescrever tudo: clique na célula com a fórmula, posicione o mouse no quadradinho pequeno do canto inferior direito (o cursor vira uma cruz fina) e arraste para baixo ou para o lado. O Excel ajusta os endereços automaticamente.</p>
+
+            <div class="warn-box">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> Erro comum: #### ou #NOME? na célula</strong><br>
+                Se a célula mostrar <code>####</code>, a coluna está estreita demais para exibir o número — apenas alargue a coluna. Se aparecer <code>#NOME?</code>, geralmente há um erro de digitação no nome da função (ex: escrever "SOM" em vez de "SOMA").
+            </div>
+
+            <div class="info-box">
+                <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+                Abra o Excel (ou Google Sheets) e monte uma pequena planilha com 3 despesas do mês em células A1, A2 e A3. Na célula A4, use <code>=SOMA(A1:A3)</code> para ver o total automaticamente.
+            </div>
+
+            <h3>- Resumo do Módulo</h3>
+            <ul>
+                <li>Toda fórmula começa com o sinal de igual <code>=</code></li>
+                <li>Células são identificadas por coluna (letra) + linha (número), como <code>A1</code></li>
+                <li><code>=SOMA(A1:A10)</code> soma um intervalo inteiro de uma vez</li>
+                <li>A alça de preenchimento (canto inferior direito da célula) copia fórmulas rapidamente</li>
+            </ul>
+        </div>
+
+        
+
+        <hr style="margin-top: 30px;"> 
+        
+        <div class="button-container">
+            <a href="{{ url_for('modulo3') }}" class="btn-voltar">&larr; Voltar para o Módulo 3</a>
+            <a href="{{ url_for('modulo5') }}" class="btn-proximo">Próxima Página (Módulo 5) &rarr;</a>
+        </div>
+        
+    </div>
+
+    <script src="{{ url_for('static', filename='js/infor.js') }}"></script>
+    
+
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span>
+      <span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info">
+            <strong>Cognitio IA</strong>
+            <span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span>
+          </div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" title="Limpar conversa" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" title="Fechar" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" title="Enviar" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

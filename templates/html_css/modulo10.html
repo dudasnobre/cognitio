@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 10</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>10. Custom Properties (Variáveis CSS) e Temas</h2>
+    <p>Variáveis CSS (oficialmente "Custom Properties") permitem definir um valor uma única vez e reutilizá-lo em toda a folha de estilo — a base de qualquer sistema de temas (claro/escuro, marcas personalizáveis) moderno.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Declarando e Usando Variáveis</h3>
+        <pre><code>:root {
+    --cor-primaria: #F77F00;
+    --cor-texto: #1a1a1a;
+    --espacamento: 16px;
+    --radius: 12px;
+}
+
+.botao {
+    background: var(--cor-primaria);
+    padding: var(--espacamento);
+    border-radius: var(--radius);
+}</code></pre>
+        <p><code>:root</code> é o elemento raiz do documento — declarar variáveis ali as torna disponíveis em <strong>toda</strong> a página. O prefixo <code>--</code> identifica uma custom property.</p>
+
+        <h3>- var() com Valor de Fallback</h3>
+        <pre><code>.card {
+    /* usa --cor-card se existir, senão usa branco */
+    background: var(--cor-card, white);
+}</code></pre>
+
+        <h3>- Tema Claro/Escuro Dinâmico</h3>
+        <p>A grande vantagem das variáveis CSS sobre os pré-processadores (como Sass) é que elas podem ser <strong>alteradas em tempo real com JavaScript</strong>, sem recompilar nada:</p>
+        <pre><code>/* CSS */
+:root {
+    --bg: #ffffff;
+    --texto: #1a1a1a;
+}
+[data-tema="escuro"] {
+    --bg: #12121a;
+    --texto: #f0f0f0;
+}
+body { background: var(--bg); color: var(--texto); }</code></pre>
+        <pre><code>// JavaScript
+document.body.dataset.tema = "escuro"; // troca o tema instantaneamente</code></pre>
+
+        <h3>- Escopo de Variáveis</h3>
+        <p>Variáveis também podem ser redefinidas dentro de um seletor específico, afetando só aquele bloco e seus filhos:</p>
+        <pre><code>.card-destaque {
+    --cor-primaria: #D62828;  /* só dentro deste card, a variável vira vermelha */
+}</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Variáveis para tudo que se repete</strong><br>
+            Espaçamentos, cores, bordas arredondadas, sombras, tempos de transição — qualquer valor usado em mais de um lugar é candidato a virar variável. Isso torna o CSS muito mais fácil de manter.
+        </div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Custom properties não são as mesmas que variáveis do Sass</strong><br>
+            Variáveis de pré-processador (Sass/LESS) são substituídas em tempo de compilação e viram valores fixos. Custom properties do CSS puro continuam "vivas" no navegador — por isso é possível trocá-las com JavaScript sem recarregar a página.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li><code>--nome: valor;</code> declara uma variável, geralmente dentro de <code>:root</code></li>
+            <li><code>var(--nome, fallback)</code> usa a variável, com um valor reserva opcional</li>
+            <li>Trocar variáveis via JavaScript permite temas dinâmicos sem recarregar a página</li>
+            <li>Variáveis podem ser redefinidas dentro de um seletor para mudar só aquele escopo</li>
+        </ul>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<style>
+  :root { --bg: #ffffff; --texto: #1a1a1a; --primaria: #F77F00; }
+  [data-tema=&quot;escuro&quot;] { --bg: #12121a; --texto: #f0f0f0; --primaria: #0ea5b7; }
+  body { background: var(--bg); color: var(--texto); font-family: sans-serif; padding: 20px; transition: background .3s, color .3s; }
+  button { background: var(--primaria); color: white; border: none; padding: 10px 18px; border-radius: 8px; cursor: pointer; }
+</style>
+<h2>Tema dinâmico</h2>
+<p>Clique no botão para trocar de tema.</p>
+<button onclick=&quot;document.body.dataset.tema = document.body.dataset.tema === 'escuro' ? '' : 'escuro'&quot;>Alternar tema</button>">Alternar tema</button>
+                <button class="html-lab-snippet" data-code="<style>
+  :root { --espacamento: 20px; --radius: 16px; --cor: #7C5CFF; }
+  .caixa { background: var(--cor); padding: var(--espacamento); border-radius: var(--radius); color: white; margin-bottom: 10px; }
+</style>
+<div class=&quot;caixa&quot;>Caixa 1</div>
+<div class=&quot;caixa&quot;>Caixa 2</div>">Variáveis reutilizadas</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<style>
+  :root {
+    --cor-primaria: #F77F00;
+    --espacamento: 18px;
+  }
+  .botao {
+    background: var(--cor-primaria);
+    color: white;
+    padding: var(--espacamento);
+    border: none;
+    border-radius: 10px;
+  }
+</style>
+
+<button class=&quot;botao&quot;>Meu botão com variáveis</button>" spellcheck="false"><style>
+  :root {
+    --cor-primaria: #F77F00;
+    --espacamento: 18px;
+  }
+  .botao {
+    background: var(--cor-primaria);
+    color: white;
+    padding: var(--espacamento);
+    border: none;
+    border-radius: 10px;
+  }
+</style>
+
+<button class="botao">Meu botão com variáveis</button></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('hc_mod9') }}" class="btn-voltar">&larr; Módulo 9</a>
+        <a href="{{ url_for('hc_mod11') }}" class="btn-proximo">Módulo 11: Animações e Transições &rarr;</a>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

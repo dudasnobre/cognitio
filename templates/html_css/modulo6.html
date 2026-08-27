@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 6</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>6. Responsividade e Boas Práticas</h2>
+    <p>Uma página bem feita precisa funcionar tão bem no celular quanto no computador. Vamos fechar o curso com responsividade e um checklist de boas práticas para levar para os seus próprios projetos.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- A Meta Tag Viewport</h3>
+        <p>Sem ela, navegadores mobile renderizam a página como se fosse desktop e depois "encolhem" tudo. Ela já deve estar em toda página que você criar:</p>
+        <pre><code>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</code></pre>
+
+        <h3>- Media Queries</h3>
+        <p>Permitem aplicar CSS diferente dependendo do tamanho da tela:</p>
+        <pre><code>.container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+@media (max-width: 768px) {
+    .container {
+        grid-template-columns: 1fr;   /* uma coluna só em telas pequenas */
+    }
+}</code></pre>
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Dica: mobile-first</strong><br>
+            Uma boa prática é escrever o CSS pensando primeiro no celular (telas pequenas) e depois usar media queries com <code>min-width</code> para adicionar estilos conforme a tela cresce.
+        </div>
+
+        <h3>- Unidades Flexíveis</h3>
+        <pre><code>width: 100%;      /* relativo ao elemento pai */
+font-size: 1.2rem; /* relativo ao tamanho de fonte raiz (html) */
+max-width: 600px;  /* nunca ultrapassa esse valor, mas encolhe */</code></pre>
+        <p>Prefira <code>%</code>, <code>rem</code> e <code>max-width</code> a valores fixos em <code>px</code> sempre que possível — isso deixa o layout muito mais adaptável.</p>
+
+        <h3>- Checklist de Boas Práticas</h3>
+        <ul>
+            <li>Use tags semânticas: <code>&lt;header&gt;</code>, <code>&lt;nav&gt;</code>, <code>&lt;main&gt;</code>, <code>&lt;footer&gt;</code> em vez de só <code>&lt;div&gt;</code></li>
+            <li>Sempre preencha o <code>alt</code> das imagens</li>
+            <li>Um único <code>&lt;h1&gt;</code> por página</li>
+            <li>CSS em arquivo externo, nunca inline em projetos reais</li>
+            <li>Teste sempre em telas pequenas (ou reduza a janela do navegador)</li>
+            <li>Nomeie classes de forma descritiva: <code>.card-produto</code>, não <code>.div1</code></li>
+        </ul>
+
+        <h3>- Imagens Responsivas</h3>
+        <p>Sem cuidado, uma imagem grande pode "estourar" o layout em telas pequenas. A regra mais simples e eficaz:</p>
+        <pre><code>img {
+    max-width: 100%;
+    height: auto;
+}</code></pre>
+        <div class="info-box">
+            <strong><i class="fa-solid fa-circle-info"></i> Por que isso funciona</strong><br>
+            <code>max-width: 100%</code> impede a imagem de ultrapassar a largura do elemento pai, e <code>height: auto</code> mantém a proporção original — a imagem encolhe junto com a tela, sem distorcer.
+        </div>
+
+        <h3>- Breakpoints Comuns do Mercado</h3>
+        <p>Não existe uma regra fixa, mas estes valores são um bom ponto de partida usado amplamente:</p>
+        <pre><code>@media (max-width: 480px)  { /* celulares */ }
+@media (max-width: 768px)  { /* tablets */ }
+@media (max-width: 1024px) { /* laptops pequenos */ }</code></pre>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Não esqueça a meta viewport</strong><br>
+            Media queries simplesmente não funcionam direito sem a tag <code>&lt;meta name="viewport"&gt;</code> vista no início deste módulo — é o erro mais comum de quem está aprendendo responsividade.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício final</strong><br>
+            No laboratório abaixo, use o exemplo "Layout responsivo" e redimensione a janela do preview (ou teste em telas menores) para ver os cards se reorganizarem de 3 colunas para 1.
+        </div>
+
+        <h3>- Revisão Geral do Curso</h3>
+        <ul>
+            <li><strong>Módulo 1:</strong> estrutura básica do HTML, tags e atributos</li>
+            <li><strong>Módulo 2:</strong> texto, listas, links e imagens</li>
+            <li><strong>Módulo 3:</strong> formulários e tabelas</li>
+            <li><strong>Módulo 4:</strong> fundamentos do CSS — seletores, box model, especificidade</li>
+            <li><strong>Módulo 5:</strong> layout moderno com Flexbox e Grid</li>
+            <li><strong>Módulo 6:</strong> responsividade e boas práticas</li>
+        </ul>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Parabéns!</strong><br>
+            Você concluiu o curso de HTML &amp; CSS! O próximo passo natural é aprofundar em <strong>JavaScript</strong> (que já está disponível aqui na Cognitio) para dar interatividade às suas páginas.
+        </div>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<style>
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .cards div { background: #0ea5b7; color: white; padding: 16px; text-align: center; border-radius: 6px; }
+
+  @media (max-width: 500px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+</style>
+<div class=&quot;cards&quot;>
+  <div>Item 1</div>
+  <div>Item 2</div>
+  <div>Item 3</div>
+</div>">Layout responsivo</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<style>
+  .box { background: #0ea5b7; color: white; padding: 20px; text-align: center; }
+
+  @media (max-width: 480px) {
+    .box { background: #E44D26; }
+  }
+</style>
+
+<div class=&quot;box&quot;>Redimensione a janela do preview!</div>" spellcheck="false"><style>
+  .box { background: #0ea5b7; color: white; padding: 20px; text-align: center; }
+
+  @media (max-width: 480px) {
+    .box { background: #E44D26; }
+  }
+</style>
+
+<div class="box">Redimensione a janela do preview!</div></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('hc_mod5') }}" class="btn-voltar">&larr; Módulo 5</a>
+        <a href="{{ url_for('hc_mod7') }}" class="btn-proximo">Módulo 7: HTML Semântico e Acessibilidade &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

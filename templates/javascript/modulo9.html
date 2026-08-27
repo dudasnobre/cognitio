@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Módulo 9</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/javascript.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>9. Armazenamento no Navegador (localStorage)</h2>
+    <p>Toda aplicação web precisa "lembrar" de algo entre visitas: preferências, um carrinho de compras, o progresso de um curso. O <code>localStorage</code> guarda dados diretamente no navegador, sem precisar de um servidor.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Guardando e Lendo Dados</h3>
+        <pre><code>localStorage.setItem('nome', 'Ana');
+console.log(localStorage.getItem('nome')); // "Ana"
+
+localStorage.removeItem('nome');
+localStorage.clear(); // apaga tudo</code></pre>
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> localStorage só guarda texto (strings)</strong><br>
+            Se tentar guardar um número ou objeto diretamente, ele será convertido para string automaticamente — e não da forma que você espera. Use <code>JSON.stringify</code>/<code>JSON.parse</code> para objetos e arrays.
+        </div>
+
+        <h3>- Guardando Objetos e Arrays com JSON</h3>
+        <pre><code>const usuario = { nome: 'Ana', nivel: 3, favoritos: ['JS', 'CSS'] };
+
+// Salvar: transforma o objeto em texto JSON
+localStorage.setItem('usuario', JSON.stringify(usuario));
+
+// Ler: transforma o texto JSON de volta em objeto
+const salvo = JSON.parse(localStorage.getItem('usuario'));
+console.log(salvo.nome, salvo.favoritos);</code></pre>
+
+        <h3>- Padrão: Estado Persistente Simples</h3>
+        <pre><code>function salvarProgresso(modulo) {
+    const progresso = JSON.parse(localStorage.getItem('progresso') || '[]');
+    if (!progresso.includes(modulo)) progresso.push(modulo);
+    localStorage.setItem('progresso', JSON.stringify(progresso));
+}
+
+function carregarProgresso() {
+    return JSON.parse(localStorage.getItem('progresso') || '[]');
+}
+
+salvarProgresso('modulo1');
+console.log(carregarProgresso());</code></pre>
+        <p>Esse é, na prática, o mesmo padrão que a Cognitio usa para guardar seu progresso, XP e conquistas no navegador!</p>
+
+        <h3>- localStorage vs sessionStorage</h3>
+        <ul>
+            <li><code>localStorage</code> — persiste mesmo depois de fechar o navegador</li>
+            <li><code>sessionStorage</code> — some quando a aba é fechada; útil para dados temporários</li>
+        </ul>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Nunca guarde dados sensíveis</strong><br>
+            localStorage é acessível por qualquer script rodando na página e não é criptografado. Nunca guarde senhas, tokens sensíveis ou dados de pagamento nele.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li><code>localStorage.setItem/getItem/removeItem/clear</code> — API básica</li>
+            <li><code>JSON.stringify</code>/<code>JSON.parse</code> são obrigatórios para objetos e arrays</li>
+            <li>Sempre trate o caso de o dado ainda não existir (<code>|| '[]'</code>, <code>|| '{}'</code>)</li>
+        </ul>
+
+    <div class="js-vm-section" style="margin-top:36px;">
+        <div class="js-vm-header">
+            <div class="vm-title"><i class="fa-brands fa-js"></i> Terminal JavaScript — localStorage</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="js-snippet-btns">
+            <span class="js-snippet-label">Snippets:</span>
+            <button class="js-snippet" data-js="const usuario = { nome: 'Ana', nivel: 3 };&#10;localStorage.setItem('usuario', JSON.stringify(usuario));&#10;&#10;const salvo = JSON.parse(localStorage.getItem('usuario'));&#10;console.log(salvo);">Salvar objeto</button>
+            <button class="js-snippet" data-js="function salvarProgresso(modulo) {&#10;  const p = JSON.parse(localStorage.getItem('progresso') || '[]');&#10;  if (!p.includes(modulo)) p.push(modulo);&#10;  localStorage.setItem('progresso', JSON.stringify(p));&#10;  return p;&#10;}&#10;&#10;console.log(salvarProgresso('modulo1'));&#10;console.log(salvarProgresso('modulo2'));">Lista de progresso</button>
+        </div>
+        <textarea id="js-editor" data-default="// Contador persistente simples&#10;let contador = Number(localStorage.getItem('contador') || 0);&#10;contador++;&#10;localStorage.setItem('contador', contador);&#10;console.log('Você executou este código', contador, 'vez(es)');" placeholder="// Ctrl+Enter para executar">// Contador persistente simples&#10;let contador = Number(localStorage.getItem('contador') || 0);&#10;contador++;&#10;localStorage.setItem('contador', contador);&#10;console.log('Você executou este código', contador, 'vez(es)');</textarea>
+        <div class="js-vm-toolbar">
+            <button class="js-run-btn" id="js-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="js-reset-btn" id="js-reset"><i class="fa-solid fa-rotate"></i> Resetar</button>
+            <button class="js-hint-btn" id="js-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="js-result-wrap"><div id="js-result"><p style="color:rgba(205,214,244,.4);font-size:.84rem;font-family:monospace"><i class="fa-solid fa-arrow-up"></i> Execute o código para ver o resultado.</p></div></div>
+    </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('js_mod8') }}" class="btn-voltar">&larr; Módulo 8</a>
+        <a href="{{ url_for('js_mod10') }}" class="btn-proximo">Módulo 10: JavaScript Moderno (ES6+) &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/javascript.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 8</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>8. Flexbox Avançado</h2>
+    <p>Você já conhece o básico do Flexbox. Agora vamos além: controlar o crescimento individual dos itens, permitir quebra de linha e montar padrões de layout usados em praticamente todo site profissional.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- flex-grow, flex-shrink e flex-basis</h3>
+        <p>Essas três propriedades controlam como cada item individual se comporta dentro do container flex — geralmente escritas juntas no atalho <code>flex</code>:</p>
+        <pre><code>.item {
+    flex: 1 1 200px;
+    /*     |  |  |
+           |  |  flex-basis: tamanho "ideal" de partida
+           |  flex-shrink: o quanto pode encolher (1 = pode)
+           flex-grow: o quanto pode crescer para ocupar espaço extra
+    */
+}</code></pre>
+        <ul>
+            <li><code>flex: 1</code> — atalho para "cresça igualmente, dividindo o espaço"</li>
+            <li><code>flex: 0 0 200px</code> — item com largura fixa de 200px, não cresce nem encolhe</li>
+            <li><code>flex-grow: 2</code> — este item cresce o dobro em relação a um irmão com <code>flex-grow: 1</code></li>
+        </ul>
+
+        <h3>- flex-wrap e Layouts que Quebram Linha</h3>
+        <pre><code>.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+.card { flex: 1 1 240px; }  /* cada card tenta ter 240px, mas encolhe/quebra se precisar */</code></pre>
+        <p>Esse padrão — <code>flex-wrap: wrap</code> + <code>flex-basis</code> em cada item — é a forma mais comum de criar uma grade de cards responsiva sem escrever uma única media query.</p>
+
+        <h3>- order: Mudando a Ordem Visual</h3>
+        <pre><code>.item-destaque { order: -1; }  /* aparece primeiro, mesmo sendo o último no HTML */</code></pre>
+        <p>Útil para, por exemplo, mostrar a imagem antes do texto no celular e depois do texto no desktop — sem duplicar HTML.</p>
+
+        <h3>- Padrão: Navbar com Flexbox</h3>
+        <pre><code>.navbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.navbar .links { display: flex; gap: 20px; }</code></pre>
+
+        <h3>- Padrão: Holy Grail Layout (cabeçalho, 3 colunas, rodapé)</h3>
+        <pre><code>.pagina { display: flex; flex-direction: column; min-height: 100vh; }
+.corpo  { display: flex; flex: 1; }
+.corpo aside { flex: 0 0 220px; }   /* colunas laterais fixas */
+.corpo main  { flex: 1; }           /* coluna central flexível */</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> align-self</strong><br>
+            Precisa que só <strong>um</strong> item tenha um alinhamento diferente dos demais? Use <code>align-self</code> nele em vez de mudar o <code>align-items</code> do container inteiro.
+        </div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> flex-basis vs width</strong><br>
+            Quando <code>flex-grow</code> ou <code>flex-shrink</code> estão ativos, <code>flex-basis</code> tem prioridade sobre <code>width</code>. Se seu item não está respeitando a largura que você definiu, verifique se não há um <code>flex-basis</code> conflitante.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li><code>flex: grow shrink basis</code> controla o comportamento individual de cada item</li>
+            <li><code>flex-wrap: wrap</code> + <code>flex-basis</code> cria grades responsivas sem media queries</li>
+            <li><code>order</code> muda a ordem visual sem tocar no HTML</li>
+            <li>Navbars e layouts de 3 colunas são os padrões mais comuns do Flexbox no mundo real</li>
+        </ul>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<style>
+  .cards { display: flex; flex-wrap: wrap; gap: 16px; }
+  .card { flex: 1 1 200px; background: #0ea5b7; color: white; padding: 20px; border-radius: 8px; text-align: center; }
+</style>
+<div class=&quot;cards&quot;>
+  <div class=&quot;card&quot;>Card 1</div>
+  <div class=&quot;card&quot;>Card 2</div>
+  <div class=&quot;card&quot;>Card 3</div>
+  <div class=&quot;card&quot;>Card 4</div>
+</div>">Cards responsivos</button>
+                <button class="html-lab-snippet" data-code="<style>
+  .pagina { display: flex; flex-direction: column; min-height: 240px; font-family: sans-serif; }
+  header, footer { background: #003049; color: white; padding: 10px; text-align: center; }
+  .corpo { display: flex; flex: 1; }
+  aside { flex: 0 0 100px; background: #eee; padding: 10px; }
+  main { flex: 1; padding: 10px; }
+</style>
+<div class=&quot;pagina&quot;>
+  <header>Cabeçalho</header>
+  <div class=&quot;corpo&quot;>
+    <aside>Menu</aside>
+    <main>Conteúdo principal</main>
+  </div>
+  <footer>Rodapé</footer>
+</div>">Holy Grail Layout</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<style>
+  .container { display: flex; flex-wrap: wrap; gap: 10px; }
+  .item { flex: 1 1 150px; background: #F77F00; color: white; padding: 18px; border-radius: 6px; text-align: center; }
+</style>
+
+<div class=&quot;container&quot;>
+  <div class=&quot;item&quot;>1</div>
+  <div class=&quot;item&quot;>2</div>
+  <div class=&quot;item&quot;>3</div>
+</div>" spellcheck="false"><style>
+  .container { display: flex; flex-wrap: wrap; gap: 10px; }
+  .item { flex: 1 1 150px; background: #F77F00; color: white; padding: 18px; border-radius: 6px; text-align: center; }
+</style>
+
+<div class="container">
+  <div class="item">1</div>
+  <div class="item">2</div>
+  <div class="item">3</div>
+</div></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('hc_mod7') }}" class="btn-voltar">&larr; Módulo 7</a>
+        <a href="{{ url_for('hc_mod9') }}" class="btn-proximo">Módulo 9: CSS Grid Avançado &rarr;</a>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

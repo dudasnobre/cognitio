@@ -1,0 +1,27 @@
+# Ambiente virtual Python
+.venv/
+venv/
+env/
+
+# Variáveis de ambiente (nunca suba sua chave real!)
+.env
+.env.save
+.env.save.*
+.env.backup
+
+# Contas de usuário (dados pessoais, nunca deve ir para o repositório)
+data/usuarios.json
+
+# Cache Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+
+# IDEs
+.vscode/
+.idea/
+.env

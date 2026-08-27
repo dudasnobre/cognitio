@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python do Zero - Módulo 4</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/python.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>4. Laços de Repetição</h2>
+    <p>Laços (loops) repetem um bloco de código várias vezes — essenciais para processar listas, validar entradas ou repetir tarefas sem copiar e colar código.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- for — repetindo um número definido de vezes</h3>
+        <pre><code>for i in range(5):
+    print(i)</code></pre>
+        <div class="py-output">&gt;&gt;&gt; 0
+&gt;&gt;&gt; 1
+&gt;&gt;&gt; 2
+&gt;&gt;&gt; 3
+&gt;&gt;&gt; 4</div>
+        <p><code>range(5)</code> gera os números de 0 a 4 (o 5 não entra). Você também pode definir início, fim e passo:</p>
+        <pre><code>for i in range(2, 10, 2):
+    print(i)   # 2, 4, 6, 8</code></pre>
+
+        <h3>- for percorrendo uma lista ou texto</h3>
+        <pre><code>frutas = ["maçã", "banana", "uva"]
+for fruta in frutas:
+    print(fruta)
+
+for letra in "Python":
+    print(letra)</code></pre>
+
+        <h3>- while — repetindo enquanto uma condição for verdadeira</h3>
+        <pre><code>contador = 0
+while contador &lt; 3:
+    print(f"Contando: {contador}")
+    contador += 1</code></pre>
+        <div class="py-output">&gt;&gt;&gt; Contando: 0
+&gt;&gt;&gt; Contando: 1
+&gt;&gt;&gt; Contando: 2</div>
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Cuidado com loops infinitos</strong><br>
+            Se você esquecer de atualizar a variável de controle (<code>contador += 1</code>), o <code>while</code> nunca vai parar. Sempre garanta que a condição possa se tornar falsa em algum momento.
+        </div>
+
+        <h3>- break e continue</h3>
+        <pre><code>for i in range(10):
+    if i == 5:
+        break        # para o loop completamente
+    if i % 2 == 0:
+        continue     # pula para a próxima repetição
+    print(i)</code></pre>
+        <div class="py-output">&gt;&gt;&gt; 1
+&gt;&gt;&gt; 3</div>
+
+        <h3>- Loops Aninhados</h3>
+        <p>Um loop dentro de outro é útil para percorrer combinações — como linhas e colunas de uma tabela:</p>
+        <pre><code>for linha in range(1, 4):
+    for coluna in range(1, 4):
+        print(f"({linha},{coluna})", end=" ")
+    print()  # pula linha ao final de cada linha externa</code></pre>
+        <div class="py-output">&gt;&gt;&gt; (1,1) (1,2) (1,3)
+&gt;&gt;&gt; (2,1) (2,2) (2,3)
+&gt;&gt;&gt; (3,1) (3,2) (3,3)</div>
+        <div class="info-box">
+            <strong><i class="fa-solid fa-circle-info"></i> Tabuada com loop aninhado</strong><br>
+            Um clássico exercício de loop aninhado é gerar a tabuada de 1 a 10: o loop externo escolhe o número, o interno multiplica de 1 a 10.
+        </div>
+
+        <h3>- A Cláusula else no Loop</h3>
+        <p>Pouca gente sabe, mas <code>for</code> e <code>while</code> em Python podem ter um <code>else</code> — ele roda quando o loop termina normalmente, <strong>sem</strong> ter passado por um <code>break</code>:</p>
+        <pre><code>numeros = [2, 4, 6, 8]
+for n in numeros:
+    if n % 2 != 0:
+        print("Achei um ímpar!")
+        break
+else:
+    print("Todos os números são pares.")</code></pre>
+        <div class="py-output">&gt;&gt;&gt; Todos os números são pares.</div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> range() não inclui o valor final</strong><br>
+            <code>range(1, 5)</code> gera <code>1, 2, 3, 4</code> — muita gente espera que o 5 apareça e se surpreende quando ele não entra no resultado.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            Escreva um programa com <code>while</code> que peça números ao usuário e os some, parando quando ele digitar <code>0</code>. No final, mostre o total somado.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li><code>for</code> repete um número definido de vezes ou percorre uma sequência</li>
+            <li><code>while</code> repete enquanto uma condição continuar verdadeira</li>
+            <li><code>break</code> interrompe o loop; <code>continue</code> pula para a próxima repetição</li>
+            <li>Loops podem ser aninhados e até ter um <code>else</code> próprio</li>
+        </ul>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('py_mod3') }}" class="btn-voltar">&larr; Módulo 3</a>
+        <a href="{{ url_for('py_mod5') }}" class="btn-proximo">Módulo 5: Listas, Tuplas e Dicionários &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/python.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

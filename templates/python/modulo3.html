@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python do Zero - Módulo 3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/python.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>3. Estruturas Condicionais</h2>
+    <p>Estruturas condicionais permitem que o programa tome decisões: "se isso acontecer, faça aquilo". É aqui que a lógica de programação realmente começa.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- if, elif e else</h3>
+        <pre><code>idade = 20
+
+if idade &lt; 12:
+    print("Você é uma criança")
+elif idade &lt; 18:
+    print("Você é adolescente")
+else:
+    print("Você é adulto")</code></pre>
+        <div class="py-output">&gt;&gt;&gt; Você é adulto</div>
+        <ul>
+            <li><code>if</code> — testa a primeira condição</li>
+            <li><code>elif</code> — testa outras condições (pode repetir várias vezes)</li>
+            <li><code>else</code> — executa se nenhuma condição anterior for verdadeira</li>
+        </ul>
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> A indentação importa!</strong><br>
+            Diferente de outras linguagens, Python usa a <strong>indentação (espaços)</strong> para definir blocos de código — não chaves <code>{ }</code>. Use sempre 4 espaços por nível.
+        </div>
+
+        <h3>- Operadores de Comparação</h3>
+        <pre><code>==   igual a
+!=   diferente de
+&gt;    maior que
+&lt;    menor que
+&gt;=   maior ou igual
+&lt;=   menor ou igual</code></pre>
+
+        <h3>- Operadores Lógicos</h3>
+        <pre><code>idade = 25
+tem_carteira = True
+
+if idade &gt;= 18 and tem_carteira:
+    print("Pode dirigir")
+
+if idade &lt; 18 or not tem_carteira:
+    print("Não pode dirigir")</code></pre>
+        <ul>
+            <li><code>and</code> — verdadeiro só se AMBAS as condições forem verdadeiras</li>
+            <li><code>or</code> — verdadeiro se PELO MENOS uma condição for verdadeira</li>
+            <li><code>not</code> — inverte o valor (True vira False)</li>
+        </ul>
+
+        <h3>- Condicional em uma linha (ternário)</h3>
+        <pre><code>idade = 17
+status = "maior" if idade &gt;= 18 else "menor"
+print(status)</code></pre>
+        <div class="py-output">&gt;&gt;&gt; menor</div>
+
+        <h3>- Condições Aninhadas</h3>
+        <p>Você pode colocar um <code>if</code> dentro de outro quando a decisão depende de mais de um nível de verificação:</p>
+        <pre><code>usuario_logado = True
+saldo = 150
+
+if usuario_logado:
+    if saldo &gt; 0:
+        print("Bem-vindo! Saldo disponível.")
+    else:
+        print("Bem-vindo! Mas seu saldo está zerado.")
+else:
+    print("Faça login primeiro.")</code></pre>
+        <div class="info-box">
+            <strong><i class="fa-solid fa-circle-info"></i> Nem sempre precisa aninhar</strong><br>
+            O exemplo acima também poderia ser escrito com <code>and</code>: <code>if usuario_logado and saldo &gt; 0:</code>. Prefira <code>and</code>/<code>or</code> quando possível — o código fica mais curto e mais fácil de ler.
+        </div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Erro comum: esquecer os dois-pontos</strong><br>
+            Toda linha que abre um bloco (<code>if</code>, <code>elif</code>, <code>else</code>) precisa terminar com <code>:</code>. Esquecer isso é a causa nº 1 de <code>SyntaxError</code> para quem está começando.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            Escreva um programa que peça uma nota (0 a 10) com <code>input()</code> e imprima "Aprovado" se a nota for maior ou igual a 6, "Recuperação" se estiver entre 4 e 5.9, e "Reprovado" caso contrário.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li><code>if</code> / <code>elif</code> / <code>else</code> controlam o fluxo do programa com base em condições</li>
+            <li>Operadores de comparação (<code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>...) retornam sempre <code>True</code> ou <code>False</code></li>
+            <li><code>and</code>, <code>or</code> e <code>not</code> combinam várias condições</li>
+            <li>O operador ternário resolve condicionais simples em uma linha</li>
+        </ul>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('python_curso') }}" class="btn-voltar">&larr; Módulo 2</a>
+        <a href="{{ url_for('py_mod4') }}" class="btn-proximo">Módulo 4: Laços de Repetição &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/python.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

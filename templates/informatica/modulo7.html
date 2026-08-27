@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informática Básica - Módulo 7</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/infor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>7. Apresentações Profissionais (PowerPoint)</h2>
+    <p>Uma boa apresentação de slides pode ser decisiva em uma entrevista, uma aula ou uma reunião de trabalho. Vamos aos fundamentos de como montar slides claros e profissionais.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Estrutura Básica de uma Apresentação</h3>
+        <ul>
+            <li><strong>Slide de abertura</strong> — título, seu nome, data</li>
+            <li><strong>Agenda/Sumário</strong> — o que será abordado</li>
+            <li><strong>Conteúdo</strong> — um tópico principal por slide</li>
+            <li><strong>Conclusão</strong> — resumo e próximos passos</li>
+            <li><strong>Encerramento</strong> — agradecimento e contato</li>
+        </ul>
+
+        <h3>- Regra 6x6 (e por que ela existe)</h3>
+        <p>Uma boa referência para não sobrecarregar o slide: no máximo 6 linhas de texto, com no máximo 6 palavras por linha. Slides são um <strong>apoio visual</strong> para sua fala, não um documento para ser lido palavra por palavra pela plateia.</p>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Slides não são o roteiro da sua fala</strong><br>
+            Se alguém consegue entender tudo só lendo os slides, sem você falar nada, os slides estão carregando informação demais. Use as notas do apresentador (recurso do PowerPoint) para os detalhes que você vai falar.
+        </div>
+
+        <h3>- Design Consistente</h3>
+        <ul>
+            <li>Use um <strong>modelo de slides (template)</strong> em vez de estilizar cada slide do zero</li>
+            <li>Mantenha a mesma paleta de cores e fonte do início ao fim</li>
+            <li>Prefira poucas cores de destaque — 2 ou 3 cores principais já bastam</li>
+        </ul>
+
+        <h3>- Imagens e Gráficos</h3>
+        <p>Um bom gráfico substitui uma tabela cheia de números. Ao inserir imagens, prefira sempre alta resolução e evite esticar imagens pequenas, o que gera pixelização.</p>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Cuidado com animações e transições em excesso</strong><br>
+            Efeitos de transição chamativos entre slides distraem mais do que ajudam. Prefira transições simples e discretas — o conteúdo deve ser o protagonista, não o efeito visual.
+        </div>
+
+        <h3>- Praticando a Apresentação</h3>
+        <ul>
+            <li>Ensaie em voz alta pelo menos uma vez antes da apresentação real</li>
+            <li>Cronometre — a maioria das apresentações tem um tempo limite</li>
+            <li>Tenha um plano B se a tecnologia falhar (PDF exportado, apresentação impressa)</li>
+        </ul>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício final</strong><br>
+            Monte uma apresentação de 5 slides sobre um assunto que você domina bem, seguindo a estrutura deste módulo: abertura, agenda, 2 slides de conteúdo, conclusão.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Estruture: abertura, agenda, conteúdo, conclusão, encerramento</li>
+            <li>Regra 6x6: no máximo 6 linhas por slide, 6 palavras por linha</li>
+            <li>Mantenha design consistente com um template e poucas cores</li>
+            <li>Ensaie a apresentação antes do dia real</li>
+        </ul>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('modulo6') }}" class="btn-voltar">&larr; Módulo 6</a>
+        <a href="{{ url_for('modulo8') }}" class="btn-proximo">Módulo 8: Nuvem e Produtividade &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/infor.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

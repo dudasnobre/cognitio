@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 12</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>12. Pseudo-classes, Pseudo-elementos e Seletores Avançados</h2>
+    <p>Pseudo-classes selecionam elementos com base em um <strong>estado</strong> (foi clicado? é o primeiro filho?). Pseudo-elementos criam ou direcionam uma <strong>parte específica</strong> de um elemento. Juntos, eles evitam muito HTML e JavaScript desnecessários.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Pseudo-classes de Estado</h3>
+        <pre><code>a:hover    { color: #F77F00; }     /* mouse sobre o link */
+a:visited  { color: #6c35c9; }     /* link já visitado */
+input:focus { border-color: #0ea5b7; }
+button:disabled { opacity: 0.5; cursor: not-allowed; }
+input:checked + label { font-weight: bold; }</code></pre>
+
+        <h3>- Pseudo-classes Estruturais</h3>
+        <pre><code>li:first-child  { font-weight: bold; }
+li:last-child   { border-bottom: none; }
+tr:nth-child(even) { background: #f5f5f5; }   /* linhas zebradas */
+p:nth-child(3n)    { color: red; }             /* a cada 3 parágrafos */
+li:not(.ativo)     { opacity: 0.6; }</code></pre>
+        <ul>
+            <li><code>nth-child(even)</code>/<code>odd</code> — muito usado para listas e tabelas zebradas</li>
+            <li><code>:not()</code> — seleciona tudo <strong>exceto</strong> o que estiver dentro dos parênteses</li>
+        </ul>
+
+        <h3>- Pseudo-elementos: ::before e ::after</h3>
+        <pre><code>.citacao::before {
+    content: "\201C";  /* aspas decorativas */
+    font-size: 2rem;
+    color: #F77F00;
+}
+
+.obrigatorio::after {
+    content: " *";
+    color: #D62828;
+}</code></pre>
+        <p><code>::before</code> e <code>::after</code> inserem conteúdo "virtual" antes ou depois do conteúdo real do elemento, controlado inteiramente pelo CSS — sem precisar adicionar uma tag no HTML.</p>
+
+        <h3>- Combinadores de Seletores</h3>
+        <pre><code>nav a          { }  /* qualquer &lt;a&gt; dentro de nav, em qualquer nível */
+nav > a        { }  /* apenas &lt;a&gt; filho DIRETO de nav */
+h2 + p         { }  /* apenas o &lt;p&gt; logo depois de um &lt;h2&gt; */
+h2 ~ p         { }  /* todo &lt;p&gt; que vem depois de um &lt;h2&gt;, irmão dele */</code></pre>
+
+        <h3>- :has() — o "seletor pai" (suporte moderno)</h3>
+        <pre><code>/* Seleciona um .card que CONTÉM uma imagem */
+.card:has(img) {
+    border: 2px solid #0ea5b7;
+}</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Checkbox hack</strong><br>
+            A combinação <code>input:checked ~ .menu</code> permite abrir/fechar menus e acordeões usando só HTML e CSS, sem uma linha de JavaScript — útil para interações simples.
+        </div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> ::before/::after precisam de content</strong><br>
+            Sem a propriedade <code>content</code> (mesmo vazia: <code>content: "";</code>), pseudo-elementos simplesmente não aparecem — é o erro mais comum ao usá-los.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Pseudo-classes (<code>:hover</code>, <code>:nth-child</code>, <code>:not</code>) selecionam por estado ou posição</li>
+            <li>Pseudo-elementos (<code>::before</code>, <code>::after</code>) inserem conteúdo virtual via CSS</li>
+            <li>Combinadores (<code>&gt;</code>, <code>+</code>, <code>~</code>) refinam exatamente quais elementos são atingidos</li>
+        </ul>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<style>
+  table { border-collapse: collapse; width: 100%; font-family: sans-serif; }
+  td, th { padding: 8px 12px; text-align: left; }
+  tr:nth-child(even) { background: #f0f0f0; }
+  tr:hover { background: #ffe9d1; }
+</style>
+<table>
+  <tr><th>Nome</th><th>Nota</th></tr>
+  <tr><td>Ana</td><td>9</td></tr>
+  <tr><td>Bruno</td><td>7</td></tr>
+  <tr><td>Carla</td><td>8</td></tr>
+  <tr><td>Diego</td><td>6</td></tr>
+</table>">Tabela zebrada</button>
+                <button class="html-lab-snippet" data-code="<style>
+  blockquote { font-style: italic; padding-left: 40px; position: relative; font-family: serif; font-size: 1.2rem; }
+  blockquote::before { content: &quot;\201C&quot;; font-size: 3rem; color: #F77F00; position: absolute; left: 0; top: -10px; }
+</style>
+<blockquote>O aprendizado nunca esgota a mente.</blockquote>">Citação com ::before</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<style>
+  input:required + label::after { content: &quot; *&quot;; color: #D62828; }
+  input:focus { outline: 2px solid #0ea5b7; }
+</style>
+
+<input type=&quot;text&quot; id=&quot;nome&quot; required>
+<label for=&quot;nome&quot;>Nome</label>" spellcheck="false"><style>
+  input:required + label::after { content: " *"; color: #D62828; }
+  input:focus { outline: 2px solid #0ea5b7; }
+</style>
+
+<input type="text" id="nome" required>
+<label for="nome">Nome</label></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('hc_mod11') }}" class="btn-voltar">&larr; Módulo 11</a>
+        <a href="{{ url_for('hc_mod13') }}" class="btn-proximo">Módulo 13: Responsivo e Mobile-First &rarr;</a>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

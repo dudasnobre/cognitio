@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Módulo 11</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/javascript.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>11. Boas Práticas, Debugging e Tratamento de Erros</h2>
+    <p>Escrever código que funciona é o primeiro passo. Escrever código fácil de depurar quando algo dá errado é o que separa um projeto sustentável de um pesadelo de manutenção.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- try/catch/finally</h3>
+        <pre><code>function dividir(a, b) {
+    if (b === 0) {
+        throw new Error('Divisão por zero não é permitida');
+    }
+    return a / b;
+}
+
+try {
+    console.log(dividir(10, 0));
+} catch (erro) {
+    console.error('Algo deu errado:', erro.message);
+} finally {
+    console.log('Isso sempre executa, com erro ou sem.');
+}</code></pre>
+
+        <h3>- Criando Erros Customizados</h3>
+        <pre><code>class ErroDeValidacao extends Error {
+    constructor(mensagem) {
+        super(mensagem);
+        this.name = 'ErroDeValidacao';
+    }
+}
+
+function validarIdade(idade) {
+    if (idade < 0) throw new ErroDeValidacao('Idade não pode ser negativa');
+    return idade;
+}</code></pre>
+
+        <h3>- Métodos Úteis do console</h3>
+        <pre><code>console.log('informação normal');
+console.warn('um aviso');
+console.error('um erro');
+console.table([{ nome: 'Ana', nota: 9 }, { nome: 'Bruno', nota: 7 }]);
+console.time('operacao');
+// ... código a medir ...
+console.timeEnd('operacao'); // mostra quanto tempo levou</code></pre>
+
+        <h3>- Debugando com o DevTools</h3>
+        <ul>
+            <li><code>debugger;</code> no código pausa a execução ali, se o DevTools estiver aberto</li>
+            <li>Clique no número da linha no painel "Sources" do navegador para adicionar um breakpoint sem editar o código</li>
+            <li>Use "Step over/into" para executar o código linha a linha e inspecionar variáveis</li>
+        </ul>
+
+        <h3>- Código Defensivo</h3>
+        <pre><code>function calcularMedia(notas) {
+    if (!Array.isArray(notas) || notas.length === 0) {
+        console.warn('calcularMedia: array inválido ou vazio');
+        return 0;
+    }
+    return notas.reduce((soma, n) => soma + n, 0) / notas.length;
+}</code></pre>
+        <p>Verificar entradas antes de processá-las evita que erros silenciosos se propaguem para partes distantes do código, onde ficam muito mais difíceis de rastrear.</p>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Mensagens de erro específicas economizam horas</strong><br>
+            <code>throw new Error('Erro')</code> ajuda pouco. <code>throw new Error('Idade deve ser um número entre 0 e 120, recebido: ' + idade)</code> economiza muito tempo de depuração no futuro — inclusive o seu.
+        </div>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Nunca ignore um catch silenciosamente</strong><br>
+            Um bloco <code>catch (e) {}</code> vazio esconde erros que deveriam ser corrigidos. No mínimo, registre o erro com <code>console.error(e)</code> para saber que algo aconteceu.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li><code>try/catch/finally</code> trata erros sem quebrar a aplicação inteira</li>
+            <li><code>throw new Error(mensagem)</code> cria erros descritivos e rastreáveis</li>
+            <li><code>console.table</code>, <code>console.time</code> e breakpoints aceleram a depuração</li>
+            <li>Valide entradas de funções para evitar erros silenciosos</li>
+        </ul>
+
+    <div class="js-vm-section" style="margin-top:36px;">
+        <div class="js-vm-header">
+            <div class="vm-title"><i class="fa-brands fa-js"></i> Terminal JavaScript — Debugging</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="js-snippet-btns">
+            <span class="js-snippet-label">Snippets:</span>
+            <button class="js-snippet" data-js="function dividir(a, b) {&#10;  if (b === 0) throw new Error('Divisão por zero!');&#10;  return a / b;&#10;}&#10;&#10;try {&#10;  console.log(dividir(10, 2));&#10;  console.log(dividir(5, 0));&#10;} catch (e) {&#10;  console.error('Erro capturado:', e.message);&#10;}">try/catch básico</button>
+            <button class="js-snippet" data-js="const alunos = [&#10;  { nome: 'Ana', nota: 9 },&#10;  { nome: 'Bruno', nota: 7 },&#10;  { nome: 'Carla', nota: 8 }&#10;];&#10;console.table(alunos);">console.table</button>
+        </div>
+        <textarea id="js-editor" data-default="// Erro customizado&#10;class ErroDeValidacao extends Error {&#10;  constructor(msg) { super(msg); this.name = 'ErroDeValidacao'; }&#10;}&#10;&#10;function validarIdade(idade) {&#10;  if (idade < 0 || idade > 120) throw new ErroDeValidacao(`Idade inválida: ${idade}`);&#10;  return idade;&#10;}&#10;&#10;try {&#10;  validarIdade(200);&#10;} catch (e) {&#10;  console.error(`${e.name}: ${e.message}`);&#10;}" placeholder="// Ctrl+Enter para executar">// Erro customizado&#10;class ErroDeValidacao extends Error {&#10;  constructor(msg) { super(msg); this.name = 'ErroDeValidacao'; }&#10;}&#10;&#10;function validarIdade(idade) {&#10;  if (idade < 0 || idade > 120) throw new ErroDeValidacao(`Idade inválida: ${idade}`);&#10;  return idade;&#10;}&#10;&#10;try {&#10;  validarIdade(200);&#10;} catch (e) {&#10;  console.error(`${e.name}: ${e.message}`);&#10;}</textarea>
+        <div class="js-vm-toolbar">
+            <button class="js-run-btn" id="js-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="js-reset-btn" id="js-reset"><i class="fa-solid fa-rotate"></i> Resetar</button>
+            <button class="js-hint-btn" id="js-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="js-result-wrap"><div id="js-result"><p style="color:rgba(205,214,244,.4);font-size:.84rem;font-family:monospace"><i class="fa-solid fa-arrow-up"></i> Execute o código para ver o resultado.</p></div></div>
+    </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('js_mod10') }}" class="btn-voltar">&larr; Módulo 10</a>
+        <a href="{{ url_for('js_mod12') }}" class="btn-proximo">Módulo 12: Projeto Final &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/javascript.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Educação Financeira - Módulo 3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/financas.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+    <div class="main-card">
+        <h2>3. Dívidas e Juros</h2>
+        <p>Entender dívidas e juros é essencial para não cair em armadilhas financeiras — e para usar o crédito a seu favor quando fizer sentido.</p>
+
+        <div class="conteudo-modulo">
+            <h3>3.1 O que são Dívidas</h3>
+            <p>Dívidas representam valores financeiros assumidos no presente que deverão ser obrigatoriamente devolvidos no futuro.</p>
+            <div class="tip-box">
+                <strong>📖 Explicação Pedagógica:</strong> Existem dívidas de valor (como o financiamento de estudos ou habitação própria), mas se forem mal geridas ou usadas para consumo supérfluo, destroem a saúde financeira rapidamente.
+            </div>
+
+            <h3>3.2 Juros Simples e Compostos</h3>
+            <ul>
+                <li><strong>Juros Simples:</strong> Calculados sempre apenas sobre o valor inicial emprestado.</li>
+                <li><strong>Juros Compostos:</strong> O conceito de "juros sobre juros". O rendimento ou a dívida acumula sobre o valor atualizado do mês anterior.</li>
+            </ul>
+            <div class="tip-box">
+                <strong>📖 Explicação Pedagógica:</strong> Os juros compostos são os melhores amigos dos investidores (fazem o dinheiro crescer exponencialmente) e os piores inimigos de quem entra no crédito pessoal.
+            </div>
+
+            <h3>3.3 O Perigo do Cartão de Crédito</h3>
+            <p>O cartão de crédito não é dinheiro extra; é um empréstimo de curtíssimo prazo de uma instituição bancária. Se a fatura não for paga a 100% na data de vencimento, aplicam-se as taxas de juro mais altas do mercado.</p>
+
+            <h3>3.4 Como Sair do Ciclo de Dívidas</h3>
+            <p>Se você já está endividado, respire — existe um caminho de saída. Siga esta ordem prática:</p>
+            <ol>
+                <li><strong>Liste todas as dívidas:</strong> anote valor, juros e data de vencimento de cada uma.</li>
+                <li><strong>Priorize pelas taxas mais altas:</strong> quite primeiro a dívida com o juro mais caro (geralmente cartão de crédito e cheque especial), mesmo que o valor seja menor.</li>
+                <li><strong>Negocie:</strong> bancos e lojas costumam oferecer desconto para pagamento à vista de dívidas em atraso — ligue e pergunte.</li>
+                <li><strong>Evite contrair novas dívidas</strong> enquanto ainda estiver pagando as antigas.</li>
+            </ol>
+
+            <div class="warn-box">
+                <strong>⚠️ Cuidado com o "pagamento mínimo" do cartão</strong><br>
+                Pagar só o mínimo da fatura parece aliviar o bolso no curto prazo, mas o restante entra no rotativo — uma das linhas de crédito mais caras do mercado. É a porta de entrada mais comum para dívidas que crescem sem controle.
+            </div>
+
+            <div class="info-box">
+                <strong>✏️ Exercício rápido</strong><br>
+                Se você tem alguma dívida hoje, liste todas com valor e taxa de juros. Se não tem, pesquise a taxa de juros do rotativo do seu próprio cartão de crédito — o número costuma surpreender.
+            </div>
+
+            <h3>- Resumo do Módulo</h3>
+            <ul>
+                <li>Dívida não é o problema em si — o problema é o descontrole e os juros altos</li>
+                <li>Juros compostos aceleram o crescimento tanto de investimentos quanto de dívidas</li>
+                <li>Pague sempre a fatura do cartão integralmente para nunca cair no rotativo</li>
+                <li>Ao se endividar, priorize quitar primeiro as dívidas com juros mais altos</li>
+            </ul>
+        </div>
+
+        <div class="button-container">
+            <a href="{{ url_for('financas_modulo2') }}" class="btn-voltar">&larr; Voltar para o Módulo 2</a>
+            <a href="{{ url_for('financas_modulo4') }}" class="btn-proximo">Próxima Página (Módulo 4) &rarr;</a>
+        </div>
+    </div>
+
+<script src="{{ url_for('static', filename='js/financas.js') }}"></script>
+
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span>
+      <span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info">
+            <strong>Cognitio IA</strong>
+            <span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span>
+          </div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" title="Limpar conversa" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" title="Fechar" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" title="Enviar" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

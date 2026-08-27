@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Módulo 10</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/javascript.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>10. JavaScript Moderno (ES6+)</h2>
+    <p>Desde 2015 (ES6), o JavaScript ganhou recursos que tornam o código mais curto, mais legível e menos propenso a erros. Todo código profissional atual usa esses recursos o tempo todo.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Template Literals</h3>
+        <pre><code>const nome = 'Ana';
+const idade = 28;
+
+// Antes:
+const msg1 = 'Olá, ' + nome + '! Você tem ' + idade + ' anos.';
+// Agora:
+const msg2 = `Olá, ${nome}! Você tem ${idade} anos.`;
+
+// Também permite múltiplas linhas facilmente:
+const html = `
+  <div>
+    <h1>${nome}</h1>
+  </div>
+`;</code></pre>
+
+        <h3>- Destructuring (Desestruturação)</h3>
+        <pre><code>const pessoa = { nome: 'Bruno', idade: 30, cidade: 'SP' };
+const { nome, cidade } = pessoa;
+console.log(nome, cidade); // Bruno SP
+
+const cores = ['vermelho', 'verde', 'azul'];
+const [primeira, segunda] = cores;
+console.log(primeira); // vermelho
+
+// Muito usado em parâmetros de função:
+function apresentar({ nome, idade }) {
+    console.log(`${nome} tem ${idade} anos`);
+}</code></pre>
+
+        <h3>- Spread e Rest (...)</h3>
+        <pre><code>// Spread: "espalha" os elementos
+const a = [1, 2, 3];
+const b = [...a, 4, 5]; // [1, 2, 3, 4, 5]
+
+const config = { tema: 'claro' };
+const configCompleta = { ...config, idioma: 'pt-br' };
+
+// Rest: agrupa argumentos restantes em um array
+function somarTudo(...numeros) {
+    return numeros.reduce((total, n) => total + n, 0);
+}
+console.log(somarTudo(1, 2, 3, 4)); // 10</code></pre>
+
+        <h3>- Operadores Modernos</h3>
+        <pre><code>const usuario = null;
+
+// Optional chaining: acessa com segurança, sem quebrar em null/undefined
+console.log(usuario?.perfil?.nome); // undefined, sem erro
+
+// Nullish coalescing: usa o valor à direita só se a esquerda for null/undefined
+const tema = usuario?.tema ?? 'claro';
+console.log(tema); // 'claro'</code></pre>
+
+        <h3>- Módulos ES (import/export)</h3>
+        <pre><code>// arquivo utils.js
+export function formatarPreco(valor) {
+    return `R$ ${valor.toFixed(2)}`;
+}
+
+// arquivo main.js
+import { formatarPreco } from './utils.js';
+console.log(formatarPreco(19.9));</code></pre>
+        <p>Módulos permitem dividir o código em arquivos organizados por responsabilidade, importando apenas o que é necessário em cada um.</p>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> ?. e ?? evitam muitos "if" de verificação</strong><br>
+            Antes do optional chaining, era comum escrever <code>if (usuario && usuario.perfil && usuario.perfil.nome)</code>. Hoje isso vira uma única linha com <code>usuario?.perfil?.nome</code>.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Template literals (<code>`texto ${variavel}`</code>) substituem concatenação de strings</li>
+            <li>Destructuring extrai valores de objetos/arrays em variáveis diretamente</li>
+            <li>Spread (<code>...</code>) espalha elementos; rest agrupa argumentos</li>
+            <li><code>?.</code> e <code>??</code> tornam o código mais seguro contra valores ausentes</li>
+        </ul>
+
+    <div class="js-vm-section" style="margin-top:36px;">
+        <div class="js-vm-header">
+            <div class="vm-title"><i class="fa-brands fa-js"></i> Terminal JavaScript — ES6+</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="js-snippet-btns">
+            <span class="js-snippet-label">Snippets:</span>
+            <button class="js-snippet" data-js="const pessoa = { nome: 'Carla', idade: 22, cidade: 'Recife' };&#10;const { nome, cidade } = pessoa;&#10;console.log(`${nome} mora em ${cidade}`);&#10;&#10;const [a, b, ...resto] = [1, 2, 3, 4, 5];&#10;console.log(a, b, resto);">Destructuring</button>
+            <button class="js-snippet" data-js="const usuario = { perfil: null };&#10;console.log(usuario?.perfil?.nome ?? 'Sem nome cadastrado');&#10;console.log(usuario?.email ?? 'Sem e-mail');">Optional chaining</button>
+        </div>
+        <textarea id="js-editor" data-default="// Combine tudo: spread + template literals + destructuring&#10;function criarUsuario({ nome, idade = 18 }) {&#10;  return { nome, idade, criadoEm: new Date().getFullYear() };&#10;}&#10;&#10;const novo = criarUsuario({ nome: 'Diego' });&#10;console.log(`Usuário: ${novo.nome}, ${novo.idade} anos`);&#10;console.log({ ...novo, ativo: true });" placeholder="// Ctrl+Enter para executar">// Combine tudo: spread + template literals + destructuring&#10;function criarUsuario({ nome, idade = 18 }) {&#10;  return { nome, idade, criadoEm: new Date().getFullYear() };&#10;}&#10;&#10;const novo = criarUsuario({ nome: 'Diego' });&#10;console.log(`Usuário: ${novo.nome}, ${novo.idade} anos`);&#10;console.log({ ...novo, ativo: true });</textarea>
+        <div class="js-vm-toolbar">
+            <button class="js-run-btn" id="js-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="js-reset-btn" id="js-reset"><i class="fa-solid fa-rotate"></i> Resetar</button>
+            <button class="js-hint-btn" id="js-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="js-result-wrap"><div id="js-result"><p style="color:rgba(205,214,244,.4);font-size:.84rem;font-family:monospace"><i class="fa-solid fa-arrow-up"></i> Execute o código para ver o resultado.</p></div></div>
+    </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('js_mod9') }}" class="btn-voltar">&larr; Módulo 9</a>
+        <a href="{{ url_for('js_mod11') }}" class="btn-proximo">Módulo 11: Boas Práticas e Debugging &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/javascript.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

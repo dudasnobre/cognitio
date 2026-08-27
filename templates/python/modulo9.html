@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python do Zero - Módulo 9</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/python.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>9. Programação Orientada a Objetos: Introdução</h2>
+    <p>Até agora você organizou dados em variáveis e dicionários separados. Classes permitem agrupar <strong>dados e comportamento relacionados</strong> em um único "molde" reutilizável — a base da Programação Orientada a Objetos (POO).</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Criando uma Classe</h3>
+        <pre><code>class Aluno:
+    def __init__(self, nome, idade):
+        self.nome = nome
+        self.idade = idade
+
+    def apresentar(self):
+        return f"Oi, eu sou {self.nome} e tenho {self.idade} anos."
+
+aluno1 = Aluno("Laura", 28)
+print(aluno1.apresentar())</code></pre>
+        <ul>
+            <li><code>class Aluno:</code> — define o "molde" para criar objetos do tipo Aluno</li>
+            <li><code>__init__</code> — método especial chamado automaticamente ao criar um objeto</li>
+            <li><code>self</code> — representa a instância atual do objeto (obrigatório no primeiro parâmetro de todo método)</li>
+        </ul>
+
+        <h3>- Atributos e Métodos</h3>
+        <pre><code>class ContaBancaria:
+    def __init__(self, titular, saldo=0):
+        self.titular = titular
+        self.saldo = saldo
+
+    def depositar(self, valor):
+        self.saldo += valor
+
+    def sacar(self, valor):
+        if valor > self.saldo:
+            print("Saldo insuficiente!")
+            return
+        self.saldo -= valor
+
+conta = ContaBancaria("Bruno")
+conta.depositar(500)
+conta.sacar(150)
+print(f"Saldo de {conta.titular}: R$ {conta.saldo}")</code></pre>
+
+        <h3>- Múltiplos Objetos, Mesma Classe</h3>
+        <pre><code>alunos = [
+    Aluno("Ana", 22),
+    Aluno("Bruno", 25),
+    Aluno("Carla", 19)
+]
+
+for aluno in alunos:
+    print(aluno.apresentar())</code></pre>
+        <p>Cada objeto criado a partir da classe tem seus <strong>próprios</strong> valores de <code>nome</code> e <code>idade</code>, mesmo compartilhando o mesmo método <code>apresentar()</code>.</p>
+
+        <h3>- __str__: Representação Legível do Objeto</h3>
+        <pre><code>class Produto:
+    def __init__(self, nome, preco):
+        self.nome = nome
+        self.preco = preco
+
+    def __str__(self):
+        return f"{self.nome} - R$ {self.preco:.2f}"
+
+p = Produto("Caderno", 12.5)
+print(p)  # usa __str__ automaticamente: "Caderno - R$ 12.50"</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Quando usar classes?</strong><br>
+            Quando você percebe que está repetindo o mesmo grupo de variáveis relacionadas (nome+idade+curso de vários alunos, por exemplo) junto com funções que operam sobre elas, é sinal de que uma classe deixaria o código mais organizado.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício final</strong><br>
+            Crie uma classe <code>Livro</code> com atributos <code>titulo</code>, <code>autor</code> e <code>paginas_lidas</code>, e um método <code>ler(paginas)</code> que aumenta <code>paginas_lidas</code>.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Classes agrupam dados (atributos) e comportamento (métodos) relacionados</li>
+            <li><code>__init__</code> inicializa cada novo objeto criado a partir da classe</li>
+            <li><code>self</code> refere-se sempre à instância atual</li>
+            <li><code>__str__</code> personaliza como o objeto aparece em <code>print()</code></li>
+        </ul>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('py_mod8') }}" class="btn-voltar">&larr; Módulo 8</a>
+        <a href="{{ url_for('py_mod10') }}" class="btn-proximo">Módulo 10: Projeto Final &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/python.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

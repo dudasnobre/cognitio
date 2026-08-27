@@ -1,0 +1,52 @@
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<!-- Botão flutuante -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span>
+  <span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+
+<!-- Overlay mobile -->
+<div id="ia-overlay"></div>
+
+<!-- Painel lateral -->
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info">
+        <strong>Cognitio IA</strong>
+        <span><span class="ia-online-dot"></span>Online · LLaMA 3.1</span>
+      </div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" title="Limpar conversa" aria-label="Limpar conversa">
+        <i class="fa-solid fa-rotate-left"></i>
+      </button>
+      <button class="ia-header-btn" id="ia-close-btn" title="Fechar" aria-label="Fechar assistente">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+
+  <div id="ia-messages"></div>
+
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" title="Enviar" aria-label="Enviar mensagem">
+      <i class="fa-solid fa-paper-plane"></i>
+    </button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar · Shift+Enter para nova linha</p>
+</div>
+<!-- ══ FIM WIDGET ══ -->

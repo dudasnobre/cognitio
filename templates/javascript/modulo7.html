@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Módulo 7</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/javascript.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>7. Eventos e Fetch (APIs)</h2>
+    <p>Eventos permitem que o JavaScript reaja a ações do usuário — cliques, teclas, rolagem. O Fetch permite <strong>buscar dados de APIs externas</strong> de forma assíncrona, sem recarregar a página. Juntos, são o coração das aplicações web modernas.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Eventos com addEventListener</h3>
+        <pre><code>const btn = document.querySelector('#meu-btn');
+
+btn.addEventListener('click', function(event) {
+    console.log('Clicado!', event.target);
+});
+
+// Com arrow function
+btn.addEventListener('click', e => {
+    e.preventDefault(); // bloqueia comportamento padrão
+    console.log('X:', e.clientX, 'Y:', e.clientY);
+});</code></pre>
+
+        <h3>- Eventos Comuns</h3>
+        <ul>
+            <li><code>click</code> — clique do mouse</li>
+            <li><code>input</code> / <code>change</code> — digitação em campo</li>
+            <li><code>submit</code> — envio de formulário</li>
+            <li><code>keydown</code> / <code>keyup</code> — teclas pressionadas</li>
+            <li><code>mouseover</code> / <code>mouseout</code> — hover</li>
+            <li><code>DOMContentLoaded</code> — DOM pronto</li>
+        </ul>
+
+        <h3>- Assincronismo: Promises e async/await</h3>
+        <p>Operações lentas (rede, disco) são assíncronas — o JS não espera, continua rodando. Promises e <code>async/await</code> gerenciam isso:</p>
+        <pre><code>// async/await (forma moderna)
+async function buscarDados() {
+    try {
+        const resposta = await fetch('https://api.exemplo.com/dados');
+        const dados    = await resposta.json();
+        console.log(dados);
+    } catch (erro) {
+        console.error('Erro:', erro.message);
+    }
+}
+buscarDados();</code></pre>
+
+        <h3>- Fetch API</h3>
+        <pre><code>// GET — buscar dados
+const res  = await fetch('https://jsonplaceholder.typicode.com/todos/1');
+const todo = await res.json();
+console.log(todo.title);
+
+// POST — enviar dados
+const resposta = await fetch('/api/usuarios', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ nome: 'Ana', email: 'ana@email.com' })
+});
+const resultado = await resposta.json();</code></pre>
+
+        <h3>- Event Delegation</h3>
+        <p>Em vez de adicionar evento em cada filho, adicione no pai e filtre pelo alvo — muito mais eficiente:</p>
+        <pre><code>const lista = document.querySelector('ul');
+
+lista.addEventListener('click', e => {
+    if (e.target.tagName === 'LI') {
+        e.target.classList.toggle('concluido');
+        console.log('Item clicado:', e.target.textContent);
+    }
+});</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Sempre use try/catch com fetch</strong><br>
+            O <code>fetch</code> só lança erro em falhas de rede. Erros HTTP (404, 500) não são erros de Promise — verifique <code>response.ok</code> manualmente: <code>if (!res.ok) throw new Error(res.status);</code>
+        </div>
+
+        <h3>- Entendendo a Promise por Dentro</h3>
+        <p><code>async/await</code> é só uma forma mais legível de escrever Promises. Por baixo dos panos, toda Promise tem três estados — <em>pending</em>, <em>fulfilled</em> ou <em>rejected</em> — e pode ser tratada também com <code>.then()</code>/<code>.catch()</code>:</p>
+        <pre><code>fetch('https://jsonplaceholder.typicode.com/todos/1')
+    .then(res => res.json())
+    .then(dados => console.log(dados))
+    .catch(erro => console.error('Falhou:', erro));
+
+// É exatamente equivalente ao async/await do exemplo anterior —
+// escolha o estilo que ficar mais legível para o seu time.</code></pre>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> await só funciona dentro de função async</strong><br>
+            Usar <code>await</code> fora de uma função marcada com <code>async</code> gera <code>SyntaxError</code> (exceto em módulos ES com top-level await). Sempre envolva num <code>async function</code>.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício final</strong><br>
+            Use a demo de eventos abaixo e, depois, tente escrever no Console do seu navegador uma função <code>async</code> que busca dados de <code>https://jsonplaceholder.typicode.com/users</code> e exibe apenas os nomes dos 5 primeiros usuários.
+        </div>
+    </div>
+
+    <!-- Demo de eventos interativo -->
+    <div style="margin-top:32px;padding:24px;background:#fffdf0;border:2px dashed #f0b429;border-radius:12px;">
+        <h3 style="margin-top:0;color:#1a1200;"><i class="fa-solid fa-bolt" style="color:#f0b429"></i> Demo: Eventos em Ação</h3>
+        <p style="color:#555;font-size:.9rem;">Interaja com os elementos abaixo para ver os eventos acontecendo:</p>
+        <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:12px;">
+            <input id="ev-input" type="text" placeholder="Digite algo..." style="padding:8px 12px;border:2px solid #f0b429;border-radius:6px;outline:none;font-size:.9rem;width:180px;">
+            <button id="ev-btn" style="background:#f0b429;color:#1a1200;border:none;padding:9px 18px;border-radius:6px;cursor:pointer;font-weight:700;">Clique aqui</button>
+            <span id="ev-hover" style="padding:9px 16px;background:#1a1200;color:#f0b429;border-radius:6px;cursor:default;font-size:.85rem;">Passe o mouse</span>
+        </div>
+        <div id="ev-log" style="background:#1e1e2e;border-radius:8px;padding:12px 16px;font-family:monospace;font-size:.82rem;color:#89b4fa;min-height:50px;max-height:120px;overflow-y:auto;">
+            <span style="color:#585b70">// eventos aparecerão aqui...</span>
+        </div>
+    </div>
+
+    
+
+    <div class="js-vm-section" style="margin-top:36px;">
+        <div class="js-vm-header">
+            <div class="vm-title"><i class="fa-brands fa-js"></i> Terminal JavaScript — Async e Promises</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="js-snippet-btns">
+            <span class="js-snippet-label">Snippets:</span>
+            <button class="js-snippet" data-js="// Simula Promise&#10;const esperar = ms => new Promise(resolve => setTimeout(resolve, ms));&#10;&#10;async function main() {&#10;  console.log('Início');&#10;  await esperar(100);&#10;  console.log('Após 100ms');&#10;  return 'concluído';&#10;}&#10;&#10;main().then(r => console.log('Resultado:', r));">async/await</button>
+            <button class="js-snippet" data-js="// Promise.all — executa em paralelo&#10;const p1 = Promise.resolve(10);&#10;const p2 = Promise.resolve(20);&#10;const p3 = Promise.resolve(30);&#10;&#10;Promise.all([p1, p2, p3]).then(valores => {&#10;  console.log(valores);&#10;  console.log('Soma:', valores.reduce((a,b) => a+b, 0));&#10;});">Promise.all</button>
+            <button class="js-snippet" data-js="// try/catch com async&#10;async function dividir(a, b) {&#10;  if (b === 0) throw new Error('Divisão por zero!');&#10;  return a / b;&#10;}&#10;&#10;async function main() {&#10;  try {&#10;    console.log(await dividir(10, 2));&#10;    console.log(await dividir(5, 0));&#10;  } catch (e) {&#10;    console.error('Erro:', e.message);&#10;  }&#10;}&#10;main();">try/catch</button>
+        </div>
+        <textarea id="js-editor" data-default="// Simula uma chamada de API com fetch&#10;async function buscarUsuario(id) {&#10;  // Simula delay de rede&#10;  await new Promise(r => setTimeout(r, 50));&#10;  // Dados mockados&#10;  const db = { 1: 'Ana', 2: 'Bob', 3: 'Carlos' };&#10;  if (!db[id]) throw new Error('Usuário não encontrado');&#10;  return { id, nome: db[id] };&#10;}&#10;&#10;async function main() {&#10;  try {&#10;    const user = await buscarUsuario(2);&#10;    console.log('Usuário:', user);&#10;  } catch (e) {&#10;    console.error(e.message);&#10;  }&#10;}&#10;main();" placeholder="// Ctrl+Enter para executar">// Simula uma chamada de API com fetch
+async function buscarUsuario(id) {
+  // Simula delay de rede
+  await new Promise(r => setTimeout(r, 50));
+  // Dados mockados
+  const db = { 1: 'Ana', 2: 'Bob', 3: 'Carlos' };
+  if (!db[id]) throw new Error('Usuário não encontrado');
+  return { id, nome: db[id] };
+}
+
+async function main() {
+  try {
+    const user = await buscarUsuario(2);
+    console.log('Usuário:', user);
+  } catch (e) {
+    console.error(e.message);
+  }
+}
+main();</textarea>
+        <div class="js-vm-toolbar">
+            <button class="js-run-btn" id="js-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="js-reset-btn" id="js-reset"><i class="fa-solid fa-rotate"></i> Resetar</button>
+            <button class="js-hint-btn" id="js-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="js-result-wrap"><div id="js-result"><p style="color:rgba(205,214,244,.4);font-size:.84rem;font-family:monospace"><i class="fa-solid fa-arrow-up"></i> Execute o código para ver o resultado.</p></div></div>
+    </div>
+
+    <div class="conteudo-modulo" style="margin-top:32px;">
+        <h3>- Revisão Geral do Curso</h3>
+        <ul>
+            <li><strong>Módulo 1-2:</strong> sintaxe básica, variáveis, tipos e operadores</li>
+            <li><strong>Módulo 3:</strong> condicionais, truthy/falsy e curto-circuito</li>
+            <li><strong>Módulo 4:</strong> funções, arrow functions e closures</li>
+            <li><strong>Módulo 5:</strong> arrays, objetos, map/filter/reduce e destructuring</li>
+            <li><strong>Módulo 6:</strong> manipulação do DOM</li>
+            <li><strong>Módulo 7:</strong> eventos, assincronismo e Fetch API</li>
+        </ul>
+        <p>Você concluiu os fundamentos de JavaScript. O próximo passo natural é praticar construindo pequenas interfaces interativas — um to-do list, um formulário validado, um consumo de API pública — juntando tudo o que viu aqui.</p>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('js_mod6') }}" class="btn-voltar">&larr; Módulo 6</a>
+        <a href="{{ url_for('js_mod8') }}" class="btn-proximo">Módulo 8: DOM e Formulários &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/javascript.js') }}"></script>
+<script>
+// Demo de eventos
+(function() {
+    const log = document.getElementById('ev-log');
+    const btn = document.getElementById('ev-btn');
+    const input = document.getElementById('ev-input');
+    const hover = document.getElementById('ev-hover');
+    let count = 0;
+
+    function addLog(msg, cor = '#89b4fa') {
+        const d = document.createElement('div');
+        d.style.color = cor;
+        d.textContent = `[${new Date().toLocaleTimeString()}] ${msg}`;
+        if (count === 0) log.innerHTML = '';
+        log.appendChild(d);
+        log.scrollTop = log.scrollHeight;
+        count++;
+    }
+
+    btn.addEventListener('click', () => addLog("click → botão clicado!", '#a6e3a1'));
+    input.addEventListener('input', e => addLog(`input → valor: "${e.target.value}"`, '#f9e2af'));
+    hover.addEventListener('mouseover', () => addLog('mouseover → mouse entrou', '#cba6f7'));
+    hover.addEventListener('mouseout',  () => addLog('mouseout → mouse saiu',  '#f38ba8'));
+})();
+</script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

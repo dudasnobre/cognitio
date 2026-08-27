@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Cadastro - Cognitio</title>
+    <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/favicon.svg') }}">
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+
+<body>
+
+<div class="auth-container">
+
+    <div class="auth-brand">
+        <img src="{{ url_for('static', filename='img/logosemfundo.png') }}" alt="Cognitio — ideias que educam, conhecimento que transforma">
+    </div>
+
+    <div class="auth-card">
+
+        <h2>Criar Conta</h2>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flash-messages">
+                    {% for category, message in messages %}
+                        <li class="msg-{{ category }}">
+                            {{ message }}
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('cadastro') }}" method="POST" novalidate>
+
+            <div class="form-group">
+                <label for="nome">Nome completo</label>
+
+                <input
+                    type="text"
+                    id="nome"
+                    name="nome"
+                    required
+                    placeholder="Seu nome completo"
+                    value="{{ nome or '' }}"
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label for="usuario">Usuário</label>
+
+                <input
+                    type="text"
+                    id="usuario"
+                    name="usuario"
+                    required
+                    placeholder="Escolha um usuário"
+                    value="{{ usuario or '' }}"
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label for="email">E-mail</label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    required
+                    placeholder="seu@email.com"
+                    value="{{ email or '' }}"
+                    autocomplete="email"
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label for="senha">Senha</label>
+
+                <input
+                    type="password"
+                    id="senha"
+                    name="senha"
+                    required
+                    minlength="6"
+                    placeholder="Crie uma senha segura (mín. 6 caracteres)"
+                    autocomplete="new-password"
+                >
+            </div>
+
+
+            <div class="form-group">
+                <label for="confirmar_senha">Confirmar senha</label>
+
+                <input
+                    type="password"
+                    id="confirmar_senha"
+                    name="confirmar_senha"
+                    required
+                    minlength="6"
+                    placeholder="Repita a senha"
+                    autocomplete="new-password"
+                >
+            </div>
+
+
+            <!--
+                IMPORTANTE:
+                type="submit" envia os dados para a rota /cadastro.
+                Depois que o cadastro for realizado, o Flask deve
+                redirecionar o usuário para a página de login.
+            -->
+
+            <button type="submit" class="btn-auth-submit">
+                Finalizar Cadastro
+            </button>
+
+        </form>
+
+
+        <div class="link-alternativo">
+            <p>
+                Já tem uma conta?
+                <a href="{{ url_for('login') }}">
+                    Faça login aqui
+                </a>
+            </p>
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+<script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+
+</body>
+</html>

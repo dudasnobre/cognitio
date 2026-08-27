@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informática Básica - Módulo 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/infor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+
+    <div class="main-card">
+
+        <h2>1. Dominando a Máquina (Hardware e Software)</h2>
+        <p>Bem-vindo ao módulo de Informática Básica! Para perder o medo do computador, você precisa entender que ele é apenas uma ferramenta dividida em duas partes bem simples de compreender: o que você toca e o que você vê no dia a dia.</p>
+
+        <div class="conteudo-modulo">
+            <h3><span class="marcador">&bull;</span> Hardware (A Parte Física):</h3>
+            <p>É tudo o que é palpável, ou seja, tudo o que você consegue tocar com as mãos. Exemplos claros disso são o monitor, o teclado, o mouse, os cabos e a caixa grande chamada Gabinete (que muitos chamam erroneamente de CPU). A CPU de verdade é apenas um pequeno chip que fica escondido lá dentro.</p>
+            
+            <h3><span class="marcador">&bull;</span> Software (A Parte Lógica):</h3>
+            <p>São os programas, sistemas e aplicativos instalados que dão vida ao hardware. Sem o software, o computador seria apenas uma caixa de metal desligada. Exemplos incluem o Sistema Operacional Windows, o Word, o Google Chrome, as redes sociais e até os jogos.</p>
+            
+            <h3>- Analogia da Mesa de Trabalho:</h3>
+            <pre>O Monitor é a sua visão do escritório (onde tudo acontece).
+O Gabinete é a sua mesa com gavetas para guardar as coisas.
+O Processador (dentro do gabinete) é o seu cérebro trabalhando e pensando rápido.
+O HD ou SSD (armazenamento) é o seu arquivo de aço onde você guarda todas as pastas e papéis no fim do dia para não perder nada.</pre>
+
+            <div class="alerta-desligamento">
+                <h3><i class="fa-solid fa-triangle-exclamation"></i> Prática de Ouro: O Ritual de Desligamento</h3>
+                <p>O maior erro de quem está começando na informática é desligar o computador puxando direto da tomada ou segurando o botão físico de ligar no gabinete. Fazer isso interrompe processos importantes e pode corromper ou "queimar" o sistema operacional.</p>
+                <ul>
+                    <li><b>Como fazer do jeito certo:</b> Mova o ponteiro do mouse até o canto inferior esquerdo da tela, clique no botão <b>Iniciar</b> (o logotipo do Windows), clique no símbolo de energia e selecione a opção <b>Desligar</b>. Espere a tela apagar completamente antes de desligar o estabilizador ou filtro de linha.</li>
+                </ul>
+            </div>
+
+            <h3><span class="marcador">&bull;</span> Memória RAM vs Armazenamento (HD/SSD):</h3>
+            <p>Essa é a confusão mais comum entre iniciantes: <b>RAM</b> e <b>armazenamento</b> parecem a mesma coisa, mas têm funções bem diferentes:</p>
+            <ul>
+                <li><b>Memória RAM:</b> é a "mesa de trabalho" — guarda temporariamente o que você está usando <em>agora</em>. Quando o computador desliga, ela se esvazia completamente.</li>
+                <li><b>HD/SSD (armazenamento):</b> é o "arquivo" — guarda seus arquivos permanentemente, mesmo com o computador desligado.</li>
+            </ul>
+            <div class="info-box">
+                <strong><i class="fa-solid fa-circle-info"></i> Por que meu computador trava quando abro muitos programas?</strong><br>
+                Cada programa aberto ocupa um espaço na memória RAM — se você abrir mais programas do que a RAM suporta, o computador começa a ficar lento porque precisa "trocar" informações com o disco, que é bem mais lento que a RAM.
+            </div>
+
+            <h3><span class="marcador">&bull;</span> SSD vs HD: Qual a Diferença?</h3>
+            <p>O <b>HD</b> (disco rígido) tradicional tem partes móveis (um disco giratório), enquanto o <b>SSD</b> (unidade de estado sólido) não tem peças mecânicas — funciona como um pen drive, só que muito mais rápido. Computadores com SSD ligam e abrem programas muito mais rápido.</p>
+
+            <div class="warn-box">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> Cuidado com superaquecimento</strong><br>
+                Nunca use o notebook em cima da cama, sofá ou travesseiro por muito tempo — isso tampa as saídas de ventilação e pode causar superaquecimento, deixando o aparelho lento ou até desligando sozinho.
+            </div>
+
+            <div class="info-box">
+                <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+                Olhe para o computador ou celular que você está usando agora e tente identificar: o que é hardware? O que é software? Liste pelo menos 3 exemplos de cada.
+            </div>
+
+            <h3>- Resumo do Módulo</h3>
+            <ul>
+                <li><b>Hardware</b> é a parte física; <b>Software</b> é a parte lógica (programas)</li>
+                <li><b>RAM</b> guarda o que está em uso agora; <b>HD/SSD</b> guarda arquivos permanentemente</li>
+                <li>Sempre desligue o computador pelo menu Iniciar, nunca no botão físico ou tomada</li>
+            </ul>
+        </div>
+
+        
+
+        <hr style="margin-top: 30px;"> 
+        
+        <div class="button-container">
+            <a href="{{ url_for('trilhas') }}" class="btn-voltar">Voltar ao Menu</a>
+            <a href="{{ url_for('modulo2') }}" class="btn-proximo">Próxima Página (Módulo 2) &rarr;</a>
+        </div>
+        
+    </div>
+
+    <script src="{{ url_for('static', filename='js/infor.js') }}"></script>
+    
+
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span>
+      <span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info">
+            <strong>Cognitio IA</strong>
+            <span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span>
+          </div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" title="Limpar conversa" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" title="Fechar" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" title="Enviar" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

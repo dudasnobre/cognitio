@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML & CSS - Módulo 15</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/htmlcss.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>15. Acessibilidade Web (a11y) Avançada</h2>
+    <p>No Módulo 7 você viu o básico de HTML semântico e acessibilidade. Agora vamos aprofundar em contraste, navegação por teclado, ARIA e formulários acessíveis — o suficiente para deixar suas páginas utilizáveis por muito mais gente.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Contraste de Cores</h3>
+        <p>O WCAG (guia oficial de acessibilidade web) recomenda uma razão de contraste mínima entre texto e fundo:</p>
+        <ul>
+            <li><strong>4.5:1</strong> — texto normal</li>
+            <li><strong>3:1</strong> — texto grande (18px+ em negrito, ou 24px+)</li>
+        </ul>
+        <pre><code>/* Ruim: cinza claro sobre branco, contraste baixo */
+.texto-fraco { color: #bbbbbb; background: #ffffff; }
+
+/* Bom: contraste adequado */
+.texto-legivel { color: #333333; background: #ffffff; }</code></pre>
+        <p>Ferramentas como o "Contrast Checker" (buscar online) calculam essa razão automaticamente a partir dos códigos de cor.</p>
+
+        <h3>- Navegação por Teclado</h3>
+        <pre><code>/* NUNCA faça isso — remove o indicador de foco para todo mundo */
+*:focus { outline: none; }
+
+/* Faça isso — um foco visível e estilizado */
+*:focus-visible {
+    outline: 3px solid #0ea5b7;
+    outline-offset: 2px;
+}</code></pre>
+        <p>Pessoas que navegam com teclado (Tab, Shift+Tab, Enter) dependem do indicador de foco para saber onde estão na página. Remover o <code>outline</code> sem substituí-lo é um dos erros de acessibilidade mais comuns — e mais graves.</p>
+
+        <h3>- ARIA: Quando o HTML Semântico Não Basta</h3>
+        <pre><code>&lt;div role="alert"&gt;Formulário enviado com sucesso!&lt;/div&gt;
+
+&lt;button aria-expanded="false" aria-controls="menu-mobile"&gt;
+  Menu
+&lt;/button&gt;
+&lt;ul id="menu-mobile" hidden&gt;...&lt;/ul&gt;</code></pre>
+        <ul>
+            <li><code>role="alert"</code> — leitores de tela anunciam a mudança imediatamente</li>
+            <li><code>aria-expanded</code> — informa se um menu/acordeão está aberto ou fechado</li>
+            <li><code>aria-label</code> — nomeia um elemento sem texto visível</li>
+        </ul>
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Regra de ouro do ARIA</strong><br>
+            "Nenhum ARIA é melhor que ARIA errado." Sempre prefira uma tag HTML semântica nativa (<code>&lt;button&gt;</code>, <code>&lt;nav&gt;</code>) a recriar o comportamento com <code>&lt;div role="button"&gt;</code> — o navegador já cuida do teclado e do foco de graça nas tags nativas.
+        </div>
+
+        <h3>- Formulários Acessíveis</h3>
+        <pre><code>&lt;label for="email"&gt;E-mail&lt;/label&gt;
+&lt;input type="email" id="email" name="email" required
+       aria-describedby="email-ajuda"&gt;
+&lt;span id="email-ajuda"&gt;Usaremos apenas para login.&lt;/span&gt;</code></pre>
+        <p>O atributo <code>for</code> no <code>&lt;label&gt;</code> precisa bater com o <code>id</code> do input — isso permite que clicar no texto do label foque o campo, e que leitores de tela anunciem o nome do campo corretamente.</p>
+
+        <h3>- Testando sua Página</h3>
+        <ul>
+            <li>Navegue pela página inteira usando só o <code>Tab</code> do teclado — dá para chegar em tudo?</li>
+            <li>Use as ferramentas de auditoria de acessibilidade já embutidas no navegador (aba "Lighthouse" ou "Accessibility" do DevTools)</li>
+            <li>Aumente o zoom do navegador para 200% — o layout continua funcional?</li>
+        </ul>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Acessibilidade não é "só para alguns"</strong><br>
+            Contraste bom ajuda quem está no sol forte. Navegação por teclado ajuda quem usa o celular com uma mão só. Boas práticas de a11y melhoram a experiência de <strong>todo mundo</strong>, não apenas de pessoas com deficiência.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Contraste mínimo de 4.5:1 para texto normal, segundo o WCAG</li>
+            <li>Nunca remova o <code>outline</code> de foco sem um substituto visível</li>
+            <li>ARIA complementa o HTML semântico, mas nunca substitui uma tag nativa disponível</li>
+            <li><code>&lt;label for&gt;</code> conectado ao <code>id</code> do input é essencial em formulários</li>
+        </ul>
+
+        <div class="html-lab-section">
+            <div class="html-lab-header">
+                <span class="vm-title"><i class="fa-solid fa-flask"></i> Laboratório — edite e veja o resultado ao vivo</span>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="html-lab-snippet-btns">
+                <span class="html-lab-snippet-label">Exemplos:</span>
+                <button class="html-lab-snippet" data-code="<style>
+  button { padding: 10px 18px; border-radius: 8px; border: 1px solid #ccc; background: white; font-size: 1rem; margin-right: 8px; }
+  button:focus-visible { outline: 3px solid #0ea5b7; outline-offset: 2px; }
+</style>
+<p>Use Tab no teclado para navegar entre os botões:</p>
+<button>Primeiro</button>
+<button>Segundo</button>
+<button>Terceiro</button>">Foco visível</button>
+                <button class="html-lab-snippet" data-code="<style>
+  label { display: block; font-weight: bold; margin-top: 10px; font-family: sans-serif; }
+  input { padding: 8px; width: 100%; box-sizing: border-box; margin-top: 4px; }
+  small { color: #666; font-family: sans-serif; }
+</style>
+<form>
+  <label for=&quot;nome&quot;>Nome completo</label>
+  <input type=&quot;text&quot; id=&quot;nome&quot; required>
+  <label for=&quot;email&quot;>E-mail</label>
+  <input type=&quot;email&quot; id=&quot;email&quot; aria-describedby=&quot;ajuda-email&quot; required>
+  <small id=&quot;ajuda-email&quot;>Nunca compartilhamos seu e-mail.</small>
+</form>">Formulário acessível</button>
+            </div>
+            <div class="html-lab-body">
+                <textarea id="html-lab-editor" data-default="<style>
+  .contraste-bom { color: #1a1a1a; background: white; padding: 16px; font-family: sans-serif; }
+  .contraste-ruim { color: #cccccc; background: white; padding: 16px; font-family: sans-serif; }
+</style>
+
+<div class=&quot;contraste-bom&quot;>Este texto tem bom contraste ✅</div>
+<div class=&quot;contraste-ruim&quot;>Este texto tem contraste ruim ❌</div>" spellcheck="false"><style>
+  .contraste-bom { color: #1a1a1a; background: white; padding: 16px; font-family: sans-serif; }
+  .contraste-ruim { color: #cccccc; background: white; padding: 16px; font-family: sans-serif; }
+</style>
+
+<div class="contraste-bom">Este texto tem bom contraste ✅</div>
+<div class="contraste-ruim">Este texto tem contraste ruim ❌</div></textarea>
+                <iframe id="html-lab-preview" title="Preview ao vivo"></iframe>
+            </div>
+            <div class="html-lab-toolbar">
+                <button class="html-lab-run-btn" id="html-lab-run"><i class="fa-solid fa-play"></i> Executar</button>
+                <button class="html-lab-reset-btn" id="html-lab-reset"><i class="fa-solid fa-rotate-left"></i> Resetar</button>
+                <span style="font-size:.78rem;color:var(--muted);margin-left:auto">Ctrl+Enter para executar</span>
+            </div>
+        </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('hc_mod14') }}" class="btn-voltar">&larr; Módulo 14</a>
+        <a href="{{ url_for('hc_mod16') }}" class="btn-proximo">Módulo 16: Projeto Final &rarr;</a>
+    </div>
+
+</div>
+
+<script src="{{ url_for('static', filename='js/htmlcss.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Módulo 5</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/javascript.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>5. Arrays e Objetos</h2>
+    <p>Arrays e objetos são as <strong>estruturas de dados</strong> mais importantes do JavaScript. Arrays guardam listas ordenadas; objetos guardam pares chave-valor — juntos, representam quase qualquer dado do mundo real.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Arrays: listas ordenadas</h3>
+        <pre><code>const frutas = ["maçã", "banana", "laranja"];
+console.log(frutas[0]);        // "maçã"  (índice começa em 0)
+console.log(frutas.length);    // 3
+frutas.push("uva");            // adiciona no final
+frutas.pop();                  // remove o último
+frutas.unshift("abacaxi");     // adiciona no início
+frutas.shift();                // remove o primeiro</code></pre>
+
+        <h3>- Métodos Modernos de Array</h3>
+        <pre><code>const numeros = [1, 2, 3, 4, 5];
+
+// forEach — percorre sem retornar
+numeros.forEach(n => console.log(n));
+
+// map — transforma e retorna novo array
+const dobrados = numeros.map(n => n * 2);
+console.log(dobrados); // [2, 4, 6, 8, 10]
+
+// filter — filtra por condição
+const pares = numeros.filter(n => n % 2 === 0);
+console.log(pares); // [2, 4]
+
+// reduce — acumula em um valor
+const soma = numeros.reduce((acc, n) => acc + n, 0);
+console.log(soma); // 15
+
+// find — retorna o primeiro que satisfaz
+const primeiroPar = numeros.find(n => n % 2 === 0);
+console.log(primeiroPar); // 2</code></pre>
+
+        <h3>- Objetos: pares chave-valor</h3>
+        <pre><code>const pessoa = {
+    nome: "Ana",
+    idade: 28,
+    cidade: "Fortaleza",
+    saudar() {
+        return `Oi, sou ${this.nome}!`;
+    }
+};
+
+console.log(pessoa.nome);      // Ana
+console.log(pessoa["idade"]);  // 28
+console.log(pessoa.saudar());  // Oi, sou Ana!</code></pre>
+
+        <h3>- Destructuring</h3>
+        <p>Extrai valores de arrays/objetos de forma elegante:</p>
+        <pre><code>// Array destructuring
+const [a, b, c] = [10, 20, 30];
+console.log(a, b, c); // 10 20 30
+
+// Object destructuring
+const { nome, idade } = { nome: "Carlos", idade: 32 };
+console.log(nome, idade); // Carlos 32</code></pre>
+
+        <h3>- Spread e Rest</h3>
+        <pre><code>// Spread — expande um array/objeto
+const arr1 = [1, 2, 3];
+const arr2 = [...arr1, 4, 5];
+console.log(arr2); // [1, 2, 3, 4, 5]
+
+// Rest — coleta o restante dos argumentos
+function soma(...numeros) {
+    return numeros.reduce((a, b) => a + b, 0);
+}
+console.log(soma(1, 2, 3, 4)); // 10</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> map, filter, reduce</strong><br>
+            Esses três métodos são a base da programação funcional em JS. Aprenda-os bem — eles substituem a maioria dos loops manuais e tornam o código mais legível e declarativo.
+        </div>
+
+        <h3>- Encadeando Métodos (Method Chaining)</h3>
+        <p>Como <code>map</code>, <code>filter</code> e outros métodos devolvem um novo array, você pode encadeá-los em sequência para transformar dados em poucas linhas:</p>
+        <pre><code>const produtos = [
+    { nome: "Caderno", preco: 15 },
+    { nome: "Caneta", preco: 3 },
+    { nome: "Mochila", preco: 120 }
+];
+
+const caros = produtos
+    .filter(p => p.preco > 10)
+    .map(p => p.nome.toUpperCase());
+
+console.log(caros); // ["CADERNO", "MOCHILA"]</code></pre>
+
+        <h3>- Object.keys, values e entries</h3>
+        <pre><code>const pessoa = { nome: "Ana", idade: 28 };
+
+console.log(Object.keys(pessoa));    // ["nome", "idade"]
+console.log(Object.values(pessoa));  // ["Ana", 28]
+console.log(Object.entries(pessoa)); // [["nome","Ana"], ["idade",28]]</code></pre>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Cuidado ao copiar objetos/arrays</strong><br>
+            <code>const copia = original;</code> não cria uma cópia — só aponta para o mesmo objeto na memória! Para copiar de verdade, use spread: <code>const copia = { ...original };</code> ou <code>[...arrayOriginal]</code>.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            No terminal, crie um array de objetos representando 3 alunos (<code>nome</code> e <code>nota</code>). Use <code>filter</code> para pegar só os aprovados (nota &gt;= 6) e <code>map</code> para exibir só os nomes deles.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li>Arrays guardam listas ordenadas; <code>map</code>/<code>filter</code>/<code>reduce</code> são os métodos mais usados</li>
+            <li>Objetos guardam pares chave-valor e podem ter métodos próprios</li>
+            <li>Destructuring extrai valores de arrays/objetos com sintaxe curta</li>
+            <li>Spread (<code>...</code>) expande e copia; Rest (<code>...</code>) coleta argumentos</li>
+        </ul>
+    </div>
+
+    
+
+    <div class="js-vm-section" style="margin-top:36px;">
+        <div class="js-vm-header">
+            <div class="vm-title"><i class="fa-brands fa-js"></i> Terminal JavaScript — Arrays e Objetos</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="js-snippet-btns">
+            <span class="js-snippet-label">Snippets:</span>
+            <button class="js-snippet" data-js="const nums = [3, 1, 4, 1, 5, 9, 2, 6];&#10;console.log(nums.length);&#10;console.log(nums.sort((a,b) => a-b));&#10;console.log(Math.max(...nums));">arrays</button>
+            <button class="js-snippet" data-js="const n = [1,2,3,4,5];&#10;const dobros = n.map(x => x * 2);&#10;const pares = n.filter(x => x % 2 === 0);&#10;const soma = n.reduce((a, b) => a + b, 0);&#10;console.log(dobros);&#10;console.log(pares);&#10;console.log(soma);">map/filter/reduce</button>
+            <button class="js-snippet" data-js="const p = { nome: 'Ana', idade: 28 };&#10;console.log(p.nome);&#10;console.log(Object.keys(p));&#10;console.log(Object.values(p));">objeto</button>
+            <button class="js-snippet" data-js="const [a, b] = [10, 20];&#10;const { nome, cidade = 'Fortaleza' } = { nome: 'Carlos' };&#10;console.log(a, b);&#10;console.log(nome, cidade);">destructuring</button>
+        </div>
+        <textarea id="js-editor" data-default="const produtos = [&#10;  { nome: 'Notebook', preco: 3500 },&#10;  { nome: 'Mouse', preco: 80 },&#10;  { nome: 'Monitor', preco: 1200 },&#10;];&#10;&#10;const caros = produtos.filter(p => p.preco > 500);&#10;const nomes = caros.map(p => p.nome);&#10;console.log('Caros:', nomes);" placeholder="// Ctrl+Enter para executar">const produtos = [
+  { nome: 'Notebook', preco: 3500 },
+  { nome: 'Mouse', preco: 80 },
+  { nome: 'Monitor', preco: 1200 },
+];
+
+const caros = produtos.filter(p => p.preco > 500);
+const nomes = caros.map(p => p.nome);
+console.log('Caros:', nomes);</textarea>
+        <div class="js-vm-toolbar">
+            <button class="js-run-btn" id="js-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="js-reset-btn" id="js-reset"><i class="fa-solid fa-rotate"></i> Resetar</button>
+            <button class="js-hint-btn" id="js-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="js-result-wrap"><div id="js-result"><p style="color:rgba(205,214,244,.4);font-size:.84rem;font-family:monospace"><i class="fa-solid fa-arrow-up"></i> Execute o código para ver o resultado.</p></div></div>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('js_mod4') }}" class="btn-voltar">&larr; Módulo 4</a>
+        <a href="{{ url_for('js_mod6') }}" class="btn-proximo">Módulo 6: DOM &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/javascript.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

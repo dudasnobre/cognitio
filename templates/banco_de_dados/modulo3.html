@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Dados - Módulo 3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/banco.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+    <div class="main-card">
+        <h2>3. SELECT — Consultando Dados</h2>
+                <p>O <strong>SELECT</strong> é o comando mais importante do SQL. Com ele você <em>consulta</em> dados de uma tabela — é como fazer uma pergunta ao banco: <em>"Me mostre esses dados!"</em></p>
+        <div class="conteudo-modulo">
+            <h3>- Sintaxe Básica</h3>
+            <p>Para buscar todas as colunas de uma tabela, use o asterisco <code>*</code>:</p>
+            <pre><code>SELECT * FROM clientes;</code></pre>
+            <p>Para escolher colunas específicas:</p>
+            <pre><code>SELECT nome, cidade FROM clientes;</code></pre>
+
+            <h3>- Alias: Renomeando Colunas no Resultado</h3>
+            <pre><code>SELECT
+    nome   AS "Nome do Cliente",
+    saldo  AS "Saldo R$"
+FROM clientes;</code></pre>
+
+            <h3>- Expressões no SELECT</h3>
+            <p>Você pode fazer cálculos diretamente:</p>
+            <pre><code>SELECT nome, saldo, saldo * 0.10 AS rendimento
+FROM clientes;</code></pre>
+
+            <h3>- SELECT sem tabela</h3>
+            <p>O SELECT pode ser usado para testar expressões:</p>
+            <pre><code>SELECT 2 + 2 AS resultado;
+SELECT date('now') AS hoje;
+SELECT upper('cognitio') AS maiusculo;</code></pre>
+
+            <div class="tip-box">
+                <strong><i class="fa-solid fa-keyboard"></i> Boa prática</strong><br>
+                Escreva palavras-chave SQL em MAIÚSCULAS (<code>SELECT</code>, <code>FROM</code>) e nomes de colunas em minúsculas. Não é obrigatório, mas é a convenção do mercado.
+            </div>
+
+            <h3>- DISTINCT: Removendo Duplicatas</h3>
+            <p>Quando você quer saber quais valores <em>diferentes</em> existem numa coluna, sem repetição, use <code>DISTINCT</code>:</p>
+            <pre><code>SELECT DISTINCT cidade FROM clientes;</code></pre>
+            <p>Se houver 50 clientes mas só 4 cidades diferentes, o resultado mostrará essas 4 cidades uma única vez cada.</p>
+
+            <div class="warn-box">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> * traz tudo — use com cuidado</strong><br>
+                <code>SELECT *</code> é ótimo para explorar dados no dia a dia, mas em sistemas reais é melhor listar as colunas que você realmente precisa — traz menos dados pela rede e deixa claro o que a consulta espera receber.
+            </div>
+
+            <div class="info-box">
+                <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+                No terminal abaixo, escreva uma consulta que mostre as cidades diferentes presentes na tabela <code>clientes</code>, sem repetição, usando <code>SELECT DISTINCT</code>.
+            </div>
+
+            <h3>- Resumo do Módulo</h3>
+            <ul>
+                <li><code>SELECT coluna1, coluna2 FROM tabela;</code> busca colunas específicas</li>
+                <li><code>*</code> traz todas as colunas — útil para explorar, evite em produção</li>
+                <li><code>AS</code> renomeia colunas no resultado (alias)</li>
+                <li><code>DISTINCT</code> remove valores duplicados do resultado</li>
+            </ul>
+        </div>
+    <div class="sql-vm-section">
+        <div class="sql-vm-header">
+            <div class="vm-title"><i class="fa-solid fa-terminal"></i> Terminal SQL</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="sql-snippet-btns">
+            <span class="sql-snippet-label">Snippets:</span>
+            <button class="sql-snippet" data-sql="SELECT * FROM clientes;">Todos os clientes</button>
+            <button class="sql-snippet" data-sql="SELECT nome, cidade FROM clientes;">Nome e cidade</button>
+            <button class="sql-snippet" data-sql="SELECT nome AS 'Cliente', saldo AS 'Saldo R$' FROM clientes;">Com alias</button>
+            <button class="sql-snippet" data-sql="SELECT nome, saldo * 0.10 AS rendimento FROM clientes;">Calcular rendimento</button>
+        </div>
+        <textarea id="sql-editor" placeholder="-- Ctrl+Enter para executar&#10;SELECT nome, cidade, saldo FROM clientes;"></textarea>
+        <div class="sql-vm-toolbar">
+            <button class="sql-run-btn" id="sql-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="sql-reset-btn" id="sql-reset"><i class="fa-solid fa-rotate"></i> Resetar BD</button>
+            <button class="sql-hint-btn" id="sql-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="sql-result-wrap"><div id="sql-result"><p style="color:var(--muted);font-size:.84rem">Execute uma query para ver o resultado.</p></div></div>
+    </div>
+    
+        <hr style="margin-top:30px;">
+        <div class="button-container">
+            <a href="{{ url_for('bd_mod2') }}" class="btn-voltar">&larr; Módulo 2</a>
+            <a href="{{ url_for('bd_mod4') }}" class="btn-proximo">Módulo 4: WHERE e ORDER BY &rarr;</a>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='js/banco.js') }}"></script>
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Dados - Módulo 1</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/banco.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+
+    <div class="main-card">
+
+        <h2>1. Introdução a Bancos de Dados</h2>
+        <p>Imagine uma biblioteca enorme com milhares de livros sem nenhuma organização — encontrar qualquer coisa seria impossível. Um <strong>banco de dados</strong> resolve exatamente isso para as informações digitais: é um sistema organizado para armazenar, gerenciar e recuperar dados com eficiência.</p>
+
+        <div class="conteudo-modulo">
+            <h3>- O que é um Banco de Dados?</h3>
+            <p>Um banco de dados é uma coleção organizada de dados que podem ser facilmente acessados e atualizados. Eles estão presentes em tudo ao seu redor:</p>
+            <ul>
+                <li>Quando você faz login em um aplicativo → banco de dados de usuários</li>
+                <li>Quando compra algo online → banco de dados de produtos e pedidos</li>
+                <li>Quando usa o cartão no caixa → banco do seu banco consultado em milissegundos</li>
+                <li>Quando posta em uma rede social → banco de dados de posts e curtidas</li>
+            </ul>
+
+            <h3>- SGBD: O Software que Gerencia</h3>
+            <p>O <strong>Sistema de Gerenciamento de Banco de Dados (SGBD)</strong> é o software que fica entre o usuário e os dados. Os mais usados no mercado são:</p>
+            <ul>
+                <li><strong>MySQL / MariaDB</strong> — gratuitos, amplamente usados em sites e aplicações web</li>
+                <li><strong>PostgreSQL</strong> — poderoso, código aberto, muito popular em empresas</li>
+                <li><strong>SQLite</strong> — embutido em aplicativos móveis e usado neste curso!</li>
+                <li><strong>SQL Server</strong> — solução da Microsoft para ambientes corporativos</li>
+            </ul>
+
+            <h3>- Por que aprender SQL?</h3>
+            <p>SQL (Structured Query Language) é a linguagem universal para consultar bancos de dados relacionais. Desenvolvedores, analistas de dados e até profissionais de marketing precisam dela. É uma das habilidades mais valorizadas no mercado de tecnologia.</p>
+
+            <h3>- Bancos Relacionais vs Não-Relacionais</h3>
+            <p>Nem todo banco de dados organiza informação em tabelas. Existem dois grandes grupos:</p>
+            <ul>
+                <li><strong>Relacionais (SQL):</strong> dados em tabelas com linhas e colunas, relacionadas entre si por chaves. Ex: MySQL, PostgreSQL, SQLite — foco deste curso.</li>
+                <li><strong>Não-relacionais (NoSQL):</strong> dados em documentos, grafos ou chave-valor, sem esquema rígido. Ex: MongoDB, Redis — úteis quando o volume é enorme ou o formato dos dados varia muito.</li>
+            </ul>
+            <div class="info-box">
+                <strong><i class="fa-solid fa-circle-info"></i> Qual escolher?</strong><br>
+                Bancos relacionais continuam sendo a escolha padrão para a maioria dos sistemas — e-commerce, sistemas financeiros, redes sociais no seu núcleo — justamente por garantirem consistência dos dados através de relacionamentos bem definidos.
+            </div>
+
+            <h3>- Erros Comuns de Quem Está Começando</h3>
+            <div class="warn-box">
+                <strong><i class="fa-solid fa-triangle-exclamation"></i> Fique de olho nestas armadilhas</strong>
+                <ul style="margin-top:8px;margin-bottom:0;">
+                    <li><strong>Esquecer o ponto e vírgula <code>;</code></strong> no final do comando SQL.</li>
+                    <li><strong>Confundir aspas simples de texto</strong> (<code>'texto'</code>) com aspas de identificador de tabela/coluna.</li>
+                    <li><strong>SQL não é case-sensitive nas palavras-chave</strong> — <code>SELECT</code> e <code>select</code> funcionam igual — mas é convenção usar maiúsculas para os comandos.</li>
+                </ul>
+            </div>
+
+            <div class="info-box">
+                <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+                No terminal SQL abaixo, use o snippet "Ver clientes" e depois tente escrever, do zero, uma consulta para ver todos os produtos: <code>SELECT * FROM produtos;</code>
+            </div>
+
+            <div class="tip-box" style="margin-top:20px">
+                <strong><i class="fa-solid fa-lightbulb"></i> Neste curso você vai aprender</strong><br>
+                Ao final dos 7 módulos você saberá criar consultas, filtrar e ordenar dados, relacionar tabelas, inserir/atualizar/remover registros e gerar relatórios com agregações. Tudo com uma máquina virtual SQL interativa em cada módulo.
+            </div>
+        </div>
+
+        
+
+        <!-- VM SQL -->
+        <div class="sql-vm-section">
+            <div class="sql-vm-header">
+                <div class="vm-title"><i class="fa-solid fa-terminal"></i> Terminal SQL — Máquina Virtual Cognitio</div>
+                <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+            </div>
+            <div class="sql-snippet-btns">
+                <span class="sql-snippet-label">Snippets:</span>
+                <button class="sql-snippet" data-sql="SELECT 'Olá, Banco de Dados!' AS mensagem;">Hello SQL!</button>
+                <button class="sql-snippet" data-sql="SELECT * FROM clientes;">Ver clientes</button>
+                <button class="sql-snippet" data-sql="SELECT * FROM produtos;">Ver produtos</button>
+                <button class="sql-snippet" data-sql="SELECT * FROM pedidos;">Ver pedidos</button>
+            </div>
+            <textarea id="sql-editor" placeholder="-- Digite seu SQL aqui e pressione Ctrl+Enter para executar
+SELECT 'Olá, Banco de Dados!' AS mensagem;"></textarea>
+            <div class="sql-vm-toolbar">
+                <button class="sql-run-btn" id="sql-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+                <button class="sql-reset-btn" id="sql-reset"><i class="fa-solid fa-rotate"></i> Resetar BD</button>
+                <button class="sql-hint-btn" id="sql-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+            </div>
+            <div class="sql-result-wrap">
+                <div id="sql-result"><p style="color:var(--muted);font-size:.84rem"><i class="fa-solid fa-arrow-up"></i> Execute uma query para ver o resultado aqui.</p></div>
+            </div>
+        </div>
+
+        <hr style="margin-top: 30px;">
+        <div class="button-container">
+            <a href="{{ url_for('trilhas') }}" class="btn-voltar">&larr; Voltar às Trilhas</a>
+            <a href="{{ url_for('bd_mod2') }}" class="btn-proximo">Próximo: Modelo Relacional &rarr;</a>
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('static', filename='js/banco.js') }}"></script>
+
+    <!-- ══ COGNITIO IA WIDGET v2 ══ -->
+    <button id="ia-fab" aria-label="Abrir Tutor IA">
+      <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+      <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+      <span id="ia-fab-badge">1</span>
+      <span id="ia-fab-tooltip">Tutor IA</span>
+    </button>
+    <div id="ia-overlay"></div>
+    <div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+      <div class="ia-panel-header">
+        <div class="ia-header-left">
+          <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+          <div class="ia-header-info">
+            <strong>Cognitio IA</strong>
+            <span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span>
+          </div>
+        </div>
+        <div class="ia-header-right">
+          <button class="ia-header-btn" id="ia-clear-btn" title="Limpar" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+          <button class="ia-header-btn" id="ia-close-btn" title="Fechar" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+        </div>
+      </div>
+      <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+      <div id="ia-messages"></div>
+      <div class="ia-input-area">
+        <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+        <button id="ia-send" title="Enviar" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+      </div>
+      <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+    </div>
+    <script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+    <!-- ══ FIM WIDGET ══ -->
+
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body>
+</html>

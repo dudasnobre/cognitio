@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Módulo 3</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/javascript.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>3. Operadores e Condicionais</h2>
+    <p>Operadores permitem fazer cálculos e comparações. Condicionais permitem que o programa tome <strong>decisões diferentes</strong> dependendo dos dados — é o que torna o código inteligente.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Operadores Aritméticos</h3>
+        <pre><code>5 + 3   // 8   — adição
+10 - 4  // 6   — subtração
+6 * 7   // 42  — multiplicação
+15 / 4  // 3.75 — divisão
+15 % 4  // 3   — módulo (resto da divisão)
+2 ** 8  // 256 — exponenciação</code></pre>
+
+        <h3>- Operadores de Comparação</h3>
+        <p>Sempre retornam <code>true</code> ou <code>false</code>. Prefira <code>===</code> e <code>!==</code> (comparam valor <em>e</em> tipo):</p>
+        <pre><code>5 === 5       // true  (igualdade estrita)
+5 == "5"      // true  (igualdade fraca — evite)
+5 !== 6       // true
+10 > 8        // true
+10 &lt;= 10      // true</code></pre>
+
+        <h3>- Operadores Lógicos</h3>
+        <pre><code>true && false   // false  — AND (ambos precisam ser true)
+true || false   // true   — OR  (basta um ser true)
+!true           // false  — NOT (inverte)</code></pre>
+
+        <h3>- if / else if / else</h3>
+        <pre><code>const nota = 75;
+
+if (nota >= 90) {
+    console.log("Aprovado com distinção!");
+} else if (nota >= 60) {
+    console.log("Aprovado.");
+} else {
+    console.log("Reprovado.");
+}</code></pre>
+
+        <h3>- Operador Ternário</h3>
+        <p>Forma compacta de um if/else em uma linha:</p>
+        <pre><code>const idade = 20;
+const status = idade >= 18 ? "Maior de idade" : "Menor de idade";
+console.log(status); // Maior de idade</code></pre>
+
+        <h3>- switch</h3>
+        <pre><code>const dia = "segunda";
+switch (dia) {
+    case "segunda": console.log("Início da semana!"); break;
+    case "sexta":   console.log("Quase fim de semana!"); break;
+    default:        console.log("Dia comum.");
+}</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> === vs ==</strong><br>
+            Sempre use <code>===</code>. O operador <code>==</code> faz conversão de tipo automática e pode causar bugs difíceis de encontrar: <code>0 == false</code> é <code>true</code> com <code>==</code>, mas <code>false</code> com <code>===</code>.
+        </div>
+
+        <h3>- Truthy e Falsy</h3>
+        <p>Dentro de um <code>if</code>, o JavaScript converte qualquer valor para <code>true</code> ou <code>false</code>. Só estes valores são considerados <strong>falsy</strong> — todo o resto é <strong>truthy</strong>:</p>
+        <pre><code>false, 0, "", null, undefined, NaN   // falsy — tudo o resto é truthy
+
+if ("") console.log("nunca roda");
+if ("0") console.log("roda! string '0' é truthy");
+if ([]) console.log("roda! array vazio é truthy");</code></pre>
+
+        <h3>- Operadores de Curto-Circuito (&& e ||)</h3>
+        <p>Além de combinar condições, <code>&&</code> e <code>||</code> são muito usados para valores padrão e execução condicional:</p>
+        <pre><code>const nome = usuario.nome || "Visitante";  // usa "Visitante" se nome for falsy
+usuario.logado && console.log("Bem-vindo!"); // só executa se logado for truthy
+
+// Operador de coalescência nula (??) — só cai no padrão se for null/undefined
+const idade = usuario.idade ?? 18;</code></pre>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Exercício rápido</strong><br>
+            No terminal abaixo, crie uma <code>const temperatura</code> e use if/else if/else para exibir "Frio", "Agradável" ou "Quente" dependendo do valor. Depois, reescreva a mesma lógica com <code>switch</code>.
+        </div>
+    </div>
+
+    
+
+    <div class="js-vm-section" style="margin-top:36px;">
+        <div class="js-vm-header">
+            <div class="vm-title"><i class="fa-brands fa-js"></i> Terminal JavaScript — Teste condicionais</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="js-snippet-btns">
+            <span class="js-snippet-label">Snippets:</span>
+            <button class="js-snippet" data-js="console.log(10 % 3);&#10;console.log(2 ** 10);&#10;console.log(5 === '5');&#10;console.log(5 == '5');">operadores</button>
+            <button class="js-snippet" data-js="const nota = 75;&#10;if (nota >= 90) {&#10;  console.log('Distinção');&#10;} else if (nota >= 60) {&#10;  console.log('Aprovado');&#10;} else {&#10;  console.log('Reprovado');&#10;}">if/else</button>
+            <button class="js-snippet" data-js="const idade = 20;&#10;const msg = idade >= 18 ? 'Maior' : 'Menor';&#10;console.log(msg);">ternário</button>
+            <button class="js-snippet" data-js="const x = 5;&#10;switch(x) {&#10;  case 1: console.log('um'); break;&#10;  case 5: console.log('cinco'); break;&#10;  default: console.log('outro');&#10;}">switch</button>
+        </div>
+        <textarea id="js-editor" data-default="const nota = 75;&#10;if (nota >= 90) {&#10;  console.log('Aprovado com distinção!');&#10;} else if (nota >= 60) {&#10;  console.log('Aprovado.');&#10;} else {&#10;  console.log('Reprovado.');&#10;}" placeholder="// Ctrl+Enter para executar">const nota = 75;
+if (nota >= 90) {
+  console.log('Aprovado com distinção!');
+} else if (nota >= 60) {
+  console.log('Aprovado.');
+} else {
+  console.log('Reprovado.');
+}</textarea>
+        <div class="js-vm-toolbar">
+            <button class="js-run-btn" id="js-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="js-reset-btn" id="js-reset"><i class="fa-solid fa-rotate"></i> Resetar</button>
+            <button class="js-hint-btn" id="js-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="js-result-wrap"><div id="js-result"><p style="color:rgba(205,214,244,.4);font-size:.84rem;font-family:monospace"><i class="fa-solid fa-arrow-up"></i> Execute o código para ver o resultado.</p></div></div>
+    </div>
+
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('js_mod2') }}" class="btn-voltar">&larr; Módulo 2</a>
+        <a href="{{ url_for('js_mod4') }}" class="btn-proximo">Módulo 4: Funções &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/javascript.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

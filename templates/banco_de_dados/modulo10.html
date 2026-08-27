@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco de Dados - Módulo 10</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/banco.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>10. Projeto Final: Modelando um Banco de Dados Real</h2>
+    <p>Hora de juntar tudo: modelagem, SELECT, JOIN, agregações, subconsultas e integridade referencial em um desafio único — modelar e consultar um pequeno sistema de biblioteca.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- O Desafio: Sistema de Biblioteca</h3>
+        <p>Pense em como você modelaria estas três tabelas relacionadas — <strong>não precisa criar de verdade</strong>, é um exercício de modelagem:</p>
+        <pre><code>CREATE TABLE livros (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    titulo TEXT NOT NULL,
+    autor TEXT,
+    ano INTEGER
+);
+
+CREATE TABLE membros (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT NOT NULL,
+    email TEXT UNIQUE
+);
+
+CREATE TABLE emprestimos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    livro_id INTEGER REFERENCES livros(id),
+    membro_id INTEGER REFERENCES membros(id),
+    data_emprestimo TEXT,
+    data_devolucao TEXT
+);</code></pre>
+
+        <h3>- Perguntas que um Bom Modelo Precisa Responder</h3>
+        <ul>
+            <li>Quais livros estão emprestados no momento (sem <code>data_devolucao</code> preenchida)?</li>
+            <li>Qual membro pegou mais livros emprestados?</li>
+            <li>Quais livros nunca foram emprestados?</li>
+        </ul>
+
+        <h3>- Praticando no Banco Já Disponível</h3>
+        <p>Como o laboratório abaixo usa o banco de <code>clientes</code>/<code>produtos</code>/<code>pedidos</code> já conhecido, pratique consultas equivalentes de "estilo relatório final", combinando tudo que você aprendeu:</p>
+        <pre><code>-- Ranking de clientes por valor total gasto, dos maiores para os menores
+SELECT
+    c.nome,
+    COUNT(DISTINCT pe.id)               AS total_pedidos,
+    SUM(pe.quantidade * p.preco)        AS total_gasto
+FROM clientes c
+JOIN pedidos pe  ON c.id = pe.cliente_id
+JOIN produtos p  ON p.id = pe.produto_id
+GROUP BY c.id, c.nome
+ORDER BY total_gasto DESC;</code></pre>
+        <pre><code>-- Produtos nunca vendidos (subconsulta + NOT IN)
+SELECT nome, preco
+FROM produtos
+WHERE id NOT IN (SELECT DISTINCT produto_id FROM pedidos);</code></pre>
+        <pre><code>-- Cliente com maior gasto médio por pedido
+SELECT c.nome, AVG(pe.quantidade * p.preco) AS gasto_medio
+FROM clientes c
+JOIN pedidos pe ON c.id = pe.cliente_id
+JOIN produtos p ON p.id = pe.produto_id
+GROUP BY c.id
+ORDER BY gasto_medio DESC
+LIMIT 1;</code></pre>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Modelar bem é 80% do trabalho</strong><br>
+            Um banco bem modelado — com chaves corretas e sem repetição desnecessária de dados — torna consultas complexas como essas muito mais simples de escrever. Tempo investido na modelagem economiza dor de cabeça depois.
+        </div>
+
+        <div class="info-box">
+            <strong><i class="fa-solid fa-pen"></i> Desafio final</strong><br>
+            No laboratório abaixo, escreva uma consulta que mostre, para cada categoria de produto, o produto mais vendido daquela categoria (dica: combine <code>GROUP BY</code>, agregação e um <code>JOIN</code> ou subconsulta).
+        </div>
+
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Parabéns por concluir o curso de Banco de Dados!</strong><br>
+            Você foi do modelo relacional básico até subconsultas e integridade referencial. Esse conhecimento se aplica a praticamente qualquer sistema que você venha a construir — de sites simples a aplicações completas.
+        </div>
+
+    <div class="sql-vm-section">
+        <div class="sql-vm-header">
+            <div class="vm-title"><i class="fa-solid fa-database"></i> Máquina Virtual SQL</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="sql-snippet-btns">
+            <span class="sql-snippet-label">Snippets:</span>
+            <button class="sql-snippet" data-sql="SELECT c.nome, COUNT(DISTINCT pe.id) AS total_pedidos, SUM(pe.quantidade * p.preco) AS total_gasto FROM clientes c JOIN pedidos pe ON c.id = pe.cliente_id JOIN produtos p ON p.id = pe.produto_id GROUP BY c.id, c.nome ORDER BY total_gasto DESC;">Ranking de clientes</button>
+            <button class="sql-snippet" data-sql="SELECT nome, preco FROM produtos WHERE id NOT IN (SELECT DISTINCT produto_id FROM pedidos);">Produtos nunca vendidos</button>
+            <button class="sql-snippet" data-sql="SELECT c.nome, AVG(pe.quantidade * p.preco) AS gasto_medio FROM clientes c JOIN pedidos pe ON c.id = pe.cliente_id JOIN produtos p ON p.id = pe.produto_id GROUP BY c.id ORDER BY gasto_medio DESC LIMIT 1;">Maior gasto médio</button>
+        </div>
+        <textarea id="sql-editor" placeholder="-- Ctrl+Enter para executar">SELECT c.nome, COUNT(DISTINCT pe.id) AS total_pedidos, SUM(pe.quantidade * p.preco) AS total_gasto\nFROM clientes c\nJOIN pedidos pe ON c.id = pe.cliente_id\nJOIN produtos p ON p.id = pe.produto_id\nGROUP BY c.id, c.nome\nORDER BY total_gasto DESC;</textarea>
+        <div class="sql-vm-toolbar">
+            <button class="sql-run-btn" id="sql-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="sql-reset-btn" id="sql-reset"><i class="fa-solid fa-rotate"></i> Resetar BD</button>
+            <button class="sql-hint-btn" id="sql-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="sql-result-wrap"><div id="sql-result"><p style="color:var(--muted);font-size:.84rem">Execute uma query para ver o resultado.</p></div></div>
+    </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('bd_mod9') }}" class="btn-voltar">&larr; Módulo 9</a>
+        <a href="{{ url_for('trilhas') }}" class="btn-proximo" data-cognitio-complete-course="banco">Concluir Curso! 🏆</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/banco.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

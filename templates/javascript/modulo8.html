@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript - Módulo 8</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/javascript.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ia-widget.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+</head>
+<body>
+<div class="main-card">
+    <h2>8. Manipulação Avançada do DOM e Formulários</h2>
+    <p>Agora que você sabe selecionar e alterar elementos, vamos trabalhar com formulários de verdade: capturar valores, validar antes de enviar e criar elementos dinamicamente a partir de dados.</p>
+
+    <div class="conteudo-modulo">
+        <h3>- Capturando Dados de um Formulário</h3>
+        <pre><code>const form = document.querySelector('#meu-form');
+
+form.addEventListener('submit', function(e) {
+    e.preventDefault(); // impede o recarregamento da página
+    const dados = new FormData(form);
+    console.log(dados.get('nome'), dados.get('email'));
+});</code></pre>
+
+        <h3>- Validação Simples no Cliente</h3>
+        <pre><code>function validarEmail(email) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+}
+
+form.addEventListener('submit', e => {
+    e.preventDefault();
+    const email = form.email.value;
+    if (!validarEmail(email)) {
+        alert('E-mail inválido!');
+        return;
+    }
+    console.log('Formulário válido, enviando...');
+});</code></pre>
+        <div class="tip-box">
+            <strong><i class="fa-solid fa-lightbulb"></i> Validação no cliente não substitui a do servidor</strong><br>
+            Validar no navegador melhora a experiência (feedback instantâneo), mas nunca confie só nela — sempre valide os dados novamente no back-end, já que o JavaScript do cliente pode ser burlado.
+        </div>
+
+        <h3>- Criando Elementos Dinamicamente a partir de Dados</h3>
+        <pre><code>const produtos = [
+    { nome: 'Caderno', preco: 12.5 },
+    { nome: 'Caneta', preco: 3.0 }
+];
+
+const lista = document.querySelector('#lista-produtos');
+produtos.forEach(p => {
+    const li = document.createElement('li');
+    li.textContent = `${p.nome} - R$ ${p.preco.toFixed(2)}`;
+    lista.appendChild(li);
+});</code></pre>
+
+        <h3>- template Element (evitando innerHTML repetitivo)</h3>
+        <pre><code>&lt;template id="modelo-card"&gt;
+  &lt;div class="card"&gt;&lt;h3&gt;&lt;/h3&gt;&lt;/div&gt;
+&lt;/template&gt;</code></pre>
+        <pre><code>const modelo = document.querySelector('#modelo-card');
+const clone = modelo.content.cloneNode(true);
+clone.querySelector('h3').textContent = 'Novo Card';
+document.body.appendChild(clone);</code></pre>
+
+        <div class="warn-box">
+            <strong><i class="fa-solid fa-triangle-exclamation"></i> Cuidado com innerHTML e dados do usuário</strong><br>
+            Inserir texto de um usuário diretamente com <code>innerHTML</code> pode abrir brechas de segurança (XSS). Prefira <code>textContent</code> para texto simples, e só use <code>innerHTML</code> com conteúdo confiável.
+        </div>
+
+        <h3>- Resumo do Módulo</h3>
+        <ul>
+            <li><code>FormData</code> captura todos os campos de um formulário de uma vez</li>
+            <li>Sempre chame <code>e.preventDefault()</code> para controlar o envio manualmente</li>
+            <li>Gere listas de elementos a partir de arrays de dados com <code>forEach</code> + <code>createElement</code></li>
+            <li>Prefira <code>textContent</code> a <code>innerHTML</code> quando o conteúdo vem do usuário</li>
+        </ul>
+
+    <div class="js-vm-section" style="margin-top:36px;">
+        <div class="js-vm-header">
+            <div class="vm-title"><i class="fa-brands fa-js"></i> Terminal JavaScript — Formulários e DOM</div>
+            <div class="vm-dots"><span class="d1"></span><span class="d2"></span><span class="d3"></span></div>
+        </div>
+        <div class="js-snippet-btns">
+            <span class="js-snippet-label">Snippets:</span>
+            <button class="js-snippet" data-js="function validarEmail(email) {&#10;  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);&#10;}&#10;&#10;console.log(validarEmail('teste@email.com')); // true&#10;console.log(validarEmail('invalido'));         // false">Validar e-mail</button>
+            <button class="js-snippet" data-js="const produtos = [&#10;  { nome: 'Caderno', preco: 12.5 },&#10;  { nome: 'Caneta', preco: 3.0 },&#10;  { nome: 'Mochila', preco: 89.9 }&#10;];&#10;&#10;produtos.forEach(p => {&#10;  console.log(`${p.nome} - R$ ${p.preco.toFixed(2)}`);&#10;});">Lista a partir de array</button>
+        </div>
+        <textarea id="js-editor" data-default="// Simulando validação de um cadastro&#10;function validarCadastro({ nome, idade }) {&#10;  const erros = [];&#10;  if (!nome || nome.trim().length < 2) erros.push('Nome inválido');&#10;  if (!idade || idade < 0 || idade > 120) erros.push('Idade inválida');&#10;  return erros;&#10;}&#10;&#10;console.log(validarCadastro({ nome: 'Jo', idade: 25 }));&#10;console.log(validarCadastro({ nome: '', idade: 200 }));" placeholder="// Ctrl+Enter para executar">// Simulando validação de um cadastro&#10;function validarCadastro({ nome, idade }) {&#10;  const erros = [];&#10;  if (!nome || nome.trim().length < 2) erros.push('Nome inválido');&#10;  if (!idade || idade < 0 || idade > 120) erros.push('Idade inválida');&#10;  return erros;&#10;}&#10;&#10;console.log(validarCadastro({ nome: 'Jo', idade: 25 }));&#10;console.log(validarCadastro({ nome: '', idade: 200 }));</textarea>
+        <div class="js-vm-toolbar">
+            <button class="js-run-btn" id="js-run"><i class="fa-solid fa-play"></i> Executar (Ctrl+Enter)</button>
+            <button class="js-reset-btn" id="js-reset"><i class="fa-solid fa-rotate"></i> Resetar</button>
+            <button class="js-hint-btn" id="js-hint"><i class="fa-solid fa-robot"></i> Pedir dica à IA</button>
+        </div>
+        <div class="js-result-wrap"><div id="js-result"><p style="color:rgba(205,214,244,.4);font-size:.84rem;font-family:monospace"><i class="fa-solid fa-arrow-up"></i> Execute o código para ver o resultado.</p></div></div>
+    </div>
+    </div>
+    <hr style="margin-top:30px;">
+    <div class="button-container">
+        <a href="{{ url_for('js_mod7') }}" class="btn-voltar">&larr; Módulo 7</a>
+        <a href="{{ url_for('js_mod9') }}" class="btn-proximo">Módulo 9: Armazenamento no Navegador &rarr;</a>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/javascript.js') }}"></script>
+<!-- ══ COGNITIO IA WIDGET v2 ══ -->
+<button id="ia-fab" aria-label="Abrir Tutor IA">
+  <i class="fa-solid fa-robot fab-icon-closed" style="color:white;font-size:1.25rem;"></i>
+  <i class="fa-solid fa-xmark fab-icon-open"   style="color:white;font-size:1.25rem;"></i>
+  <span id="ia-fab-badge">1</span><span id="ia-fab-tooltip">Tutor IA</span>
+</button>
+<div id="ia-overlay"></div>
+<div id="ia-panel" role="dialog" aria-label="Cognitio IA">
+  <div class="ia-panel-header">
+    <div class="ia-header-left">
+      <div class="ia-avatar"><i class="fa-solid fa-robot" style="color:white;"></i></div>
+      <div class="ia-header-info"><strong>Cognitio IA</strong><span><span class="ia-online-dot"></span>Online &middot; LLaMA 3.1</span></div>
+    </div>
+    <div class="ia-header-right">
+      <button class="ia-header-btn" id="ia-clear-btn" aria-label="Limpar conversa"><i class="fa-solid fa-rotate-left"></i></button>
+      <button class="ia-header-btn" id="ia-close-btn" aria-label="Fechar assistente"><i class="fa-solid fa-xmark"></i></button>
+    </div>
+  </div>
+  <div class="ia-quick-actions">
+        <button class="ia-quick-btn" data-ia-action="explicar"><i class="fa-solid fa-lightbulb"></i> Explique este assunto</button>
+        <button class="ia-quick-btn" data-ia-action="exercicio"><i class="fa-solid fa-pen"></i> Crie um exercício</button>
+        <button class="ia-quick-btn" data-ia-action="questionario"><i class="fa-solid fa-brain"></i> Faça um quiz</button>
+        <button class="ia-quick-btn" data-ia-action="erro"><i class="fa-solid fa-magnifying-glass"></i> Explique meu erro</button>
+        <button class="ia-quick-btn" data-ia-action="resumo"><i class="fa-solid fa-file-lines"></i> Resumo do Módulo</button>
+        <button class="ia-quick-btn" data-ia-action="proximo"><i class="fa-solid fa-map"></i> O que devo estudar agora?</button>
+      </div>
+  <div id="ia-messages"></div>
+  <div class="ia-input-area">
+    <textarea id="ia-input" placeholder="Pergunte qualquer coisa..." rows="1"></textarea>
+    <button id="ia-send" aria-label="Enviar mensagem"><i class="fa-solid fa-paper-plane"></i></button>
+  </div>
+  <p class="ia-input-hint">Enter para enviar &middot; Shift+Enter para nova linha</p>
+</div>
+<script src="{{ url_for('static', filename='js/ia-widget.js') }}"></script>
+<!-- ══ FIM WIDGET ══ -->
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+</body></html>

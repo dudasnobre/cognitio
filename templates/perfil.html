@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meu Perfil · Cognitio</title>
+  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/favicon.svg') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/estilo.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-core.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/cognitio-pages.css') }}">
+</head>
+<body class="cog-page">
+
+  <nav id="navbar" class="visible">
+    <a href="{{ url_for('trilhas') }}" class="logo logo-wordmark">
+      <img src="{{ url_for('static', filename='img/logosemfundo.png') }}" alt="Cognitio" height="34">
+      <span class="sr-only">Cognitio</span>
+    </a>
+    <button id="nav-toggle" aria-label="Abrir menu" aria-expanded="false" aria-controls="nav-links">
+      <i class="fa-solid fa-bars"></i>
+    </button>
+    <ul class="nav-links" id="nav-links">
+      <li><a href="{{ url_for('dashboard') }}"><i class="fa-solid fa-gauge-high"></i> Painel</a></li>
+      <li><a href="{{ url_for('trilhas') }}#cursos"><i class="fa-solid fa-book-open"></i> Cursos</a></li>
+      <li><a href="{{ url_for('perfil') }}"><i class="fa-solid fa-user"></i> Perfil</a></li>
+      <li><a href="{{ url_for('logout') }}" id="logout-link"><i class="fa-solid fa-right-from-bracket"></i> Sair</a></li>
+    </ul>
+  </nav>
+
+  <div class="cog-shell">
+
+    <div class="cog-card" id="cog-perfil-view">
+      <div class="cog-profile-head">
+        <div class="cog-avatar-wrap">
+          <div class="cog-avatar-big" id="cog-perfil-avatar">
+            <img id="cog-perfil-avatar-foto" alt="Foto de perfil" style="display:none;">
+            <span id="cog-perfil-avatar-emoji">🧑‍💻</span>
+          </div>
+          <button type="button" class="cog-avatar-upload-btn" id="cog-avatar-upload-btn" title="Alterar foto de perfil" aria-label="Alterar foto de perfil">
+            <i class="fa-solid fa-camera"></i>
+          </button>
+          <button type="button" class="cog-avatar-remove-btn" id="cog-avatar-remove-btn" title="Remover foto" aria-label="Remover foto" style="display:none;">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <input type="file" id="cog-avatar-file-input" accept="image/*" style="display:none;">
+        </div>
+        <div>
+          <h1 id="cog-perfil-nome">Aluno(a) Cognitio</h1>
+          <div class="username" id="cog-perfil-username">@aluno</div>
+          <p class="bio" id="cog-perfil-bio">—</p>
+          <p class="cog-perfil-email" id="cog-perfil-email" style="font-size:0.8rem; opacity:0.6; margin-top:4px;"></p>
+        </div>
+        <button class="cog-btn cog-btn-outline" id="cog-perfil-editar" style="margin-left:auto;">
+          <i class="fa-solid fa-pen"></i> Editar perfil
+        </button>
+      </div>
+
+      <div class="cog-stats-row">
+        <div class="cog-stat-box"><strong id="cog-p-nivel">1</strong><span>Nível</span></div>
+        <div class="cog-stat-box"><strong id="cog-p-xp">0</strong><span>XP total</span></div>
+        <div class="cog-stat-box"><strong id="cog-p-cursos-andamento">0</strong><span>Em andamento</span></div>
+        <div class="cog-stat-box"><strong id="cog-p-cursos-concluidos">0</strong><span>Concluídos</span></div>
+        <div class="cog-stat-box"><strong id="cog-p-exercicios">0</strong><span>Exercícios</span></div>
+        <div class="cog-stat-box"><strong id="cog-p-acerto">—</strong><span>Taxa de acerto</span></div>
+        <div class="cog-stat-box"><strong id="cog-p-streak">0</strong><span>Sequência</span></div>
+      </div>
+    </div>
+
+    <!-- Formulário de edição (oculto por padrão) -->
+    <div class="cog-card" id="cog-perfil-edit-form" style="display:none; margin-top:18px;">
+      <h3><i class="fa-solid fa-id-card"></i> Editar informações</h3>
+      <div class="cog-form-row">
+        <label for="cog-input-nome">Nome</label>
+        <input type="text" id="cog-input-nome" maxlength="60" placeholder="Seu nome">
+      </div>
+      <div class="cog-form-row">
+        <label for="cog-input-username">Nome de usuário</label>
+        <input type="text" id="cog-input-username" maxlength="30" placeholder="username">
+      </div>
+      <div class="cog-form-row">
+        <label for="cog-input-bio">Bio</label>
+        <textarea id="cog-input-bio" rows="3" maxlength="160" placeholder="Fale um pouco sobre você"></textarea>
+      </div>
+      <div class="cog-form-row">
+        <label>Avatar (emoji)</label>
+        <div class="cog-avatar-picker" id="cog-avatar-picker"></div>
+        <p style="font-size:0.75rem; opacity:0.6; margin-top:6px;">Usado apenas se você não tiver enviado uma foto de perfil.</p>
+      </div>
+      <div class="cog-form-row">
+        <label>Tema da conta</label>
+        <div class="cog-theme-picker" id="cog-theme-picker"></div>
+      </div>
+      <div style="display:flex; gap:10px;">
+        <button class="cog-btn" id="cog-perfil-salvar"><i class="fa-solid fa-check"></i> Salvar alterações</button>
+        <button class="cog-btn cog-btn-outline" id="cog-perfil-cancelar">Cancelar</button>
+      </div>
+    </div>
+
+    <div class="cog-section" style="margin-top:26px;">
+      <div class="cog-section-title"><i class="fa-solid fa-fire" style="color:#F77F00"></i> Sequência de estudos</div>
+      <div class="cog-card">
+        <div style="font-weight:800; font-size:1.1rem;"><span id="cog-perfil-streak-num">0</span> dias seguidos 🔥</div>
+        <div class="cog-streak-row" id="cog-perfil-streak-row"></div>
+      </div>
+    </div>
+
+    <div class="cog-section">
+      <div class="cog-section-title"><i class="fa-solid fa-layer-group" style="color:#0ea5b7"></i> Meus cursos</div>
+      <div class="cog-grid" id="cog-perfil-cursos"></div>
+    </div>
+
+    <div class="cog-section">
+      <div class="cog-section-title"><i class="fa-solid fa-trophy" style="color:#b38600"></i> Conquistas</div>
+      <div class="cog-badges" id="cog-perfil-conquistas"></div>
+    </div>
+
+  </div>
+
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+  <script>
+    window.COGNITIO_USER = {
+      id: "{{ usuario_logado.id }}",
+      nome: "{{ usuario_logado.nome }}",
+      usuario: "{{ usuario_logado.usuario }}",
+      email: "{{ usuario_logado.email }}"
+    };
+  </script>
+  <script src="{{ url_for('static', filename='js/cognitio-core.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/perfil.js') }}"></script>
+</body>
+</html>

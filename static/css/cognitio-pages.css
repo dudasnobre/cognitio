@@ -1,0 +1,156 @@
+/* ══════════════════════════════════════════════════════════════
+   COGNITIO · cognitio-pages.css
+   Layout compartilhado do Dashboard e do Perfil do Aluno.
+   Usa a identidade visual principal da Cognitio (estilo.css).
+   ══════════════════════════════════════════════════════════════ */
+
+body.cog-page {
+  background: #fafaf8;
+  color: var(--dark);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  padding-bottom: 90px;
+}
+
+.cog-shell {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 100px 5vw 40px;
+}
+
+/* Reaproveita nav/estilo.css: garantimos visibilidade imediata (sem splash nestas páginas) */
+body.cog-page nav#navbar { opacity: 1; transform: none; position: fixed; }
+body.cog-page #nav-links { }
+
+/* ── Hero / saudação ─────────────────────────────────────────── */
+.cog-hero {
+  background: linear-gradient(135deg, var(--dark) 0%, #00507f 100%);
+  color: #fff;
+  border-radius: 24px;
+  padding: 34px 36px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: 26px;
+  position: relative;
+  overflow: hidden;
+}
+.cog-hero::after {
+  content: '';
+  position: absolute; right: -60px; top: -60px; width: 240px; height: 240px;
+  background: radial-gradient(circle, rgba(247,127,0,0.35), transparent 70%);
+}
+.cog-hero h1 { font-size: 1.7rem; margin-bottom: 6px; position: relative; z-index: 1; }
+.cog-hero p { opacity: 0.85; font-size: 0.92rem; position: relative; z-index: 1; max-width: 460px; }
+.cog-hero-actions { display: flex; gap: 10px; flex-wrap: wrap; position: relative; z-index: 1; }
+.cog-hero-actions .cog-btn-light {
+  background: #fff; color: var(--dark); padding: 11px 22px; border-radius: 50px;
+  font-weight: 700; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+}
+.cog-hero-actions .cog-btn-ghost {
+  background: rgba(255,255,255,0.14); color: #fff; padding: 11px 22px; border-radius: 50px;
+  font-weight: 700; font-size: 0.85rem; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  border: 1px solid rgba(255,255,255,0.35);
+}
+
+/* ── Grid de seções ───────────────────────────────────────────── */
+.cog-section { margin-bottom: 26px; }
+.cog-section-title {
+  font-size: 1.05rem; font-weight: 800; margin-bottom: 14px;
+  display: flex; align-items: center; gap: 8px;
+}
+
+/* ── Cursos em andamento (mini cards) ─────────────────────────── */
+.cog-course-mini {
+  display: flex; align-items: center; gap: 14px; padding: 14px 16px;
+  border-radius: 14px; border: 1px solid var(--dark-light);
+  text-decoration: none; color: var(--dark); background: #fff;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.cog-course-mini:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(0,48,73,0.08); }
+.cog-course-mini .icon { font-size: 1.6rem; }
+.cog-course-mini .info { flex: 1; min-width: 0; }
+.cog-course-mini .info strong { display: block; font-size: 0.9rem; }
+.cog-course-mini .mini-track { height: 6px; border-radius: 8px; background: var(--dark-light); margin-top: 6px; overflow: hidden; }
+.cog-course-mini .mini-fill { height: 100%; background: var(--primary); border-radius: 8px; }
+.cog-course-mini .pct { font-size: 0.78rem; font-weight: 700; color: var(--primary); white-space: nowrap; }
+
+/* ── Desafio do dia ───────────────────────────────────────────── */
+.cog-challenge-opt {
+  display: block; width: 100%; text-align: left; padding: 12px 16px; margin-bottom: 8px;
+  border: 1.5px solid var(--dark-light); border-radius: 12px; background: #fff; cursor: pointer;
+  font-size: 0.88rem; font-family: inherit; color: var(--dark); transition: border-color .15s, background .15s;
+}
+.cog-challenge-opt:hover:not(:disabled) { border-color: var(--primary); background: var(--primary-light); }
+.cog-challenge-opt:disabled { cursor: default; }
+.cog-challenge-opt.correct { border-color: #22c55e; background: rgba(34,197,94,0.1); font-weight: 700; }
+.cog-challenge-opt.wrong { border-color: var(--red); background: rgba(214,40,40,0.08); }
+.cog-challenge-feedback { margin-top: 10px; font-size: 0.85rem; padding: 10px 14px; border-radius: 10px; background: var(--dark-light); }
+.cog-challenge-tag { font-size: 0.68rem; font-weight: 800; text-transform: uppercase; color: var(--primary); letter-spacing: 0.04em; }
+
+/* ── Perfil ───────────────────────────────────────────────────── */
+.cog-profile-head { display: flex; gap: 22px; align-items: center; flex-wrap: wrap; }
+.cog-avatar-wrap { position: relative; flex-shrink: 0; }
+.cog-avatar-big {
+  width: 92px; height: 92px; border-radius: 50%; background: var(--primary-light);
+  display: flex; align-items: center; justify-content: center; font-size: 2.6rem; flex-shrink: 0;
+  border: 3px solid #fff; box-shadow: 0 0 0 3px var(--primary-dim, var(--primary-light)), 0 6px 20px rgba(0,48,73,0.12);
+  overflow: hidden;
+}
+.cog-avatar-big img {
+  width: 100%; height: 100%; object-fit: cover; border-radius: 50%;
+}
+.cog-avatar-upload-btn, .cog-avatar-remove-btn {
+  position: absolute; width: 32px; height: 32px; border-radius: 50%; border: 2px solid #fff;
+  display: flex; align-items: center; justify-content: center; cursor: pointer; font-size: 0.8rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.18); transition: transform .15s ease;
+}
+.cog-avatar-upload-btn:hover, .cog-avatar-remove-btn:hover { transform: scale(1.08); }
+.cog-avatar-upload-btn {
+  bottom: -2px; right: -2px; background: linear-gradient(135deg, var(--primary, #F77F00), var(--primary-glow, var(--primary, #F77F00)));
+  color: #fff;
+}
+.cog-avatar-remove-btn { top: -2px; right: -2px; background: #fff; color: #888; }
+
+/* ── Seletor de temas (personalização visual da conta) ──────────── */
+.cog-theme-picker { display: flex; gap: 10px; flex-wrap: wrap; }
+.cog-theme-swatch {
+  width: 38px; height: 38px; border-radius: 50%; border: 3px solid #fff; cursor: pointer;
+  box-shadow: 0 0 0 1px rgba(0,48,73,0.12); transition: transform .15s ease;
+}
+.cog-theme-swatch:hover { transform: scale(1.1); }
+.cog-theme-swatch.selected { box-shadow: 0 0 0 1px rgba(0,48,73,0.12), 0 0 0 3px var(--primary, #F77F00); }
+.cog-profile-head h1 { font-size: 1.5rem; margin-bottom: 2px; }
+.cog-profile-head .username { color: var(--primary); font-weight: 700; font-size: 0.9rem; }
+.cog-profile-head .bio { margin-top: 8px; font-size: 0.88rem; opacity: 0.8; max-width: 460px; }
+
+.cog-stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 14px; margin-top: 20px; }
+.cog-stat-box { text-align: center; background: #fff; border: 1px solid var(--dark-light); border-radius: 14px; padding: 14px 8px; }
+.cog-stat-box strong { display: block; font-size: 1.3rem; color: var(--primary); }
+.cog-stat-box span { font-size: 0.72rem; opacity: 0.65; }
+
+.cog-form-row { margin-bottom: 14px; }
+.cog-form-row label { display: block; font-size: 0.78rem; font-weight: 700; margin-bottom: 6px; opacity: 0.8; }
+.cog-form-row input, .cog-form-row textarea {
+  width: 100%; padding: 11px 14px; border-radius: 12px; border: 1.5px solid var(--dark-light);
+  font-family: inherit; font-size: 0.9rem; color: var(--dark); background: #fff;
+}
+.cog-form-row input:focus, .cog-form-row textarea:focus { outline: none; border-color: var(--primary); }
+.cog-avatar-picker { display: flex; gap: 8px; flex-wrap: wrap; }
+.cog-avatar-picker button {
+  width: 44px; height: 44px; border-radius: 50%; border: 2px solid transparent; background: var(--dark-light);
+  font-size: 1.3rem; cursor: pointer;
+}
+.cog-avatar-picker button.selected { border-color: var(--primary); background: var(--primary-light); }
+
+/* ── Responsivo ───────────────────────────────────────────────── */
+@media (max-width: 720px) {
+  .cog-shell { padding: 88px 4vw 40px; }
+  .cog-hero { flex-direction: column; align-items: flex-start; padding: 26px 22px; }
+  .cog-hero h1 { font-size: 1.35rem; }
+  .cog-profile-head { flex-direction: column; text-align: center; }
+  .cog-profile-head .bio { max-width: none; }
+  .cog-stats-row { grid-template-columns: repeat(2, 1fr); }
+}
